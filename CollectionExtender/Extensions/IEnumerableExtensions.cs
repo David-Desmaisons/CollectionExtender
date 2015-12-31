@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CollectionExtender.Extensions
@@ -22,6 +23,22 @@ namespace CollectionExtender.Extensions
             }
 
             return enumerable;
+        }
+
+        [DebuggerStepThrough]
+        static public bool ForEach<T>(this IEnumerable<T> enumerable, Action<T> action, CancellationToken iCancellationToken)
+        {
+            if (enumerable == null)
+                return true;
+
+            foreach (T o in enumerable)
+            {
+                action(o);
+                if (iCancellationToken.IsCancellationRequested)
+                    return false;
+            }
+
+            return true;
         }
     }
 }

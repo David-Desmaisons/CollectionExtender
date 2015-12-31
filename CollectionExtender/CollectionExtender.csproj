@@ -39,6 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\CollectionResult.cs" />
+    <Compile Include="Extensions\CollectionStatus.cs" />
+    <Compile Include="Extensions\IDictionaryExtension.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Extensions\IListExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

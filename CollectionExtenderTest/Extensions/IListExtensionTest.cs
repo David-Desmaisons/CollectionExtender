@@ -21,12 +21,6 @@ namespace CollectionExtenderTest.Extensions
             _List = new List<int>();
         }
 
-        //[Fact]
-        //public void ForEach_CalledOnNull_DoNotThrowException()
-        //{
-        //    var res = List.AddRangeI
-        //}
-
         [Theory, PropertyData("Data")]
         public void AddRange_AppendsElement(IEnumerable<int> enumerable)
         {

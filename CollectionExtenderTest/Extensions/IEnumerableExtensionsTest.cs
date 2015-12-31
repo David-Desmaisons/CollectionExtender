@@ -21,10 +21,11 @@ namespace CollectionExtenderTest.Extensions
         }
 
         [Fact]
-        public void ForEach_CalledOnNull_DoNotThrowException()
+        public void ForEach_CalledOnNull_ThrowException()
         {
             IEnumerable<int> enumerable = null;
-            var res = enumerable.ForEach(_Action);
+            Action Do = () => enumerable.ForEach(_Action);
+            Do.ShouldThrow<NullReferenceException>();
             _Action.DidNotReceive().Invoke(Arg.Any<int>());
         }
 
@@ -42,19 +43,17 @@ namespace CollectionExtenderTest.Extensions
             });
         }
 
-        [Theory, PropertyData("Datas")]
+        [Theory, PropertyData("Data")]
         public void ForEach_Returns_CallingElement(IEnumerable<int> enumerable)
         {
             var res = enumerable.ForEach(_Action);
             res.Should().Equal(enumerable);
         }
 
-        public static IEnumerable<object[]> Datas
+        public static IEnumerable<object[]> Data
         {
             get
             {
-                IEnumerable<int> Null = null;
-                yield return new[] { Null };
                 yield return new []{ Enumerable.Empty<int>()};
                 yield return new[] { new List<int>(){0,5,10} };
             }
@@ -65,7 +64,8 @@ namespace CollectionExtenderTest.Extensions
         public void ForEachWithCancellation_CalledOnNull_DoNotThrowException()
         {
             IEnumerable<int> enumerable = null;
-            var res = enumerable.ForEach(_Action, CancellationToken.None);
+            Action Do = () => enumerable.ForEach(_Action, CancellationToken.None);
+            Do.ShouldThrow<NullReferenceException>();
             _Action.DidNotReceive().Invoke(Arg.Any<int>());
         }
 
@@ -83,7 +83,7 @@ namespace CollectionExtenderTest.Extensions
             });
         }
 
-        [Theory, PropertyData("Datas")]
+        [Theory, PropertyData("Data")]
         public void ForEachCancellation_Returns_True_OnSuccess(IEnumerable<int> enumerable)
         {
             var res = enumerable.ForEach(_Action, CancellationToken.None);

@@ -15,7 +15,7 @@ namespace CollectionExtender.Extensions
         static public IEnumerable<T> ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
         {
             if (enumerable == null)
-                return null;
+                throw new NullReferenceException("enumerable");
 
             foreach (T o in enumerable)
             {
@@ -29,7 +29,7 @@ namespace CollectionExtender.Extensions
         static public bool ForEach<T>(this IEnumerable<T> enumerable, Action<T> action, CancellationToken iCancellationToken)
         {
             if (enumerable == null)
-                return true;
+                throw new NullReferenceException("enumerable");
 
             foreach (T o in enumerable)
             {

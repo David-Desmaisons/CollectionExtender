@@ -20,11 +20,10 @@ namespace CollectionExtenderTest.Extensions
         }
 
         [Fact]
-        public void ForEach_CalledOnNull_ReturnNull()
+        public void ForEach_CalledOnNull_DoNotThrowException()
         {
             IEnumerable<int> enumerable = null;
             var res = enumerable.ForEach(_Action);
-            res.Should().BeNull();
             _Action.DidNotReceive().Invoke(Arg.Any<int>());
         }
 
@@ -55,7 +54,8 @@ namespace CollectionExtenderTest.Extensions
             {
                 IEnumerable<int> Null = null;
                 yield return new[] { Null };
-                yield return new []{Enumerable.Empty<int>()};
+                yield return new []{ Enumerable.Empty<int>()};
+                yield return new[] { new List<int>(){0,5,10} };
             }
         }
     }

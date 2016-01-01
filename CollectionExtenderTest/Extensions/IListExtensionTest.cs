@@ -54,7 +54,7 @@ namespace CollectionExtenderTest.Extensions
         {
             IList<int> list = null;
             Action Do = () => list.AddRange(Enumerable.Empty<int>() );
-            Do.ShouldThrow<NullReferenceException>();
+            Do.ShouldThrow<ArgumentNullException>();
         }
     }
 }

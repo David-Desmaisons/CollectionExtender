@@ -12,7 +12,7 @@ namespace CollectionExtender.Extensions
         public static CollectionResult<TValue> FindOrCreate<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, Func<TKey, TValue> Fac)
         {
             if (dic == null)
-                throw new NullReferenceException("enumerable");
+                throw new ArgumentNullException("enumerable");
 
             TValue res = default(TValue);
             if (dic.TryGetValue(key, out res))
@@ -26,7 +26,7 @@ namespace CollectionExtender.Extensions
         public static TValue FindOrCreateEntity<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, Func<TKey, TValue> Fac)
         {
             if (dic == null)
-                throw new NullReferenceException("enumerable");
+                throw new ArgumentNullException("enumerable");
 
             TValue res = default(TValue);
             if (dic.TryGetValue(key, out res))
@@ -41,7 +41,7 @@ namespace CollectionExtender.Extensions
                                                                 Func<TKey, TValue, TValue> Updater)
         {
             if (dic == null)
-                throw new NullReferenceException("enumerable");
+                throw new ArgumentNullException("enumerable");
 
             TValue res = default(TValue);
             if (dic.TryGetValue(key, out res))
@@ -65,7 +65,7 @@ namespace CollectionExtender.Extensions
         public static IDictionary<TKey, TValue> Import<TKey, TValue>(this IDictionary<TKey, TValue> dic, IDictionary<TKey, TValue> source)
         {
             if (dic == null)
-                throw new NullReferenceException("enumerable");
+                throw new ArgumentNullException("enumerable");
 
             source.ForEach(el => dic.Add(el.Key, el.Value));
             return dic;

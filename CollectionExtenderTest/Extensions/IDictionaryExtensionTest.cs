@@ -30,7 +30,7 @@ namespace CollectionExtenderTest.Extensions
         public void FindOrCreate_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullDictionary.FindOrCreate("Key", _ => "value");
-            Do.ShouldThrow<NullReferenceException>();
+            Do.ShouldThrow<ArgumentNullException>();
         }
 
         [Fact]
@@ -74,7 +74,7 @@ namespace CollectionExtenderTest.Extensions
         public void FindOrCreateEntity_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullDictionary.FindOrCreateEntity("Key", _ => "value");
-            Do.ShouldThrow<NullReferenceException>();
+            Do.ShouldThrow<ArgumentNullException>();
         }
 
         [Fact]
@@ -115,7 +115,7 @@ namespace CollectionExtenderTest.Extensions
         public void UpdateOrCreate_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullDictionary.UpdateOrCreate("Key", _ => "value", (k,v) => v);
-            Do.ShouldThrow<NullReferenceException>();
+            Do.ShouldThrow<ArgumentNullException>();
         }
 
         [Fact]
@@ -139,7 +139,7 @@ namespace CollectionExtenderTest.Extensions
         public void UpdateOrCreate2_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullDictionary.UpdateOrCreate("Key", _ => "value", _Updater2);
-            Do.ShouldThrow<NullReferenceException>();
+            Do.ShouldThrow<ArgumentNullException>();
         }
 
         [Fact]
@@ -164,14 +164,14 @@ namespace CollectionExtenderTest.Extensions
         public void Import_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullDictionary.Import( new Dictionary<string,string>());
-            Do.ShouldThrow<NullReferenceException>();
+            Do.ShouldThrow<ArgumentNullException>();
         }
 
         [Fact]
         public void Import_CalledWithNullArgument_ThrowException()
         {
             Action Do = () => _Dictionary.Import(_NullDictionary);
-            Do.ShouldThrow<NullReferenceException>();
+            Do.ShouldThrow<ArgumentNullException>();
         }
 
         [Fact]

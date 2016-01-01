@@ -100,17 +100,15 @@ namespace CollectionExtenderTest.Extensions
         public void FindOrCreateEntity_DoNotCallFunction_IfItemFound()
         {
             _Dictionary.Add("Key", "value");
-            Func<string, string> func = Substitute.For<Func<string, string>>();
-            _Dictionary.FindOrCreateEntity("Key", func);
-            func.DidNotReceive().Invoke(Arg.Any<string>());
+            _Dictionary.FindOrCreateEntity("Key", _Creator);
+            _Creator.DidNotReceive().Invoke(Arg.Any<string>());
         }
 
         [Fact]
         public void FindOrCreateEntity_CallFunction_WithKeyValue()
         {
-            Func<string, string> func = Substitute.For<Func<string, string>>();
-            _Dictionary.FindOrCreateEntity("Key", func);
-            func.Received(1).Invoke("Key");
+            _Dictionary.FindOrCreateEntity("Key", _Creator);
+            _Creator.Received(1).Invoke("Key");
         }
 
         [Fact]

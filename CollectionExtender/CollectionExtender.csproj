@@ -39,6 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dictionary\Internal\ListDictionary.cs" />
+    <Compile Include="Dictionary\Internal\ListDictionaryLifeCycleStrategy.cs" />
+    <Compile Include="Dictionary\Internal\SortedDictionaryLifeCycleStrategy.cs" />
+    <Compile Include="Dictionary\Internal\DictionaryLifeCycleStrategy.cs" />
+    <Compile Include="Dictionary\Internal\IDictionaryLifeCycleStrategy.cs" />
+    <Compile Include="Dictionary\PolymorphDictionary.cs" />
+    <Compile Include="Dictionary\Internal\SingleDictionary.cs" />
     <Compile Include="Extensions\CollectionResult.cs" />
     <Compile Include="Extensions\CollectionStatus.cs" />
     <Compile Include="Extensions\IDictionaryExtension.cs" />
@@ -46,9 +53,7 @@
     <Compile Include="Extensions\IListExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dictionary\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

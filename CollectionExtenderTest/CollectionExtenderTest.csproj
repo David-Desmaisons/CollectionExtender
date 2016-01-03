@@ -54,10 +54,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dictionary\Internal\DictionaryLifeCycleStrategyTest.cs" />
+    <Compile Include="Dictionary\Internal\SingleDictionaryTest.cs" />
+    <Compile Include="TestInfra\DictionaryTest.cs" />
+    <Compile Include="Dictionary\Internal\ListDictionaryLifeCycleStrategyTest.cs" />
+    <Compile Include="Dictionary\PolymorphDictionaryTest.cs" />
+    <Compile Include="Dictionary\Internal\ListDictionaryTest.cs" />
+    <Compile Include="Dictionary\Internal\SortedDictionaryLifeCycleStrategyTest.cs" />
     <Compile Include="Extensions\IDictionaryExtensionTest.cs" />
     <Compile Include="Extensions\IListExtensionTest.cs" />
     <Compile Include="Extensions\IEnumerableExtensionsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestInfra\DictionaryTestExtender.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CollectionExtender\CollectionExtender.csproj">

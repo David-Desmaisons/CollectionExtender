@@ -39,8 +39,7 @@ namespace CollectionExtenderTest.Extensions
             var res = _Dictionary.FindOrCreate("Key", _ => "value");
             res.Item.Should().Be("value");
             res.CollectionStatus.Should().Be(CollectionStatus.Created);
-            ((IEnumerable<KeyValuePair<string, string>>)_Dictionary).Should()
-                        .BeEquivalentTo(new[] { new KeyValuePair<string, string>("Key", "value") });
+            _Dictionary.AsEnumerable().Should().BeEquivalentTo(new[] { new KeyValuePair<string, string>("Key", "value") });
         }
 
         [Fact]
@@ -50,8 +49,7 @@ namespace CollectionExtenderTest.Extensions
             var res = _Dictionary.FindOrCreate("Key", _ => "value2");
             res.Item.Should().Be("value");
             res.CollectionStatus.Should().Be(CollectionStatus.Found);
-            ((IEnumerable<KeyValuePair<string, string>>)_Dictionary).Should()
-                        .BeEquivalentTo(new[] { new KeyValuePair<string, string>("Key", "value") });
+            _Dictionary.AsEnumerable().Should().BeEquivalentTo(new[] { new KeyValuePair<string, string>("Key", "value") });
         }
 
         [Fact]
@@ -82,8 +80,7 @@ namespace CollectionExtenderTest.Extensions
         {
             var res = _Dictionary.FindOrCreateEntity("Key", _ => "value");
             res.Should().Be("value");
-            ((IEnumerable<KeyValuePair<string, string>>)_Dictionary).Should()
-                        .BeEquivalentTo(new[] { new KeyValuePair<string, string>("Key", "value") });
+            _Dictionary.AsEnumerable().Should().BeEquivalentTo(new[] { new KeyValuePair<string, string>("Key", "value") });
         }
 
         [Fact]
@@ -92,8 +89,7 @@ namespace CollectionExtenderTest.Extensions
             _Dictionary.Add("Key", "value");
             var res = _Dictionary.FindOrCreateEntity("Key", _ => "value2");
             res.Should().Be("value");
-            ((IEnumerable<KeyValuePair<string, string>>)_Dictionary).Should()
-                        .BeEquivalentTo(new[] { new KeyValuePair<string, string>("Key", "value") });
+            _Dictionary.AsEnumerable().Should().BeEquivalentTo(new[] { new KeyValuePair<string, string>("Key", "value") });
         }
 
         [Fact]
@@ -180,11 +176,10 @@ namespace CollectionExtenderTest.Extensions
             _Dictionary.Add("Key", "value");
             var dictionary2 = new Dictionary<string,string>(){{"Key2","value2"}};
             _Dictionary.Import(dictionary2);
-            ((IEnumerable<KeyValuePair<string, string>>)_Dictionary).Should()
-                      .BeEquivalentTo(new[] { 
+            _Dictionary.AsEnumerable().Should().BeEquivalentTo(new[] { 
                             new KeyValuePair<string, string>("Key", "value"),
                             new KeyValuePair<string, string>("Key2", "value2")
-                      });
+            });
         }
 
         [Fact]

@@ -41,6 +41,16 @@ namespace CollectionExtender.Extensions
             return true;
         }
 
+        [DebuggerStepThrough]
+        static public IEnumerable<TResult> Caretesian<TResult, TSource1, TSource2>(this IEnumerable<TSource1> first,
+                                IEnumerable<TSource2> second, Func< TSource1, TSource2, TResult> Agregator )
+        {
+            if (second == null)
+                throw new ArgumentNullException("second");
+
+            return first.SelectMany(_ => second, (ts1, ts2) => Agregator(ts1, ts2));
+        }
+
         public static T FirstOrDefault<T>(this IEnumerable<T> enumerable, T defaultValue, Func<T, bool> predicate)
         {
             return enumerable.Where(predicate).DefaultIfEmpty(defaultValue).First(); 

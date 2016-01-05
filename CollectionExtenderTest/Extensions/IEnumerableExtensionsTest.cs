@@ -15,11 +15,13 @@ namespace CollectionExtenderTest.Extensions
     public class IEnumerableExtensionsTest
     {
         private Action<int> _Action;
+        private Func<int, int, int> _Agregator;
         private IEnumerable<int> _NullEnumerable = null;
         private IEnumerable<int> _Enumerable;
         public IEnumerableExtensionsTest()
         {
             _Action = Substitute.For<Action<int>>();
+            _Agregator = Substitute.For<Func<int, int, int>>();
             _Enumerable = Enumerable.Range(0, 10);
         }
 
@@ -275,6 +277,68 @@ namespace CollectionExtenderTest.Extensions
         {
             var res = _Enumerable.Index(i=> i==element);
             res.Should().Be(-1);
+        }
+
+        [Fact]
+        public void Caretesian_CalledOnNull_ThrowException()
+        {
+            Action Do = () => _NullEnumerable.Caretesian(_Enumerable, _Agregator);
+            Do.ShouldThrow<ArgumentNullException>();
+            _Agregator.DidNotReceive().Invoke(Arg.Any<int>(), Arg.Any<int>());
+        }
+
+        [Fact]
+        public void Caretesian_CalledWithNull_ThrowException()
+        {
+            Action Do = () => _Enumerable.Caretesian(_NullEnumerable, _Agregator);
+            Do.ShouldThrow<ArgumentNullException>();
+            _Agregator.DidNotReceive().Invoke(Arg.Any<int>(), Arg.Any<int>());
+        }
+
+        [Fact]
+        public void Caretesian_CallAgregator()
+        {
+            var res = _Enumerable.Caretesian(Enumerable.Range(0,3), _Agregator).ToList();
+            _Agregator.Received(30).Invoke(Arg.Any<int>(), Arg.Any<int>());
+            for(int i=0; i< 10; i++)
+            {
+                for(int j=0; j<3; j++)
+                {
+                    _Agregator.Received(1).Invoke(i,j);
+                }
+            }
+        }
+
+        [Fact]
+        public void Caretesian_CallAgregator_Lazylly()
+        {
+            var res = _Enumerable.Caretesian(Enumerable.Range(0, 3), _Agregator);
+            _Agregator.DidNotReceive().Invoke(Arg.Any<int>(), Arg.Any<int>());
+        }
+
+        private static IEnumerable<T> GetResults<T>(int max_i, int max_j, Func<int,int,T> Computor)
+        {
+            for (int i = 0; i < max_i; i++)
+            {
+                for (int j = 0; j < max_j; j++)
+                {
+                    yield return Computor(i,j);
+                }
+            }
+        }
+
+        [Theory]
+        [InlineData(10,10)]
+        [InlineData(10,5)]
+        [InlineData(5,5)]
+        [InlineData(5,10)]
+        public void Caretesian_Return_CorrectEnumerable(int firstIndex, int secondIndex)
+        {
+            Func<int, int, int> Agregator = (i, j) => i * j;
+            var first = Enumerable.Range(0, firstIndex);
+            var second = Enumerable.Range(0, secondIndex);
+            var res = first.Caretesian(second, Agregator);
+            res.Should().BeEquivalentTo(GetResults(firstIndex, secondIndex, Agregator));
         }
     }
 }

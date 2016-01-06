@@ -15,12 +15,15 @@ namespace CollectionExtenderTest.Extensions
     public class IEnumerableExtensionsTest
     {
         private Action<int> _Action;
+        private Action<int, int> _Action2;
         private Func<int, int, int> _Agregator;
         private IEnumerable<int> _NullEnumerable = null;
         private IEnumerable<int> _Enumerable;
+
         public IEnumerableExtensionsTest()
         {
             _Action = Substitute.For<Action<int>>();
+            _Action2 = Substitute.For<Action<int, int>>();
             _Agregator = Substitute.For<Func<int, int, int>>();
             _Enumerable = Enumerable.Range(0, 10);
         }
@@ -282,7 +285,7 @@ namespace CollectionExtenderTest.Extensions
         [Fact]
         public void Caretesian_CalledOnNull_ThrowException()
         {
-            Action Do = () => _NullEnumerable.Caretesian(_Enumerable, _Agregator);
+            Action Do = () => _NullEnumerable.Cartesian(_Enumerable, _Agregator);
             Do.ShouldThrow<ArgumentNullException>();
             _Agregator.DidNotReceive().Invoke(Arg.Any<int>(), Arg.Any<int>());
         }
@@ -290,7 +293,7 @@ namespace CollectionExtenderTest.Extensions
         [Fact]
         public void Caretesian_CalledWithNull_ThrowException()
         {
-            Action Do = () => _Enumerable.Caretesian(_NullEnumerable, _Agregator);
+            Action Do = () => _Enumerable.Cartesian(_NullEnumerable, _Agregator);
             Do.ShouldThrow<ArgumentNullException>();
             _Agregator.DidNotReceive().Invoke(Arg.Any<int>(), Arg.Any<int>());
         }
@@ -298,7 +301,7 @@ namespace CollectionExtenderTest.Extensions
         [Fact]
         public void Caretesian_CallAgregator()
         {
-            var res = _Enumerable.Caretesian(Enumerable.Range(0,3), _Agregator).ToList();
+            var res = _Enumerable.Cartesian(Enumerable.Range(0,3), _Agregator).ToList();
             _Agregator.Received(30).Invoke(Arg.Any<int>(), Arg.Any<int>());
             for(int i=0; i< 10; i++)
             {
@@ -312,7 +315,7 @@ namespace CollectionExtenderTest.Extensions
         [Fact]
         public void Caretesian_CallAgregator_Lazylly()
         {
-            var res = _Enumerable.Caretesian(Enumerable.Range(0, 3), _Agregator);
+            var res = _Enumerable.Cartesian(Enumerable.Range(0, 3), _Agregator);
             _Agregator.DidNotReceive().Invoke(Arg.Any<int>(), Arg.Any<int>());
         }
 
@@ -337,8 +340,43 @@ namespace CollectionExtenderTest.Extensions
             Func<int, int, int> Agregator = (i, j) => i * j;
             var first = Enumerable.Range(0, firstIndex);
             var second = Enumerable.Range(0, secondIndex);
-            var res = first.Caretesian(second, Agregator);
+            var res = first.Cartesian(second, Agregator);
             res.Should().BeEquivalentTo(GetResults(firstIndex, secondIndex, Agregator));
+        }
+
+        [Fact]
+        public void ForCartesian_CalledOnNull_ThrowException()
+        {
+            Action Do = () => _NullEnumerable.ForCartesian(_Enumerable, _Action2);
+            Do.ShouldThrow<ArgumentNullException>();
+            _Agregator.DidNotReceive().Invoke(Arg.Any<int>(), Arg.Any<int>());
+        }
+
+        [Fact]
+        public void ForCartesian_CalledWithNull_ThrowException()
+        {
+            Action Do = () => _Enumerable.ForCartesian(_NullEnumerable, _Action2);
+            Do.ShouldThrow<ArgumentNullException>();
+            _Agregator.DidNotReceive().Invoke(Arg.Any<int>(), Arg.Any<int>());
+        }
+
+        [Theory]
+        [InlineData(10, 10)]
+        [InlineData(10, 5)]
+        [InlineData(5, 5)]
+        public void ForCartesian_CallAgregator(int firstIndex, int secondIndex)
+        {
+            var first = Enumerable.Range(0, firstIndex);
+            var second = Enumerable.Range(0, secondIndex);
+            first.ForCartesian(second, _Action2);
+            _Action2.Received(firstIndex * secondIndex).Invoke(Arg.Any<int>(), Arg.Any<int>());
+            for (int i = 0; i < firstIndex; i++)
+            {
+                for (int j = 0; j < secondIndex; j++)
+                {
+                    _Action2.Received(1).Invoke(i, j);
+                }
+            }
         }
     }
 }

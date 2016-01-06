@@ -42,13 +42,24 @@ namespace CollectionExtender.Extensions
         }
 
         [DebuggerStepThrough]
-        static public IEnumerable<TResult> Caretesian<TResult, TSource1, TSource2>(this IEnumerable<TSource1> first,
+        static public IEnumerable<TResult> Cartesian<TResult, TSource1, TSource2>(this IEnumerable<TSource1> first,
                                 IEnumerable<TSource2> second, Func< TSource1, TSource2, TResult> Agregator )
         {
             if (second == null)
                 throw new ArgumentNullException("second");
 
             return first.SelectMany(_ => second, (ts1, ts2) => Agregator(ts1, ts2));
+        }
+
+        [DebuggerStepThrough]
+        static public void ForCartesian<TSource1, TSource2>(this IEnumerable<TSource1> first,
+                                IEnumerable<TSource2> second, Action<TSource1, TSource2> Do)
+        {
+            if (second == null)
+                throw new ArgumentNullException("second");
+
+            first.SelectMany(_ => second, (ts1, ts2) => new { TSource1 = ts1, TSource2 = ts2 })
+                .ForEach(t => Do(t.TSource1, t.TSource2));
         }
 
         public static T FirstOrDefault<T>(this IEnumerable<T> enumerable, T defaultValue, Func<T, bool> predicate)

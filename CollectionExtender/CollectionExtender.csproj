@@ -39,8 +39,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dictionary\Internal\IMutableDictionary.cs" />
     <Compile Include="Dictionary\Internal\ListDictionary.cs" />
     <Compile Include="Dictionary\Internal\ListDictionaryLifeCycleStrategy.cs" />
+    <Compile Include="Dictionary\Internal\MutableDictionary.cs" />
+    <Compile Include="Dictionary\Internal\MutableListDictionary.cs" />
+    <Compile Include="Dictionary\Internal\MutableSingleDictionary.cs" />
     <Compile Include="Dictionary\Internal\SortedDictionaryLifeCycleStrategy.cs" />
     <Compile Include="Dictionary\Internal\DictionaryLifeCycleStrategy.cs" />
     <Compile Include="Dictionary\Internal\IDictionaryLifeCycleStrategy.cs" />
@@ -51,6 +55,7 @@
     <Compile Include="Extensions\IDictionaryExtension.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Extensions\IListExtension.cs" />
+    <Compile Include="Infra\Introspector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

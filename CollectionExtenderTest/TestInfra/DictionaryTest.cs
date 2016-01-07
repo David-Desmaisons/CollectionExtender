@@ -219,6 +219,18 @@ namespace CollectionExtenderTest.TestInfra
         }
 
         [Theory]
+        [InlineData("K1", "V1")]
+        [InlineData("K2", "V2")]
+        [InlineData("Key", "Value")]
+        [InlineData("K0", "V0")]
+        public void Indexer_Set_NoneExistingKey_AddCorrespondingEntry_NoneEmptyDictionary(string key, string Value)
+        {
+            Do(d => d["key_0"] = "value_0");
+            _dictionary.ShouldBehaveTheSame(_target, d => d[key] = Value);
+            _dictionary[key].Should().Be(Value);
+        }
+
+        [Theory]
         [InlineData("K1", "V1", "V2")]
         [InlineData("K2", "V2", "newvalue")]
         [InlineData("Key", "Value", "newvalue2")]
@@ -228,6 +240,13 @@ namespace CollectionExtenderTest.TestInfra
             Do(d => d.Add(key, Value));
             _dictionary.ShouldBehaveTheSame(_target, d => d[key] = Value2);
             _dictionary[key].Should().Be(Value2);
+        }
+
+        [Fact]
+        public void Indexer_Set_NullKey_ThrowException()
+        {
+            Action Do = () => _dictionary[null] = "vgg";
+            Do.ShouldThrow<ArgumentNullException>();
         }
 
         [Fact]

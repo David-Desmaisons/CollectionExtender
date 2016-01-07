@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CollectionExtender.Dictionary.Internal
 {
-    internal class SingleDictionary<Tkey, Tvalue> : IDictionary<Tkey, Tvalue>
+    internal class SingleDictionary<Tkey, Tvalue> : IDictionary<Tkey, Tvalue> where Tkey: class
     {
         private Tkey _Key;
         private Tvalue _Value;
@@ -16,31 +16,61 @@ namespace CollectionExtender.Dictionary.Internal
             _Value = value;
         }
 
+        internal SingleDictionary()
+        {
+            _Key = null;
+            _Value = default(Tvalue);
+        }
+
         #region Not Implemented
 
         public void Add(KeyValuePair<Tkey, Tvalue> item)
         {
-            throw new NotImplementedException();
+            Add(item.Key, item.Value);
         }
 
         public void Add(Tkey key, Tvalue value)
         {
-            throw new NotImplementedException();
+            if (_Key!=null)
+                throw new NotImplementedException();
+
+            if (key==null)
+                throw new ArgumentNullException();
+
+            _Key = key;
+            _Value = value;
         }
 
         public bool Remove(Tkey key)
         {
-            throw new NotImplementedException();
+            if (key == null)
+                throw new ArgumentNullException();
+
+            if (_Key == null)
+                return false;
+
+            if (Object.ReferenceEquals(_Key,key))
+            {
+                _Key = null;
+                return true;
+            }
+
+            return false;
         }
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            _Key = null;
         }
 
         public bool Remove(KeyValuePair<Tkey, Tvalue> item)
         {
-            throw new NotImplementedException();
+            if ((Object.Equals(item.Key, _Key)) && (Object.Equals(item.Value, _Value)))
+            {
+                _Key = null;
+                return true;
+            }
+            return false;
         }
 
         #endregion
@@ -54,14 +84,19 @@ namespace CollectionExtender.Dictionary.Internal
 
         public bool TryGetValue(Tkey key, out Tvalue value)
         {
-            bool ok = Object.Equals(key, _Key);
+            bool ok = (_Key!=null) && Object.Equals(key, _Key);
             value = ok ? _Value : default(Tvalue);
             return ok;
         }
 
         public ICollection<Tvalue> Values
         {
-            get { var res = new List<Tvalue>(); res.Add(_Value); return res; }
+            get { 
+                var res = new List<Tvalue>(); 
+                if (_Key != null) 
+                    res.Add(_Value); 
+                return res; 
+            }
         }
 
         public Tvalue this[Tkey key]
@@ -75,6 +110,17 @@ namespace CollectionExtender.Dictionary.Internal
             }
             set
             {
+                if (key == null)
+                    throw new ArgumentNullException();
+
+                if (_Key==null)
+                {
+                    _Key = key;
+                    _Value = value;
+                    return;
+                }
+
+
                 if (Object.Equals(key, _Key))
                 {
                     _Value = value;
@@ -85,17 +131,23 @@ namespace CollectionExtender.Dictionary.Internal
 
         public ICollection<Tkey> Keys
         {
-            get { var res = new List<Tkey>(); res.Add(_Key); return res; }
+            get { 
+                var res = new List<Tkey>(); 
+                if (_Key != null)
+                    res.Add(_Key); 
+                return res; 
+            }
         }
 
         public IEnumerator<KeyValuePair<Tkey, Tvalue>> GetEnumerator()
         {
-            yield return new KeyValuePair<Tkey, Tvalue>(_Key, _Value);
+            if (_Key!=null)
+                yield return new KeyValuePair<Tkey, Tvalue>(_Key, _Value);
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
-            yield return new KeyValuePair<Tkey, Tvalue>(_Key, _Value);
+            return GetEnumerator();
         }
 
         public bool Contains(KeyValuePair<Tkey, Tvalue> item)
@@ -116,12 +168,12 @@ namespace CollectionExtender.Dictionary.Internal
 
         public int Count
         {
-            get { return 1; }
+            get { return (_Key == null) ? 0 : 1; }
         }
 
         public bool IsReadOnly
         {
-            get { return true; }
+            get { return false; }
         }
 
         #endregion

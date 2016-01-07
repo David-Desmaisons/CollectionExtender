@@ -54,13 +54,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dictionary\Internal\DictionaryLifeCycleStrategyTest.cs" />
+    <Compile Include="Dictionary\Internal\MutableListDictionaryTest.cs" />
+    <Compile Include="Dictionary\Internal\MutableSingleDictionaryTest.cs" />
+    <Compile Include="Dictionary\Internal\MutableDictionaryTest.cs" />
     <Compile Include="Dictionary\Internal\SingleDictionaryTest.cs" />
+    <Compile Include="Infra\IntrospectorTest.cs" />
     <Compile Include="TestInfra\DictionaryTest.cs" />
-    <Compile Include="Dictionary\Internal\ListDictionaryLifeCycleStrategyTest.cs" />
     <Compile Include="Dictionary\PolymorphDictionaryTest.cs" />
     <Compile Include="Dictionary\Internal\ListDictionaryTest.cs" />
-    <Compile Include="Dictionary\Internal\SortedDictionaryLifeCycleStrategyTest.cs" />
     <Compile Include="Extensions\IDictionaryExtensionTest.cs" />
     <Compile Include="Extensions\IListExtensionTest.cs" />
     <Compile Include="Extensions\IEnumerableExtensionsTest.cs" />

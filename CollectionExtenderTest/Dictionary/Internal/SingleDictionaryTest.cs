@@ -34,10 +34,27 @@ namespace CollectionExtenderTest.Dictionary.Internal
         }
 
         [Fact]
-        public void Add_ThrowsNotImplementedException()
+        public void Add_ThrowsException_WhenKeyIsNull()
+        {
+            _dictionary = new SingleDictionary<string, string>();
+            Action Do = () => _dictionary.Add(null, "value2");
+            Do.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void Add_ThrowsNotImplementedException_WhenDictionaryIsNotEmpty()
         {
            Action Do = () => _dictionary.Add("key2","value2");
            Do.ShouldThrow<NotImplementedException>();
+        }
+
+        [Fact]
+        public void Add_AddKeyValue_WhenDictionaryIsEmpty()
+        {
+            _dictionary = new SingleDictionary<string, string>();
+            _dictionary.Add( new  KeyValuePair<string, string> ( "key2", "value2"));
+            _dictionary.AsEnumerable().Should().BeEquivalentTo(new KeyValuePair<string, string>[]{
+                new KeyValuePair<string, string>("key2", "value2")});
         }
 
         [Fact]
@@ -48,31 +65,65 @@ namespace CollectionExtenderTest.Dictionary.Internal
         }
 
         [Fact]
-        public void Remove_ThrowsNotImplementedException()
+        public void Remove_ReturnsTrue_WhenKeyFound()
         {
-            Action Do = () => _dictionary.Remove("key");
-            Do.ShouldThrow<NotImplementedException>();
+            var res = _dictionary.Remove("key");
+            res.Should().BeTrue();
+            _dictionary.AsEnumerable().Should().BeEmpty();
         }
 
         [Fact]
-        public void RemoveKeyValuePair_ThrowsNotImplementedException()
+        public void Remove_ReturnsFalse_WhenKeyNotFound()
         {
-            Action Do = () => _dictionary.Remove(new KeyValuePair<string, string>("key2", "value2"));
-            Do.ShouldThrow<NotImplementedException>();
+            var res = _dictionary.Remove("key2");
+            res.Should().BeFalse();
+            _dictionary.AsEnumerable().Should().BeEquivalentTo(new KeyValuePair<string, string>[]{
+                new KeyValuePair<string, string>("key","value")});
         }
 
         [Fact]
-        public void Clear_ThrowsNotImplementedException()
+        public void Remove_ReturnsFalse_WhenKeyNotFound_WhenEmpty()
         {
-            Action Do = () => _dictionary.Clear();
-            Do.ShouldThrow<NotImplementedException>();
+            _dictionary = new SingleDictionary<string, string>();
+            var res = _dictionary.Remove("Key");
+            res.Should().BeFalse();
+            _dictionary.AsEnumerable().Should().BeEmpty();
+        }
+
+        [Fact]
+        public void RemoveKeyValuePair_ReturnsFalse_WhenKeyNotFound()
+        {
+            var res = _dictionary.Remove(new KeyValuePair<string, string>("key2", "value2"));
+            res.Should().BeFalse();
+        }
+
+        [Fact]
+        public void RemoveKeyValuePair_ReturnsFalse_WhenKeyFoundButNotValue()
+        {
+            var res = _dictionary.Remove(new KeyValuePair<string, string>("key", "value2"));
+            res.Should().BeFalse();
+        }
+
+        [Fact]
+        public void RemoveKeyValuePair_ReturnsTrue_WhenKeyAndValueFound()
+        {
+            var res = _dictionary.Remove(new KeyValuePair<string, string>("key", "value"));
+            res.Should().BeTrue();
+            _dictionary.AsEnumerable().Should().BeEmpty();
+        }
+
+        [Fact]
+        public void Clear_EmptyCollection()
+        {
+            _dictionary.Clear();
+            _dictionary.AsEnumerable().Should().BeEmpty();
         }
         
         [Fact]
         public void IsReadOnly_ThrowsNotImplementedException()
         {
             var res = _dictionary.IsReadOnly;
-            res.Should().BeTrue();
+            res.Should().BeFalse();
         }
 
         [Fact]

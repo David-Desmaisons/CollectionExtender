@@ -57,10 +57,9 @@ namespace CollectionExtender.Dictionary.Internal
                 Result = Remove(key);
                 if (!Result)
                     return this;
-
-                var keyvaluepair = this.First();
+       
                 return new MutableSingleDictionary<TKey, TValue, MutableListDictionary<TKey, TValue>>
-                    (keyvaluepair.Key, keyvaluepair.Value);
+                    (this, _TransitionToDictionary);
             }
 
             Result = Remove(key);

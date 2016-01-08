@@ -13,8 +13,7 @@ namespace CollectionExtender.Dictionary
 
         public PolymorphDictionary(int TransitionToDictionary = 25)
         {
-            _Implementation = new MutableSingleDictionary<TKey, TValue, MutableListDictionary<TKey, TValue>>();
-            bool comparable = typeof(TKey).GetInterfaces().Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IComparable<>) && (i.GetGenericArguments()[0]) == typeof(TKey)).Any();
+            _Implementation = new MutableSingleDictionary<TKey, TValue, MutableListDictionary<TKey, TValue>>(TransitionToDictionary);
         }
 
         public void Add(TKey key, TValue value)

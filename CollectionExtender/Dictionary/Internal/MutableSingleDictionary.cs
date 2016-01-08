@@ -11,12 +11,16 @@ namespace CollectionExtender.Dictionary.Internal
                         where TDicionary : class, IMutableDictionary<TKey, TValue>
                         where TKey : class
     {
-        internal MutableSingleDictionary(TKey key, TValue value) : base(key, value)
+        private readonly int _Transition;
+        internal MutableSingleDictionary( IDictionary<TKey, TValue> dictionary, int transition=10)
+            : base(dictionary)
         {
+            _Transition = transition;
         }
 
-        internal MutableSingleDictionary() : base()
+        internal MutableSingleDictionary(int transition = 10) : base()
         {
+            _Transition = transition;
         }
 
         private IMutableDictionary<TKey, TValue> GetNext()

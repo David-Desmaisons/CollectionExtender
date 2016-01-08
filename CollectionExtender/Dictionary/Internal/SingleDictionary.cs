@@ -10,10 +10,20 @@ namespace CollectionExtender.Dictionary.Internal
     {
         private Tkey _Key;
         private Tvalue _Value;
-        internal SingleDictionary(Tkey key, Tvalue value)
+        internal SingleDictionary(IDictionary<Tkey, Tvalue> dictionary):this()
         {
-            _Key = key;
-            _Value = value;
+            var count = dictionary.Count();
+
+            if (count ==1)
+            {
+                var keyvaluepair = dictionary.First();
+                _Key = keyvaluepair.Key;
+                _Value = keyvaluepair.Value;
+                return;
+            }
+
+            if (count != 0)
+                throw new ArgumentOutOfRangeException("dictionary should have only 0 or 1 element");
         }
 
         internal SingleDictionary()

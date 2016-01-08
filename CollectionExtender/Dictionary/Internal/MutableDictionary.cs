@@ -12,6 +12,7 @@ namespace CollectionExtender.Dictionary.Internal
                         where TDicionary : class, IMutableDictionary<TKey, TValue>
     {
         private readonly int _TransitionToList;
+
         internal MutableDictionary(int limit=10):base()
         {
             _TransitionToList = limit;

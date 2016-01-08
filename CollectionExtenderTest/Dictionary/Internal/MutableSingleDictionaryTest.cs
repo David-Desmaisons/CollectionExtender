@@ -18,8 +18,10 @@ namespace CollectionExtenderTest.Dictionary.Internal
         {
             _DictionaryNoElement = 
                 new MutableSingleDictionary<string,string, MutableListDictionary<string,string>>();
-            _DictionaryOneElement = 
-                new MutableSingleDictionary<string, string, MutableListDictionary<string, string>>("Key0", "Value0");
+
+            var Dictionary = new Dictionary<string, string>(){{"Key0", "Value0"}};
+            _DictionaryOneElement =
+                new MutableSingleDictionary<string, string, MutableListDictionary<string, string>>(Dictionary);
         }
 
         [Fact]

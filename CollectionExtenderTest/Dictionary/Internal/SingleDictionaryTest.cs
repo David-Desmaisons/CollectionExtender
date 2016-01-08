@@ -16,8 +16,29 @@ namespace CollectionExtenderTest.Dictionary.Internal
         private SingleDictionary<string, string> _dictionary;
         public SingleDictionaryTest()
         {
-            _dictionary = new SingleDictionary<string, string>("key","value");
+            var Dictionary = new Dictionary<string, string>() { { "key", "value" } };
+            _dictionary = new SingleDictionary<string, string>(Dictionary);
         }
+
+        [Fact]
+        public void Construct_WithOversizedDictionaryParameter_ThrowException()
+        {
+            var dict = new Dictionary<string, string>() { 
+                    { "key2", "value2" }, 
+                    { "key1", "value1" } };
+            SingleDictionary<string, string> target =null;
+            Action Do = () => { target = new SingleDictionary<string, string>(dict); };
+            Do.ShouldThrow<ArgumentOutOfRangeException>();
+        }
+
+        [Fact]
+        public void Construct_WithEmptyDictionaryParameter_IsEmpty()
+        {
+            var dict = new Dictionary<string, string>();
+            var target = new SingleDictionary<string, string>(dict);
+            target.AsEnumerable().Should().BeEmpty();
+        }
+
 
         [Fact]
         public void ContainsKey_NoneExistingKey_ReturnFalse()

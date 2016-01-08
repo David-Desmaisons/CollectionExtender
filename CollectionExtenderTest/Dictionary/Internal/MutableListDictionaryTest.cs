@@ -55,6 +55,17 @@ namespace CollectionExtenderTest.Dictionary.Internal
         }
 
         [Fact]
+        public void Add_UpdateCollection_IfAboveLimit()
+        {
+            var res = _DictionaryThreeElements.Add("Key3", "Value3");
+            res.AsEnumerable().Should().Equal(new[] { 
+                new KeyValuePair<string, string>("Key0", "Value0"),
+                new KeyValuePair<string, string>("Key1", "Value1"),
+                new KeyValuePair<string, string>("Key2", "Value2"),
+                new KeyValuePair<string, string>("Key3", "Value3")});
+        }
+
+        [Fact]
         public void Update_Return_NewObject_IfAboveLimit()
         {
             var res = _DictionaryThreeElements.Update("Key3", "Value3");
@@ -65,17 +76,6 @@ namespace CollectionExtenderTest.Dictionary.Internal
         public void Update_UpdateCollection_IfAboveLimit()
         {
             var res = _DictionaryThreeElements.Update("Key3", "Value3");
-            res.AsEnumerable().Should().Equal(new[] { 
-                new KeyValuePair<string, string>("Key0", "Value0"),
-                new KeyValuePair<string, string>("Key1", "Value1"),
-                new KeyValuePair<string, string>("Key2", "Value2"),
-                new KeyValuePair<string, string>("Key3", "Value3")});
-        }
-
-        [Fact]
-        public void Add_UpdateCollection_IfAboveLimit()
-        {
-            var res = _DictionaryThreeElements.Add("Key3", "Value3");
             res.AsEnumerable().Should().Equal(new[] { 
                 new KeyValuePair<string, string>("Key0", "Value0"),
                 new KeyValuePair<string, string>("Key1", "Value1"),
@@ -102,22 +102,6 @@ namespace CollectionExtenderTest.Dictionary.Internal
         }
 
         [Fact]
-        public void Remove_Return_SameObject_IfElementNumberBelowLimit()
-        {
-            bool res;
-            var dicionary = _DictionaryThreeElements.Remove("Key2", out res);
-            dicionary.Should().BeSameAs(_DictionaryThreeElements);
-        }
-
-        [Fact]
-        public void Remove_Return_True_IfKeyRemoved_IfElementNumberCrossLimit()
-        {
-            bool res;
-            _DictionaryTwoElements.Remove("Key1", out res);
-            res.Should().BeTrue();
-        }
-
-        [Fact]
         public void Remove_Return_NewObject_IfElementNumberCrossLimit()
         {
             bool res;
@@ -126,11 +110,11 @@ namespace CollectionExtenderTest.Dictionary.Internal
         }
 
         [Fact]
-        public void Remove_Return_SameObject_IfElementNumberDoNotCrossLimit()
+        public void Remove_Return_True_IfKeyRemoved_IfElementNumberCrossLimit()
         {
             bool res;
-            var dicionary = _DictionaryTwoElements.Remove("Key2", out res);
-            dicionary.Should().BeSameAs(_DictionaryTwoElements);
+            _DictionaryTwoElements.Remove("Key1", out res);
+            res.Should().BeTrue();
         }
 
         [Fact]
@@ -144,30 +128,31 @@ namespace CollectionExtenderTest.Dictionary.Internal
         }
 
         [Fact]
-        public void Remove_Return_SameObject_IfElementNumberLimit()
+        public void Remove_Return_SameObject_IfElementNumberDoNotCrossLimit_KeyNotFound()
         {
             bool res;
-            var dicionary = _DictionaryThreeElements.Remove("Key4", out res);
-            dicionary.Should().BeSameAs(_DictionaryThreeElements);
-        }
-
-        [Fact]
-        public void Remove_Return_False_IfKeyNotRemoved_IfElementNumberLimit()
-        {
-            bool res;
-            _DictionaryThreeElements.Remove("Key4", out res);
+            var dicionary = _DictionaryTwoElements.Remove("Key2", out res);
+            dicionary.Should().BeSameAs(_DictionaryTwoElements);
             res.Should().BeFalse();
+        }         
+
+        [Fact]
+        public void Remove_Return_SameObject_IfElementNumberAboveLimit()
+        {
+            bool res;
+            var dicionary = _DictionaryThreeElements.Remove("Key2", out res);
+            dicionary.Should().BeSameAs(_DictionaryThreeElements);
+            res.Should().BeTrue();
         }
 
         [Fact]
-        public void Remove_DoNotUpdateCollection_IfKeyNotRemoved_IfElementNumberLimit()
+        public void Remove_UpdateCollection_IfElementNumberAboveLimit()
         {
             bool res;
-            var dictionary = _DictionaryThreeElements.Remove("Key4", out res);
+            var dictionary = _DictionaryThreeElements.Remove("Key2", out res);
             dictionary.AsEnumerable().Should().Equal(new[] { 
                 new KeyValuePair<string, string>("Key0", "Value0"),
-                new KeyValuePair<string, string>("Key1", "Value1"),
-                new KeyValuePair<string, string>("Key2", "Value2")}
+                new KeyValuePair<string, string>("Key1", "Value1")}
               );
         }
     }

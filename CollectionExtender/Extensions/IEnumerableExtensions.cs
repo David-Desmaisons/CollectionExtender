@@ -26,6 +26,21 @@ namespace CollectionExtender.Extensions
         }
 
         [DebuggerStepThrough]
+        static public IEnumerable<T> ForEach<T>(this IEnumerable<T> enumerable, Action<T,int> action)
+        {
+            if (enumerable == null)
+                throw new ArgumentNullException("enumerable");
+
+            int i = 0;
+            foreach (T o in enumerable)
+            {
+                action(o, i++);
+            }
+
+            return enumerable;
+        }
+
+        [DebuggerStepThrough]
         static public bool ForEach<T>(this IEnumerable<T> enumerable, Action<T> action, CancellationToken iCancellationToken)
         {
             if (enumerable == null)

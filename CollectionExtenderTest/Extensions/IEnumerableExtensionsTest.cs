@@ -67,6 +67,29 @@ namespace CollectionExtenderTest.Extensions
         }
 
         [Fact]
+        public void ForEachWithIndex_CalledOnNull_ThrowException()
+        {
+            Action Do = () => _NullEnumerable.ForEach(_Action2);
+            Do.ShouldThrow<ArgumentNullException>();
+            _Action2.DidNotReceive().Invoke(Arg.Any<int>(), Arg.Any<int>());
+        }
+
+        [Fact]
+        public void ForEachWithIndex_Call_Action_On_All_Elements()
+        {
+            IEnumerable<int> enumerable = Enumerable.Range(10, 10);
+            var res = enumerable.ForEach(_Action2);
+            Received.InOrder(() =>
+            {
+                int i = 0;
+                foreach (var num in enumerable)
+                {
+                    _Action2(num, i++);
+                }
+            });
+        }
+
+        [Fact]
         public void ForEachWithCancellation_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullEnumerable.ForEach(_Action, CancellationToken.None);

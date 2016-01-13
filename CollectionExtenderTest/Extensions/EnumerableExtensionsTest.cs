@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CollectionExtender.Extensions;
 using Xunit;
 using FluentAssertions;
@@ -12,15 +10,15 @@ using System.Threading;
 
 namespace CollectionExtenderTest.Extensions
 {
-    public class IEnumerableExtensionsTest
+    public class EnumerableExtensionsTest
     {
-        private Action<int> _Action;
-        private Action<int, int> _Action2;
-        private Func<int, int, int> _Agregator;
-        private IEnumerable<int> _NullEnumerable = null;
-        private IEnumerable<int> _Enumerable;
+        private readonly Action<int> _Action;
+        private readonly Action<int, int> _Action2;
+        private readonly Func<int, int, int> _Agregator;
+        private readonly IEnumerable<int> _NullEnumerable = null;
+        private readonly IEnumerable<int> _Enumerable;
 
-        public IEnumerableExtensionsTest()
+        public EnumerableExtensionsTest()
         {
             _Action = Substitute.For<Action<int>>();
             _Action2 = Substitute.For<Action<int, int>>();

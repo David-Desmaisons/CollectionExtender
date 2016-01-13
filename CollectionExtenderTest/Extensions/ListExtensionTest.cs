@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CollectionExtender.Extensions;
 using Xunit;
 using FluentAssertions;
-using NSubstitute;
 using Xunit.Extensions;
-using System.Threading;
 
 namespace CollectionExtenderTest.Extensions
 {
-    public class IListExtensionTest
+    public class ListExtensionTest
     {
         private IList<int> List { get { return _List; } }
-        private List<int> _List;
-        public IListExtensionTest()
+        private readonly List<int> _List;
+        public ListExtensionTest()
         {
             _List = new List<int>();
         }
@@ -43,9 +39,9 @@ namespace CollectionExtenderTest.Extensions
             get
             {
                 IEnumerable<int> nullcollection = null;
-                yield return new[] { Enumerable.Empty<int>() };
-                yield return new[] { new List<int>() { 0, 5, 10 } };
-                yield return new[] { nullcollection };
+                yield return new object[] { Enumerable.Empty<int>() };
+                yield return new object[] { new List<int>() { 0, 5, 10 } };
+                yield return new object[] { nullcollection };
             }
         }
 

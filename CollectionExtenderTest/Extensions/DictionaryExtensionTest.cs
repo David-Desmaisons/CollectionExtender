@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 using FluentAssertions;
 using NSubstitute;
@@ -10,15 +8,15 @@ using CollectionExtender.Extensions;
 
 namespace CollectionExtenderTest.Extensions
 {
-    public class IDictionaryExtensionTest
+    public class DictionaryExtensionTest
     {
-        private Dictionary<string, string> _Dictionary;
-        private Dictionary<string, string> _NullDictionary;
-        private Func<string, string> _Creator;
-        private Func<string, string, string> _Updater;
-        private Action<string, string> _Updater2;
+        private readonly Dictionary<string, string> _Dictionary;
+        private readonly Dictionary<string, string> _NullDictionary;
+        private readonly Func<string, string> _Creator;
+        private readonly Func<string, string, string> _Updater;
+        private readonly Action<string, string> _Updater2;
 
-        public IDictionaryExtensionTest()
+        public DictionaryExtensionTest()
         {
             _Dictionary = new Dictionary<string, string>();
             _Creator = Substitute.For<Func<string, string>>();

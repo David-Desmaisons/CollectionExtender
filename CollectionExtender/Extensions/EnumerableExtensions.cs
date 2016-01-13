@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace CollectionExtender.Extensions
 {
-    public static class IEnumerableExtensions
+    public static class EnumerableExtensions
     {
 
         [DebuggerStepThrough]
-        static public IEnumerable<T> ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
+        public static IEnumerable<T> ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
         {
             if (enumerable == null)
                 throw new ArgumentNullException("enumerable");
@@ -41,7 +41,7 @@ namespace CollectionExtender.Extensions
         }
 
         [DebuggerStepThrough]
-        static public bool ForEach<T>(this IEnumerable<T> enumerable, Action<T> action, CancellationToken iCancellationToken)
+        public static bool ForEach<T>(this IEnumerable<T> enumerable, Action<T> action, CancellationToken iCancellationToken)
         {
             if (enumerable == null)
                 throw new ArgumentNullException("enumerable");
@@ -57,7 +57,7 @@ namespace CollectionExtender.Extensions
         }
 
         [DebuggerStepThrough]
-        static public IEnumerable<TResult> Cartesian<TResult, TSource1, TSource2>(this IEnumerable<TSource1> first,
+        public static IEnumerable<TResult> Cartesian<TResult, TSource1, TSource2>(this IEnumerable<TSource1> first,
                                 IEnumerable<TSource2> second, Func< TSource1, TSource2, TResult> Agregator )
         {
             if (second == null)
@@ -67,7 +67,7 @@ namespace CollectionExtender.Extensions
         }
 
         [DebuggerStepThrough]
-        static public void ForCartesian<TSource1, TSource2>(this IEnumerable<TSource1> first,
+        public static void ForCartesian<TSource1, TSource2>(this IEnumerable<TSource1> first,
                                 IEnumerable<TSource2> second, Action<TSource1, TSource2> Do)
         {
             if (second == null)
@@ -87,27 +87,27 @@ namespace CollectionExtender.Extensions
             return enumerable.DefaultIfEmpty(defaultValue).First();
         }
 
-        static private IEnumerable<Tuple<int, T>> AsIndexed<T>(this IEnumerable<T> enumerable)
+        private static IEnumerable<Tuple<int, T>> AsIndexed<T>(this IEnumerable<T> enumerable)
         {
             return enumerable.Select((t, i) => new Tuple<int, T>(i, t));
         }
 
-        static public IEnumerable<int> Indexes<T>(this IEnumerable<T> enumerable, Func<T, bool> Selector)
+        public static IEnumerable<int> Indexes<T>(this IEnumerable<T> enumerable, Func<T, bool> Selector)
         {
             return enumerable.AsIndexed().Where(t => Selector(t.Item2)).Select(t => t.Item1);
         }
 
-        static public IEnumerable<int> Indexes<T>(this IEnumerable<T> enumerable, T value)
+        public static IEnumerable<int> Indexes<T>(this IEnumerable<T> enumerable, T value)
         {
-            return IEnumerableExtensions.Indexes(enumerable, t => object.Equals(t, value)); 
+            return EnumerableExtensions.Indexes(enumerable, t => object.Equals(t, value)); 
         }
 
-        static public int Index<T>(this IEnumerable<T> enumerable, Func<T, bool> Selector)
+        public static int Index<T>(this IEnumerable<T> enumerable, Func<T, bool> Selector)
         {
-            return IEnumerableExtensions.Indexes(enumerable, Selector).FirstOrDefault(-1);
+            return EnumerableExtensions.Indexes(enumerable, Selector).FirstOrDefault(-1);
         }
 
-        static public int Index<T>(this IEnumerable<T> enumerable, T value)
+        public static int Index<T>(this IEnumerable<T> enumerable, T value)
         {
             return enumerable.Index((t) => object.Equals(t, value));
         }

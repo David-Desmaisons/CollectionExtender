@@ -62,9 +62,9 @@
     <Compile Include="TestInfra\DictionaryTest.cs" />
     <Compile Include="Dictionary\PolymorphDictionaryTest.cs" />
     <Compile Include="Dictionary\Internal\ListDictionaryTest.cs" />
-    <Compile Include="Extensions\IDictionaryExtensionTest.cs" />
-    <Compile Include="Extensions\IListExtensionTest.cs" />
-    <Compile Include="Extensions\IEnumerableExtensionsTest.cs" />
+    <Compile Include="Extensions\DictionaryExtensionTest.cs" />
+    <Compile Include="Extensions\ListExtensionTest.cs" />
+    <Compile Include="Extensions\EnumerableExtensionsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestInfra\DictionaryTestExtender.cs" />
   </ItemGroup>

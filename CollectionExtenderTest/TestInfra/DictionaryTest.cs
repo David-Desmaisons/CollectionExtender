@@ -13,13 +13,13 @@ namespace CollectionExtenderTest.TestInfra
     public abstract class DictionaryTest
     {
         protected IDictionary<string, string> _dictionary;
-        private IDictionary<string, string> _target;
-        private List<string> _Obj;
+        private readonly IDictionary<string, string> _target;
+        private readonly List<string> _Strings;
 
         public DictionaryTest()
         {
             _target = new Dictionary<string, string>();
-            _Obj = Enumerable.Range(0,30).Select(i => string.Format("Name{0}", i)).ToList();
+            _Strings = Enumerable.Range(0,30).Select(i => string.Format("Name{0}", i)).ToList();
         }
 
         private void Do(Action<IDictionary<string, string>> Act)

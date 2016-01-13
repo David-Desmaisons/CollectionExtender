@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FluentAssertions;
 
 namespace CollectionExtenderTest.TestInfra
@@ -37,10 +35,10 @@ namespace CollectionExtenderTest.TestInfra
 
             foreach (KeyValuePair<TK, TV> kvp in @this)
             {
-                TV v = @this[kvp.Key];
+                var v = @this[kvp.Key];
                 v.Should().Be(kvp.Value);
 
-                TV v2 = default(TV);
+                var v2 = default(TV);
                 @this.TryGetValue(kvp.Key, out v2).Should().BeTrue();
                 v.Should().Be(v2);
                 l3.Should().Contain(v);
@@ -106,8 +104,8 @@ namespace CollectionExtenderTest.TestInfra
             @this.ShouldBeCoherent();
             @this.ShouldBeExtaclyTheSame(target);
 
-            TR res = Ac(@this);
-            TR res2 = Ac(target);
+            var res = Ac(@this);
+            var res2 = Ac(target);
 
             res.Should().Be(res2);
             @this.ShouldBeExtaclyTheSame(target);

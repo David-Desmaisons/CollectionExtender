@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CollectionExtender.Extensions
 {
-    public static class IDictionaryExtension
+    public static class DictionaryExtension
 
     {
         public static CollectionResult<TValue> FindOrCreate<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, Func<TKey, TValue> Fac)
@@ -14,7 +11,7 @@ namespace CollectionExtender.Extensions
             if (dic == null)
                 throw new ArgumentNullException("enumerable");
 
-            TValue res = default(TValue);
+            var res = default(TValue);
             if (dic.TryGetValue(key, out res))
                 return new CollectionResult<TValue>() { Item = res, CollectionStatus = CollectionStatus.Found };
 
@@ -28,7 +25,7 @@ namespace CollectionExtender.Extensions
             if (dic == null)
                 throw new ArgumentNullException("enumerable");
 
-            TValue res = default(TValue);
+            var res = default(TValue);
             if (dic.TryGetValue(key, out res))
                 return res;
 
@@ -43,7 +40,7 @@ namespace CollectionExtender.Extensions
             if (dic == null)
                 throw new ArgumentNullException("enumerable");
 
-            TValue res = default(TValue);
+            var res = default(TValue);
             if (dic.TryGetValue(key, out res))
             {
                 TValue nv = Updater(key, res);
@@ -59,7 +56,7 @@ namespace CollectionExtender.Extensions
         public static TValue UpdateOrCreate<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, Func<TKey, TValue> Fac,
                                                                 Action<TKey, TValue> Updater)
         {
-            return IDictionaryExtension.UpdateOrCreate(dic, key, Fac, (k, v) => { Updater(k, v); return v; });
+            return dic.UpdateOrCreate(key, Fac, (k, v) => { Updater(k, v); return v; });
         }
 
         public static IDictionary<TKey, TValue> Import<TKey, TValue>(this IDictionary<TKey, TValue> dic, IDictionary<TKey, TValue> source)

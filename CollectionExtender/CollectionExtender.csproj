@@ -49,9 +49,9 @@
     <Compile Include="Dictionary\Internal\SingleDictionary.cs" />
     <Compile Include="Extensions\CollectionResult.cs" />
     <Compile Include="Extensions\CollectionStatus.cs" />
-    <Compile Include="Extensions\IDictionaryExtension.cs" />
-    <Compile Include="Extensions\IEnumerableExtensions.cs" />
-    <Compile Include="Extensions\IListExtension.cs" />
+    <Compile Include="Extensions\DictionaryExtension.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Extensions\ListExtension.cs" />
     <Compile Include="Infra\Introspector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

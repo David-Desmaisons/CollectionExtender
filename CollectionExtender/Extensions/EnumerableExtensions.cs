@@ -2,22 +2,19 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace CollectionExtender.Extensions
 {
     public static class EnumerableExtensions
     {
-
         [DebuggerStepThrough]
         public static IEnumerable<T> ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
         {
             if (enumerable == null)
                 throw new ArgumentNullException("enumerable");
 
-            foreach (T o in enumerable)
+            foreach (var o in enumerable)
             {
                 action(o);
             }
@@ -26,7 +23,7 @@ namespace CollectionExtender.Extensions
         }
 
         [DebuggerStepThrough]
-        static public IEnumerable<T> ForEach<T>(this IEnumerable<T> enumerable, Action<T,int> action)
+        public static IEnumerable<T> ForEach<T>(this IEnumerable<T> enumerable, Action<T,int> action)
         {
             if (enumerable == null)
                 throw new ArgumentNullException("enumerable");
@@ -99,12 +96,12 @@ namespace CollectionExtender.Extensions
 
         public static IEnumerable<int> Indexes<T>(this IEnumerable<T> enumerable, T value)
         {
-            return EnumerableExtensions.Indexes(enumerable, t => object.Equals(t, value)); 
+            return enumerable.Indexes(t => Object.Equals(t, value)); 
         }
 
         public static int Index<T>(this IEnumerable<T> enumerable, Func<T, bool> Selector)
         {
-            return EnumerableExtensions.Indexes(enumerable, Selector).FirstOrDefault(-1);
+            return enumerable.Indexes(Selector).FirstOrDefault(-1);
         }
 
         public static int Index<T>(this IEnumerable<T> enumerable, T value)

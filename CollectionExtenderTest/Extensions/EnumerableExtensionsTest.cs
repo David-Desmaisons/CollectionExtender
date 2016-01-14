@@ -15,15 +15,21 @@ namespace CollectionExtenderTest.Extensions
         private readonly Action<int> _Action;
         private readonly Action<int, int> _Action2;
         private readonly Func<int, int, int> _Agregator;
+        private readonly Func<int, int, int, int> _Agregator2;
         private readonly IEnumerable<int> _NullEnumerable = null;
         private readonly IEnumerable<int> _Enumerable;
+        private readonly IEnumerable<int> _Enumerable2;
+        private readonly IEnumerable<int> _Enumerable3;
 
         public EnumerableExtensionsTest()
         {
             _Action = Substitute.For<Action<int>>();
             _Action2 = Substitute.For<Action<int, int>>();
             _Agregator = Substitute.For<Func<int, int, int>>();
+            _Agregator2 = Substitute.For<Func<int, int, int, int>>();
             _Enumerable = Enumerable.Range(0, 10);
+            _Enumerable2 = Enumerable.Range(0, 5);
+            _Enumerable3 = Enumerable.Range(0, 20);
         }
 
         [Fact]
@@ -304,7 +310,7 @@ namespace CollectionExtenderTest.Extensions
         }
 
         [Fact]
-        public void Caretesian_CalledOnNull_ThrowException()
+        public void Cartesian_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullEnumerable.Cartesian(_Enumerable, _Agregator);
             Do.ShouldThrow<ArgumentNullException>();
@@ -312,7 +318,7 @@ namespace CollectionExtenderTest.Extensions
         }
 
         [Fact]
-        public void Caretesian_CalledWithNull_ThrowException()
+        public void Cartesian_CalledWithNull_ThrowException()
         {
             Action Do = () => _Enumerable.Cartesian(_NullEnumerable, _Agregator);
             Do.ShouldThrow<ArgumentNullException>();
@@ -320,7 +326,7 @@ namespace CollectionExtenderTest.Extensions
         }
 
         [Fact]
-        public void Caretesian_CallAgregator()
+        public void Cartesian_CallAgregator()
         {
             var res = _Enumerable.Cartesian(Enumerable.Range(0,3), _Agregator).ToList();
             _Agregator.Received(30).Invoke(Arg.Any<int>(), Arg.Any<int>());
@@ -334,7 +340,7 @@ namespace CollectionExtenderTest.Extensions
         }
 
         [Fact]
-        public void Caretesian_CallAgregator_Lazylly()
+        public void Cartesian_CallAgregator_Lazylly()
         {
             var res = _Enumerable.Cartesian(Enumerable.Range(0, 3), _Agregator);
             _Agregator.DidNotReceive().Invoke(Arg.Any<int>(), Arg.Any<int>());
@@ -366,17 +372,17 @@ namespace CollectionExtenderTest.Extensions
         }
 
         [Fact]
-        public void ForCartesian_CalledOnNull_ThrowException()
+        public void ForEachCartesian_CalledOnNull_ThrowException()
         {
-            Action Do = () => _NullEnumerable.ForCartesian(_Enumerable, _Action2);
+            Action Do = () => _NullEnumerable.ForEachCartesian(_Enumerable, _Action2);
             Do.ShouldThrow<ArgumentNullException>();
             _Agregator.DidNotReceive().Invoke(Arg.Any<int>(), Arg.Any<int>());
         }
 
         [Fact]
-        public void ForCartesian_CalledWithNull_ThrowException()
+        public void ForEachCartesian_CalledWithNull_ThrowException()
         {
-            Action Do = () => _Enumerable.ForCartesian(_NullEnumerable, _Action2);
+            Action Do = () => _Enumerable.ForEachCartesian(_NullEnumerable, _Action2);
             Do.ShouldThrow<ArgumentNullException>();
             _Agregator.DidNotReceive().Invoke(Arg.Any<int>(), Arg.Any<int>());
         }
@@ -389,7 +395,7 @@ namespace CollectionExtenderTest.Extensions
         {
             var first = Enumerable.Range(0, firstIndex);
             var second = Enumerable.Range(0, secondIndex);
-            first.ForCartesian(second, _Action2);
+            first.ForEachCartesian(second, _Action2);
             _Action2.Received(firstIndex * secondIndex).Invoke(Arg.Any<int>(), Arg.Any<int>());
             for (int i = 0; i < firstIndex; i++)
             {
@@ -398,6 +404,97 @@ namespace CollectionExtenderTest.Extensions
                     _Action2.Received(1).Invoke(i, j);
                 }
             }
+        }
+
+        [Fact]
+        public void Zip_ThrowNullArgumentException_WhenCalledWithNullArgument_1()
+        {
+            Action Do = () => _NullEnumerable.Zip(_Enumerable, _Enumerable, _Agregator2);
+            Do.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void Zip_ThrowNullArgumentException_WhenCalledWithNullArgument_2()
+        {
+            Action Do = () => _Enumerable.Zip(_NullEnumerable, _Enumerable, _Agregator2);
+            Do.ShouldThrow<ArgumentNullException>();
+        }
+
+
+        [Fact]
+        public void Zip_ThrowNullArgumentException_WhenCalledWithNullArgument_3()
+        {
+            Action Do = () => _Enumerable.Zip(_Enumerable, _NullEnumerable, _Agregator2);
+            Do.ShouldThrow<ArgumentNullException>();
+        }
+
+        public static IEnumerable<object[]> CollectionData
+        {
+            get
+            {
+                var enumerable = Enumerable.Range(0, 10);
+                var enumerable2 = Enumerable.Range(5, 5);
+                var enumerable3 = Enumerable.Range(30, 20);
+                var enumerable4 = Enumerable.Empty<int>();
+
+                yield return new[] { enumerable, enumerable, enumerable };
+                yield return new[] { enumerable, enumerable, enumerable2 };
+                yield return new[] { enumerable, enumerable2, enumerable3 };
+                yield return new[] { enumerable, enumerable3, enumerable4 };
+                yield return new[] { enumerable2, enumerable3, enumerable4 };
+            }
+        }
+
+        private int Min(int first, int second, int third)
+        {
+            return Math.Min(Math.Min(first, second), third);
+        }
+
+        [Theory, PropertyData("CollectionData")]
+        public void Zip_ReturnCollection_WithAsMuchElementAsSmallestCollection(IEnumerable<int> first,
+            IEnumerable<int> second, IEnumerable<int> third)
+        {
+            var res1 = first.Zip(second, third, _Agregator2);
+            res1.Should().HaveCount( Min(first.Count(), second.Count(), third.Count()));
+        }
+
+        [Fact]
+        public void Zip_Call_Agregator_Lazilly()
+        {
+            var res1 = _Enumerable.Zip(_Enumerable, _Enumerable, _Agregator2);
+            _Agregator2.DidNotReceive().Invoke(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>());
+        }
+
+        [Theory, PropertyData("CollectionData")]
+        public void Zip_Call_Agregator(IEnumerable<int> first, IEnumerable<int> second, IEnumerable<int> third)
+        {
+            var res1 = first.Zip(second, third, _Agregator2).ToList();
+            Received.InOrder(() =>
+            {
+                var length = Min(first.Count(), second.Count(), third.Count());
+                for (int i = 0; i < length; i++)
+                {
+                    _Agregator2(first.ElementAt(i), second.ElementAt(i), third.ElementAt(i));
+                }
+            });
+        }
+
+        private IEnumerable<int> ManualZip(IEnumerable<int> first, IEnumerable<int> second, 
+                                    IEnumerable<int> third,  Func<int, int, int, int> zipper)
+        {
+            var length = Min(first.Count(), second.Count(), third.Count());
+            for (int i = 0; i < length; i++)
+            {
+                yield return zipper(first.ElementAt(i), second.ElementAt(i), third.ElementAt(i));
+            }
+        }
+
+        [Theory, PropertyData("CollectionData")]
+        public void Zip_Create_Sequence_AsExpected(IEnumerable<int> first, IEnumerable<int> second, IEnumerable<int> third)
+        {
+            Func<int, int, int, int> zipper = (a, b, c) => a * 100 + b * 10 + c;
+            var res1 = first.Zip(second, third, zipper);
+            res1.Should().BeEquivalentTo(ManualZip(first, second, third, zipper));
         }
     }
 }

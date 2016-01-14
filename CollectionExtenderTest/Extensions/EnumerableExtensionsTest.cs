@@ -439,6 +439,8 @@ namespace CollectionExtenderTest.Extensions
 
                 yield return new[] { enumerable, enumerable, enumerable };
                 yield return new[] { enumerable, enumerable, enumerable2 };
+                yield return new[] { enumerable, enumerable2, enumerable };
+                yield return new[] { enumerable2, enumerable, enumerable };
                 yield return new[] { enumerable, enumerable2, enumerable3 };
                 yield return new[] { enumerable, enumerable3, enumerable4 };
                 yield return new[] { enumerable2, enumerable3, enumerable4 };

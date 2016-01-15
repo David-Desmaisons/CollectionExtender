@@ -49,7 +49,7 @@ namespace CollectionExtender.Dictionary.Internal
                     return this;
                 }
                 Result = true;
-                return Introspector.Build<IMutableDictionary<TKey,TValue>>(_TargetType, this, _TransitionToList);
+                return Introspector.BuildInstance<IMutableDictionary<TKey, TValue>>(_TargetType, this, _TransitionToList);
             }
 
             Result = Remove(key);

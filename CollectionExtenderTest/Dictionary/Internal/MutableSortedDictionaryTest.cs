@@ -9,17 +9,16 @@ using FluentAssertions;
 
 namespace CollectionExtenderTest.Dictionary.Internal
 {
-    public class MutableListDictionaryTest : MutableMiddleDictionaryTest
+    public class MutableSortedDictionaryTest : MutableMiddleDictionaryTest
     {
-
         protected override IMutableDictionary<string, string> Get(IDictionary<string, string> Original, int Transition)
         {
-            return new MutableListDictionary<string, string>(Original, Transition);
+            return new MutableSortedDictionary<string, string>(Original, Transition);
         }
 
         protected override IMutableDictionary<string, string> GetEmpty()
         {
-            return new MutableListDictionary<string, string>();
+            return new MutableSortedDictionary<string, string>();
         }
     }
 }

@@ -10,11 +10,17 @@ namespace CollectionExtender.Dictionary
     public class PolymorphDictionary<TKey, TValue> : IDictionary<TKey, TValue> where TKey : class 
     {
         private IMutableDictionary<TKey, TValue> _Implementation;
+        private readonly Type _TargetMiddle;
 
         public PolymorphDictionary(int TransitionToDictionary = 25)
         {
-            _Implementation = new MutableSingleDictionary<TKey, TValue>
-                                    ( targetType: typeof(MutableListDictionary<TKey, TValue>), transition: TransitionToDictionary);          
+            bool comparable = typeof(TKey).GetInterfaces().
+                Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IComparable<>)
+                    && (i.GetGenericArguments()[0]) == typeof(TKey)).Any();
+
+            _TargetMiddle = comparable ? typeof(MutableSortedDictionary<TKey, TValue>) : typeof(MutableListDictionary<TKey, TValue>);
+
+            _Implementation = new MutableSingleDictionary<TKey, TValue>(targetType: _TargetMiddle, transition: TransitionToDictionary);          
         }
 
         public void Add(TKey key, TValue value)
@@ -29,7 +35,7 @@ namespace CollectionExtender.Dictionary
 
         public void Clear()
         {
-            _Implementation = new MutableSingleDictionary<TKey, TValue>(typeof(MutableListDictionary<TKey, TValue>));
+            _Implementation = new MutableSingleDictionary<TKey, TValue>(_TargetMiddle);
         }
 
         public bool Remove(KeyValuePair<TKey, TValue> item)

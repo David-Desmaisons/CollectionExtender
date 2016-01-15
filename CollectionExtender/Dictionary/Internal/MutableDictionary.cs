@@ -7,23 +7,27 @@ using System.Threading.Tasks;
 
 namespace CollectionExtender.Dictionary.Internal
 {
-    internal class MutableDictionary<TKey, TValue, TDicionary> : 
-                        Dictionary<TKey, TValue>, IMutableDictionary<TKey, TValue> 
-                        where TDicionary : class, IMutableDictionary<TKey, TValue>
+    internal class MutableDictionary<TKey, TValue>: Dictionary<TKey, TValue>,
+        IMutableDictionary<TKey, TValue> 
     {
         private readonly int _TransitionToList;
+        private readonly Type _TargetType;
 
-        internal MutableDictionary(int limit=10):base()
+        internal MutableDictionary(Type targetType, int limit = 10)
+            : base()
         {
             _TransitionToList = limit;
+            _TargetType = targetType;
         }
 
-        internal MutableDictionary(IDictionary<TKey, TValue> collection,int limit=10):base(collection)
+        internal MutableDictionary(IDictionary<TKey, TValue> collection, Type targetType, int limit = 10)
+            : base(collection)
         {
             _TransitionToList = limit;
+            _TargetType = targetType;
         }
 
-        IMutableDictionary<TKey,TValue> IMutableDictionary<TKey,TValue>.Add(TKey key, TValue value)
+        IMutableDictionary<TKey, TValue> IMutableDictionary<TKey, TValue>.AddMutable(TKey key, TValue value)
         {
  	        Add(key, value);
             return this;
@@ -45,7 +49,7 @@ namespace CollectionExtender.Dictionary.Internal
                     return this;
                 }
                 Result = true;
-                return Introspector.Build<TDicionary>(this, _TransitionToList);
+                return Introspector.Build<IMutableDictionary<TKey,TValue>>(_TargetType, this, _TransitionToList);
             }
 
             Result = Remove(key);

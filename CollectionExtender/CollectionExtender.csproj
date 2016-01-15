@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dictionary\Internal\DictionarySwitcher.cs" />
     <Compile Include="Dictionary\Internal\IMutableDictionary.cs" />
     <Compile Include="Dictionary\Internal\ListDictionary.cs" />
     <Compile Include="Dictionary\Internal\MutableDictionary.cs" />

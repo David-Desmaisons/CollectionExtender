@@ -109,7 +109,7 @@ namespace CollectionExtender.Extensions
             return enumerable.Index((t) => object.Equals(t, value));
         }
 
-         private static IEnumerable<TResult> ZipInternal<TResult, TSource1, TSource2, TSource3>(IEnumerable<TSource1> enumerable,
+        private static IEnumerable<TResult> ZipInternal<TResult, TSource1, TSource2, TSource3>(IEnumerable<TSource1> enumerable,
                                IEnumerable<TSource2> enumerable2, IEnumerable<TSource3> enumerable3,
                                Func<TSource1, TSource2, TSource3, TResult> Agregate)
         {

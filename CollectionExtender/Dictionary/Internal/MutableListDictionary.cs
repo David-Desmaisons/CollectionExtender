@@ -6,64 +6,34 @@ using System.Threading.Tasks;
 
 namespace CollectionExtender.Dictionary.Internal
 {
-    internal class MutableListDictionary<TKey, TValue> : ListDictionary<TKey, TValue>, IMutableDictionary<TKey, TValue>
-                    where TKey : class                              
+    internal class MutableListDictionary<TKey, TValue> : ListDictionary<TKey, TValue>, 
+                        IMutableDictionary<TKey, TValue> where TKey : class                              
     {
-        private readonly int _TransitionToDictionary;
+        private readonly DictionarySwitcher<TKey, TValue> _DictionarySwitcher;
         public MutableListDictionary(int limit=10):base()
         {
-            _TransitionToDictionary = limit;
+            _DictionarySwitcher = new DictionarySwitcher<TKey, TValue>(this, limit);
         }
 
         public MutableListDictionary(IDictionary<TKey, TValue> collection, int limit = 10)
             : base(collection)
         {
-            _TransitionToDictionary = limit;
+            _DictionarySwitcher = new DictionarySwitcher<TKey, TValue>(this, limit);
         }
 
-        private IMutableDictionary<TKey, TValue> GetNext()
+        IMutableDictionary<TKey, TValue> IMutableDictionary<TKey, TValue>.AddMutable(TKey key, TValue value)
         {
-            return new MutableDictionary<TKey, TValue, MutableListDictionary<TKey, TValue>>
-                                (this, _TransitionToDictionary);
-        }
-
-        IMutableDictionary<TKey,TValue> IMutableDictionary<TKey,TValue>.Add(TKey key, TValue value)
-        {
-            if (Count<_TransitionToDictionary)
-            {
-                Add(key, value);
-                return this;
-            }
- 	       
-            return GetNext().Add(key, value);
+            return _DictionarySwitcher.Add(key, value);
         }
 
         public IMutableDictionary<TKey, TValue> Update(TKey key, TValue value)
         {
-            if ( (Count == _TransitionToDictionary) && (!ContainsKey(key)))
-            {
-                return GetNext().Add(key, value);
-            }
-
-            this[key] = value;
-            return this;
+            return _DictionarySwitcher.Update(key, value);
         }
 
         public IMutableDictionary<TKey,TValue> Remove(TKey key, out bool Result)
         {
-            Result = false;
-            if (Count == 2)
-            {
-                Result = Remove(key);
-                if (!Result)
-                    return this;
-       
-                return new MutableSingleDictionary<TKey, TValue, MutableListDictionary<TKey, TValue>>
-                    (this, _TransitionToDictionary);
-            }
-
-            Result = Remove(key);
-            return this;
+            return _DictionarySwitcher.Remove(key, out Result);
         }
     }
 }

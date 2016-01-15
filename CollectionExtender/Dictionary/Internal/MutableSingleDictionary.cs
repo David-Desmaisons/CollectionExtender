@@ -6,29 +6,31 @@ using System.Text;
 
 namespace CollectionExtender.Dictionary.Internal
 {
-    internal class MutableSingleDictionary<TKey, TValue, TDicionary> :
+    internal class MutableSingleDictionary<TKey, TValue> :
                         SingleDictionary<TKey, TValue>, IMutableDictionary<TKey, TValue>
-                        where TDicionary : class, IMutableDictionary<TKey, TValue>
                         where TKey : class
     {
         private readonly int _Transition;
-        internal MutableSingleDictionary( IDictionary<TKey, TValue> dictionary, int transition=10)
+        private readonly Type _TargetType;
+        internal MutableSingleDictionary( IDictionary<TKey, TValue> dictionary, Type targetType, int transition=10)
             : base(dictionary)
         {
             _Transition = transition;
+            _TargetType = targetType;
         }
 
-        internal MutableSingleDictionary(int transition = 10) : base()
+        internal MutableSingleDictionary(Type targetType, int transition = 10) : base()
         {
             _Transition = transition;
+            _TargetType = targetType;
         }
 
         private IMutableDictionary<TKey, TValue> GetNext()
         {
-            return Introspector.Build<TDicionary>(this, 10);
+            return Introspector.BuildInstance<IMutableDictionary<TKey, TValue>>(_TargetType, this, 10);
         }
 
-        IMutableDictionary<TKey, TValue> IMutableDictionary<TKey, TValue>.Add(TKey key, TValue value)
+        IMutableDictionary<TKey, TValue> IMutableDictionary<TKey, TValue>.AddMutable(TKey key, TValue value)
         {
             if (Count == 0)
             {
@@ -36,7 +38,7 @@ namespace CollectionExtender.Dictionary.Internal
                 return this;
             }
 
-            return GetNext().Add(key, value);
+            return GetNext().AddMutable(key, value);
         }
 
         public IMutableDictionary<TKey, TValue> Update(TKey key, TValue value)

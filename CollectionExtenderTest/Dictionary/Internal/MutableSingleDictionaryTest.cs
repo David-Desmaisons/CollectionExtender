@@ -16,12 +16,12 @@ namespace CollectionExtenderTest.Dictionary.Internal
 
         public MutableSingleDictionaryTest()
         {
-            _DictionaryNoElement = 
-                new MutableSingleDictionary<string,string, MutableListDictionary<string,string>>();
+            _DictionaryNoElement =
+                new MutableSingleDictionary<string, string>(typeof(MutableListDictionary<string, string>));
 
             var Dictionary = new Dictionary<string, string>(){{"Key0", "Value0"}};
             _DictionaryOneElement =
-                new MutableSingleDictionary<string, string, MutableListDictionary<string, string>>(Dictionary);
+                new MutableSingleDictionary<string, string>(Dictionary, typeof(MutableListDictionary<string, string>));
         }
 
         [Fact]
@@ -33,14 +33,14 @@ namespace CollectionExtenderTest.Dictionary.Internal
         [Fact]
         public void Add_Return_SameObject_IfElementNumberBelowLimit()
         {
-            var res = _DictionaryNoElement.Add("Key0", "Value0");
+            var res = _DictionaryNoElement.AddMutable("Key0", "Value0");
             res.Should().BeSameAs(res);
         }
 
         [Fact]
         public void Add_UpdateCollection_IfElementNumberBelowLimit()
         {
-            var res = _DictionaryNoElement.Add("Key0", "Value0");
+            var res = _DictionaryNoElement.AddMutable("Key0", "Value0");
             _DictionaryNoElement.AsEnumerable().Should().Equal(new[] { 
                 new KeyValuePair<string, string>("Key0", "Value0")} );
         }
@@ -48,14 +48,14 @@ namespace CollectionExtenderTest.Dictionary.Internal
         [Fact]
         public void Add_Return_NewObject_IfElementNumberAboveLimit()
         {
-            var res = _DictionaryOneElement.Add("Key1", "Value1");
+            var res = _DictionaryOneElement.AddMutable("Key1", "Value1");
             res.Should().BeOfType<MutableListDictionary<string, string>>();
         }
 
         [Fact]
         public void Add_UpdateCollection_IfElementNumberAboveLimit()
         {
-            var res = _DictionaryOneElement.Add("Key1", "Value1");
+            var res = _DictionaryOneElement.AddMutable("Key1", "Value1");
             res.AsEnumerable().Should().Equal(new[] { 
                 new KeyValuePair<string, string>("Key0", "Value0"),
                 new KeyValuePair<string, string>("Key1", "Value1")}

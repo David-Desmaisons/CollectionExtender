@@ -12,5 +12,10 @@ namespace CollectionExtender.Infra
         {
             return Activator.CreateInstance(typeof(T), constructorParameters) as T;
         }
+
+        public static T BuildInstance<T>(Type type, params object[] constructorParameters) where T : class
+        {
+            return Activator.CreateInstance(type, constructorParameters) as T;
+        }
     }
 }

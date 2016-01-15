@@ -13,12 +13,13 @@ namespace CollectionExtender.Dictionary
 
         public PolymorphDictionary(int TransitionToDictionary = 25)
         {
-            _Implementation = new MutableSingleDictionary<TKey, TValue, MutableListDictionary<TKey, TValue>>(TransitionToDictionary);
+            _Implementation = new MutableSingleDictionary<TKey, TValue>
+                                    ( targetType: typeof(MutableListDictionary<TKey, TValue>), transition: TransitionToDictionary);          
         }
 
         public void Add(TKey key, TValue value)
         {
-            _Implementation = _Implementation.Add(key, value);
+            _Implementation = _Implementation.AddMutable(key, value);
         }
 
         public void Add(KeyValuePair<TKey, TValue> item)
@@ -28,7 +29,7 @@ namespace CollectionExtender.Dictionary
 
         public void Clear()
         {
-            _Implementation = new MutableSingleDictionary<TKey, TValue, MutableListDictionary<TKey, TValue>>();
+            _Implementation = new MutableSingleDictionary<TKey, TValue>(typeof(MutableListDictionary<TKey, TValue>));
         }
 
         public bool Remove(KeyValuePair<TKey, TValue> item)

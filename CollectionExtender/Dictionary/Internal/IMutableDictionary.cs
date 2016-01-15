@@ -8,7 +8,7 @@ namespace CollectionExtender.Dictionary.Internal
 {
     public interface IMutableDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
-        IMutableDictionary<TKey, TValue> Add(TKey key, TValue value);
+        IMutableDictionary<TKey, TValue> AddMutable(TKey key, TValue value);
 
         IMutableDictionary<TKey, TValue> Update(TKey key, TValue value);
 

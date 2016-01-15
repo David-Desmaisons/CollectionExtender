@@ -16,32 +16,36 @@ namespace CollectionExtenderTest.Dictionary.Internal
 
         public MutableDictionaryTest()
         {
-            _DictionaryFourElements = new MutableDictionary<string,string, MutableListDictionary<string,string>>
+            _DictionaryFourElements = new MutableDictionary<string,string>
                 (new Dictionary<string, string>(){  { "Key0", "Value0" }, { "Key1", "Value1" },
-                                                    { "Key2", "Value2" }, { "Key3", "Value3" }}, 2);
-            _DictionaryThreeElements = new MutableDictionary<string, string, MutableListDictionary<string, string>>
+                                                    { "Key2", "Value2" }, { "Key3", "Value3" }}, 
+                                                    typeof(MutableListDictionary<string,string>),
+                                                    2);
+            _DictionaryThreeElements = new MutableDictionary<string, string>
                 (new Dictionary<string, string>() { { "Key0", "Value0" }, { "Key1", "Value1" }, 
-                                                    { "Key2", "Value2" } }, 2);
+                                                    { "Key2", "Value2" } },
+                                                    typeof(MutableListDictionary<string, string>), 
+                                                    2);
         }
 
         [Fact]
         public void Constructor_ConstructEmptyDictionary()
         {
-            var res = new MutableDictionary<string, string, MutableListDictionary<string, string>>();
+            var res = new MutableDictionary<string, string>(typeof(MutableListDictionary<string,string>));
             res.AsEnumerable().Should().BeEmpty();
         }
 
         [Fact]
         public void Add_Return_SameObject()
         {
-            var res = _DictionaryFourElements.Add("Key4", "Value4");
+            var res = _DictionaryFourElements.AddMutable("Key4", "Value4");
             res.Should().BeSameAs(_DictionaryFourElements);
         }
 
         [Fact]
         public void Add_UpdateCollection()
         {
-            var res = _DictionaryFourElements.Add("Key4", "Value4");
+            var res = _DictionaryFourElements.AddMutable("Key4", "Value4");
             res.AsEnumerable().Should().Equal(new[] { 
                 new KeyValuePair<string, string>("Key0", "Value0"),
                 new KeyValuePair<string, string>("Key1", "Value1"),

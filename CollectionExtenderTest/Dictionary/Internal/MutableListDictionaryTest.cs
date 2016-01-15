@@ -33,14 +33,14 @@ namespace CollectionExtenderTest.Dictionary.Internal
         [Fact]
         public void Add_Return_SameObject_IfBelowLimit()
         {
-            var res = _DictionaryTwoElements.Add("Key2", "Value2");
+            var res = _DictionaryTwoElements.AddMutable("Key2", "Value2");
             res.Should().BeSameAs(_DictionaryTwoElements);
         }
 
         [Fact]
         public void Add_UpdateCollection_IfBelowLimit()
         {
-            var res = _DictionaryTwoElements.Add("Key2", "Value2");
+            var res = _DictionaryTwoElements.AddMutable("Key2", "Value2");
             res.AsEnumerable().Should().Equal(new[] { 
                 new KeyValuePair<string, string>("Key0", "Value0"),
                 new KeyValuePair<string, string>("Key1", "Value1"),
@@ -50,14 +50,14 @@ namespace CollectionExtenderTest.Dictionary.Internal
         [Fact]
         public void Add_Return_NewObject_IfAboveLimit()
         {
-            var res = _DictionaryThreeElements.Add("Key3", "Value3");
-            res.Should().BeOfType<MutableDictionary<string, string, MutableListDictionary<string, string>>>();
+            var res = _DictionaryThreeElements.AddMutable("Key3", "Value3");
+            res.Should().BeOfType<MutableDictionary<string, string>>();
         }
 
         [Fact]
         public void Add_UpdateCollection_IfAboveLimit()
         {
-            var res = _DictionaryThreeElements.Add("Key3", "Value3");
+            var res = _DictionaryThreeElements.AddMutable("Key3", "Value3");
             res.AsEnumerable().Should().Equal(new[] { 
                 new KeyValuePair<string, string>("Key0", "Value0"),
                 new KeyValuePair<string, string>("Key1", "Value1"),
@@ -69,7 +69,7 @@ namespace CollectionExtenderTest.Dictionary.Internal
         public void Update_Return_NewObject_IfAboveLimit()
         {
             var res = _DictionaryThreeElements.Update("Key3", "Value3");
-            res.Should().BeOfType<MutableDictionary<string, string, MutableListDictionary<string, string>>>();
+            res.Should().BeOfType<MutableDictionary<string, string>>();
         }
 
         [Fact]
@@ -106,7 +106,7 @@ namespace CollectionExtenderTest.Dictionary.Internal
         {
             bool res;
             var dicionary = _DictionaryTwoElements.Remove("Key1", out res);
-            dicionary.Should().BeOfType<MutableSingleDictionary<string, string, MutableListDictionary<string, string>>>();
+            dicionary.Should().BeOfType<MutableSingleDictionary<string, string>>();
         }
 
         [Fact]

@@ -1,4 +1,4 @@
-﻿namespace CollectionExtender.Extensions
+﻿namespace MoreCollection.Extensions
 {
     public enum CollectionStatus 
     { 

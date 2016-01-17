@@ -1,10 +1,10 @@
-﻿using CollectionExtender.Infra;
+﻿using MoreCollection.Infra;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CollectionExtender.Dictionary.Internal
+namespace MoreCollection.Dictionary.Internal
 {
     internal class MutableSingleDictionary<TKey, TValue> :
                         SingleDictionary<TKey, TValue>, IMutableDictionary<TKey, TValue>

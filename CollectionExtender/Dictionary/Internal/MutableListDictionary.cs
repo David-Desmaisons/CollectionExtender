@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CollectionExtender.Dictionary.Internal
+namespace MoreCollection.Dictionary.Internal
 {
     internal class MutableListDictionary<TKey, TValue> : ListDictionary<TKey, TValue>, 
                         IMutableDictionary<TKey, TValue> where TKey : class                              

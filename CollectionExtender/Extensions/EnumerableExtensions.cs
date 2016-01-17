@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 
-namespace CollectionExtender.Extensions
+namespace MoreCollection.Extensions
 {
     public static class EnumerableExtensions
     {

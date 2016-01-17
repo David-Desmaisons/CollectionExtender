@@ -4,9 +4,9 @@ using System.Linq;
 using Xunit;
 using FluentAssertions;
 using NSubstitute;
-using CollectionExtender.Extensions;
+using MoreCollection.Extensions;
 
-namespace CollectionExtenderTest.Extensions
+namespace MoreCollectionTest.Extensions
 {
     public class DictionaryExtensionTest
     {

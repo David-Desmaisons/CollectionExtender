@@ -1,5 +1,5 @@
-﻿using CollectionExtender.Dictionary.Internal;
-using CollectionExtenderTest.TestInfra;
+﻿using MoreCollection.Dictionary.Internal;
+using MoreCollectionTest.TestInfra;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using Xunit;
 using FluentAssertions;
 using Xunit.Extensions;
 
-namespace CollectionExtenderTest.Dictionary.Internal
+namespace MoreCollectionTest.Dictionary.Internal
 {
     public class SingleDictionaryTest
     {

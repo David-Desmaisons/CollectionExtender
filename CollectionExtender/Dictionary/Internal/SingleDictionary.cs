@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CollectionExtender.Dictionary.Internal
+namespace MoreCollection.Dictionary.Internal
 {
     internal class SingleDictionary<Tkey, Tvalue> : IDictionary<Tkey, Tvalue> where Tkey: class
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using Xunit;
 using FluentAssertions;
-using CollectionExtender.Infra;
+using MoreCollection.Infra;
 
-namespace CollectionExtenderTest.Infra
+namespace MoreCollectionTest.Infra
 {
     public class IntrospectorTest
     {

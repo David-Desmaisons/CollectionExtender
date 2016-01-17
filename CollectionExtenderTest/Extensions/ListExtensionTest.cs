@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CollectionExtender.Extensions;
+using MoreCollection.Extensions;
 using Xunit;
 using FluentAssertions;
 using Xunit.Extensions;
 
-namespace CollectionExtenderTest.Extensions
+namespace MoreCollectionTest.Extensions
 {
     public class ListExtensionTest
     {

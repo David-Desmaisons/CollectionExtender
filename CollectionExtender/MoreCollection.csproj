@@ -7,8 +7,8 @@
     <ProjectGuid>{B5F6BF71-5ACF-4951-8A85-8AFF6BD7979C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CollectionExtender</RootNamespace>
-    <AssemblyName>CollectionExtender</AssemblyName>
+    <RootNamespace>MoreCollection</RootNamespace>
+    <AssemblyName>MoreCollection</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

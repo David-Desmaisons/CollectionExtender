@@ -1,13 +1,13 @@
-﻿using CollectionExtender.Dictionary;
-using CollectionExtender.Dictionary.Internal;
-using CollectionExtenderTest.TestInfra;
+﻿using MoreCollection.Dictionary;
+using MoreCollection.Dictionary.Internal;
+using MoreCollectionTest.TestInfra;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CollectionExtenderTest.Dictionary
+namespace MoreCollectionTest.Dictionary
 {
     public class PolymorphDictionaryTest : DictionaryTest
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 
-namespace CollectionExtenderTest.TestInfra
+namespace MoreCollectionTest.TestInfra
 {
     public static class DictionaryTestExtender
     {

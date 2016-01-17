@@ -7,8 +7,8 @@
     <ProjectGuid>{E0BB3462-5317-43DE-AFDB-321A3698F889}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CollectionExtenderTest</RootNamespace>
-    <AssemblyName>CollectionExtenderTest</AssemblyName>
+    <RootNamespace>MoreCollectionTest</RootNamespace>
+    <AssemblyName>MoreCollectionTest</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -76,9 +76,9 @@
     <Compile Include="TestInfra\DictionaryTestExtender.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CollectionExtender\CollectionExtender.csproj">
+    <ProjectReference Include="..\CollectionExtender\MoreCollection.csproj">
       <Project>{b5f6bf71-5acf-4951-8a85-8aff6bd7979c}</Project>
-      <Name>CollectionExtender</Name>
+      <Name>MoreCollection</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

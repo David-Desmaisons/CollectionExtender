@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CollectionExtender.Set
+namespace MoreCollection.Set
 {
     public class HashedSet<T> : HashSet<T>, ISet<T> where T : class
     {

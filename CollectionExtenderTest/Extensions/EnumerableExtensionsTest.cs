@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CollectionExtender.Extensions;
+using MoreCollection.Extensions;
 using Xunit;
 using FluentAssertions;
 using NSubstitute;
 using Xunit.Extensions;
 using System.Threading;
 
-namespace CollectionExtenderTest.Extensions
+namespace MoreCollectionTest.Extensions
 {
     public class EnumerableExtensionsTest
     {

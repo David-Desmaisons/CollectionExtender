@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CollectionExtender.Set.Infra
+namespace MoreCollection.Set.Infra
 {
     internal interface ILetterSimpleSetFactory<T> where T : class
     {

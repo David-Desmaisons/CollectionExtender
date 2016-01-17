@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CollectionExtender.Set.Infra
+namespace MoreCollection.Set.Infra
 {
     public interface ILetterSimpleSet<T> : IEnumerable<T> where T : class
     {

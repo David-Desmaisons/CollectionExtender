@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CollectionExtender.Extensions
+namespace MoreCollection.Extensions
 {
     public static class DictionaryExtension
 

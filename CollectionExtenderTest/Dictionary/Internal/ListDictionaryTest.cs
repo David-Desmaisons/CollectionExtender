@@ -1,5 +1,5 @@
-﻿using CollectionExtender.Dictionary.Internal;
-using CollectionExtenderTest.TestInfra;
+﻿using MoreCollection.Dictionary.Internal;
+using MoreCollectionTest.TestInfra;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Xunit;
 using FluentAssertions;
 
-namespace CollectionExtenderTest.Dictionary.Internal
+namespace MoreCollectionTest.Dictionary.Internal
 {
     public class ListDictionaryTest : DictionaryTest
     {

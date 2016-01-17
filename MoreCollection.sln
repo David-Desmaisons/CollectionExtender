@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionExtender", "CollectionExtender\CollectionExtender.csproj", "{B5F6BF71-5ACF-4951-8A85-8AFF6BD7979C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoreCollection", "CollectionExtender\MoreCollection.csproj", "{B5F6BF71-5ACF-4951-8A85-8AFF6BD7979C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionExtenderTest", "CollectionExtenderTest\CollectionExtenderTest.csproj", "{E0BB3462-5317-43DE-AFDB-321A3698F889}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoreCollectionTest", "CollectionExtenderTest\MoreCollectionTest.csproj", "{E0BB3462-5317-43DE-AFDB-321A3698F889}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

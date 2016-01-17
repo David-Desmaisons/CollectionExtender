@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CollectionExtender.Infra
+namespace MoreCollection.Infra
 {
     internal static class Introspector
     {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CollectionExtender.Extensions;
+using MoreCollection.Extensions;
 
-namespace CollectionExtender.Dictionary.Internal
+namespace MoreCollection.Dictionary.Internal
 {
     internal class ListDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {

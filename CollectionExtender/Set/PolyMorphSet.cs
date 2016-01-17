@@ -1,11 +1,11 @@
-﻿using CollectionExtender.Set.Infra;
+﻿using MoreCollection.Set.Infra;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CollectionExtender.Set
+namespace MoreCollection.Set
 {
     public class PolyMorphSet<T> : ISet<T> where T: class
     {

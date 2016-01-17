@@ -7,9 +7,9 @@ using Xunit;
 using FluentAssertions;
 using Xunit.Extensions;
 using System.Collections;
-using CollectionExtender.Set.Infra;
+using MoreCollection.Set.Infra;
 
-namespace CollectionExtenderTest.Set.Internal
+namespace MoreCollectionTest.Set.Internal
 {
     public class SingleSetTest
     {

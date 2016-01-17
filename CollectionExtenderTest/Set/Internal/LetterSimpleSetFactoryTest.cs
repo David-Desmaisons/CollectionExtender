@@ -1,4 +1,4 @@
-﻿using CollectionExtender.Set.Infra;
+﻿using MoreCollection.Set.Infra;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using Xunit;
 using FluentAssertions;
 using Xunit.Extensions;
 
-namespace CollectionExtenderTest.Set.Internal
+namespace MoreCollectionTest.Set.Internal
 {
     public class LetterSimpleSetFactoryTest
     {

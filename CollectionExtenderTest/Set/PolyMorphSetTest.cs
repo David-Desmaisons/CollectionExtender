@@ -1,5 +1,5 @@
-﻿using CollectionExtender.Set;
-using CollectionExtender.Set.Infra;
+﻿using MoreCollection.Set;
+using MoreCollection.Set.Infra;
 using NSubstitute;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace CollectionExtenderTest.Set
+namespace MoreCollectionTest.Set
 {
     public class PolyMorphSetTest : IDisposable
     {

@@ -5,10 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using FluentAssertions;
-using CollectionExtenderTest.TestInfra;
 using Xunit.Extensions;
 
-namespace CollectionExtenderTest.TestInfra
+namespace MoreCollectionTest.TestInfra
 {
     public abstract class DictionaryTest
     {

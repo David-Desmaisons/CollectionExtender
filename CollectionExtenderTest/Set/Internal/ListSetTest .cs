@@ -1,4 +1,4 @@
-﻿using CollectionExtender.Set.Infra;
+﻿using MoreCollection.Set.Infra;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using FluentAssertions;
 using Xunit.Extensions;
 using System.Collections;
 
-namespace CollectionExtenderTest.Set.Internal
+namespace MoreCollectionTest.Set.Internal
 {
     public class ListSetTest
     {

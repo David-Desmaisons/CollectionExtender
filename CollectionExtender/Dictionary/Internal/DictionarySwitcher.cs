@@ -19,8 +19,7 @@ namespace CollectionExtender.Dictionary.Internal
 
         private IMutableDictionary<TKey, TValue> GetNext()
         {
-            return new MutableDictionary<TKey, TValue>
-                                (_Current, _Current.GetType(), _TransitionToDictionary);
+            return new MutableDictionary<TKey, TValue> (_Current, _Current.GetType(), _TransitionToDictionary);
         }
 
         internal IMutableDictionary<TKey, TValue> Add(TKey key, TValue value)

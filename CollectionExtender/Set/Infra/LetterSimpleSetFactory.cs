@@ -6,21 +6,29 @@ using System.Threading.Tasks;
 
 namespace CollectionExtender.Set.Infra
 {
-    internal static class LetterSimpleSetFactory<T> where T : class
+    internal class LetterSimpleSetFactory<T> : ILetterSimpleSetFactory<T>  where T : class
     {
         public static int MaxList = 10;
 
-        internal static  ILetterSimpleSet<T> GetDefault()
+        private static ILetterSimpleSetFactory<T> _Factory;
+        
+        internal static ILetterSimpleSetFactory<T>  Factory
+        {
+            get { return _Factory ?? (_Factory = new LetterSimpleSetFactory<T>()); }
+            set { _Factory = value; }
+        }
+
+        public ILetterSimpleSet<T> GetDefault()
         {
             return new SingleSet<T>();
         }
 
-        internal static  ILetterSimpleSet<T> GetDefault(T Item)
+        public ILetterSimpleSet<T> GetDefault(T Item)
         {
             return new SingleSet<T>(Item);
         }
 
-        internal static  ILetterSimpleSet<T> GetDefault(IEnumerable<T> Items)
+        public ILetterSimpleSet<T> GetDefault(IEnumerable<T> Items)
         {
             if (Items == null)
                 throw new ArgumentNullException("Items");

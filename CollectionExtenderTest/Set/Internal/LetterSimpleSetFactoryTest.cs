@@ -12,24 +12,31 @@ namespace CollectionExtenderTest.Set.Internal
 {
     public class LetterSimpleSetFactoryTest
     {
+        private LetterSimpleSetFactory<string> _LetterSimpleSetFactory;
+        public LetterSimpleSetFactoryTest()
+        {
+            _LetterSimpleSetFactory = new LetterSimpleSetFactory<string>();
+        }
+
+
         [Fact]
         public void GetDefault_Return_SingleSet()
         {
-            var res = LetterSimpleSetFactory<string>.GetDefault();
+            var res = _LetterSimpleSetFactory.GetDefault();
             res.Should().BeOfType<SingleSet<string>>();
         }
 
         [Fact]
         public void GetDefault_Return_EmptySet()
         {
-            var res = LetterSimpleSetFactory<string>.GetDefault();
+            var res = _LetterSimpleSetFactory.GetDefault();
             res.Should().BeEmpty();
         }
 
         [Fact]
         public void GetDefault_T_Return_SingleSet()
         {
-            var res = LetterSimpleSetFactory<string>.GetDefault("kkk");
+            var res = _LetterSimpleSetFactory.GetDefault("kkk");
             res.Should().BeOfType<SingleSet<string>>();
         }
 
@@ -40,14 +47,14 @@ namespace CollectionExtenderTest.Set.Internal
         [InlineData("four")]
         public void GetDefault_T_Return_SetWithOneElement(string data)
         {
-            var res = LetterSimpleSetFactory<string>.GetDefault(data);
+            var res = _LetterSimpleSetFactory.GetDefault(data);
             res.Should().BeEquivalentTo(new[] { data });
         }
 
         [Fact]
         public void GetDefault_IEnumerableT_Return_SingleSetNoElement()
         {
-            var res = LetterSimpleSetFactory<string>.GetDefault(Enumerable.Empty<string>());
+            var res = _LetterSimpleSetFactory.GetDefault(Enumerable.Empty<string>());
             res.Should().BeOfType<SingleSet<string>>();
         }
 
@@ -55,21 +62,21 @@ namespace CollectionExtenderTest.Set.Internal
         public void GetDefault_IEnumerableT_ThrowException_NullArgument()
         {
             IEnumerable<string> nullEnumerable = null;
-            Action Do = () => LetterSimpleSetFactory<string>.GetDefault(nullEnumerable);
+            Action Do = () => _LetterSimpleSetFactory.GetDefault(nullEnumerable);
             Do.ShouldThrow<ArgumentNullException>();
         }
 
         [Fact]
         public void GetDefault_IEnumerableT_Return_SingleSet_OneElement()
         {
-            var res = LetterSimpleSetFactory<string>.GetDefault(new []{ "kkk"});
+            var res = _LetterSimpleSetFactory.GetDefault(new[] { "kkk" });
             res.Should().BeOfType<SingleSet<string>>();
         }
 
         [Fact]
         public void GetDefault_IEnumerableT_Return_ListSet_TwoElement()
         {
-            var res = LetterSimpleSetFactory<string>.GetDefault(new[] { "kkk", "lll"});
+            var res = _LetterSimpleSetFactory.GetDefault(new[] { "kkk", "lll" });
             res.Should().BeOfType<ListSet<string>>();
         }
 
@@ -77,7 +84,7 @@ namespace CollectionExtenderTest.Set.Internal
         public void GetDefault_IEnumerableT_Return_HashSet_MoreElementsThanLimit()
         {
             LetterSimpleSetFactory<string>.MaxList = 4;
-            var res = LetterSimpleSetFactory<string>.GetDefault(new[] { "kkk", "lll", "kkkp", "lllp" });
+            var res = _LetterSimpleSetFactory.GetDefault(new[] { "kkk", "lll", "kkkp", "lllp" });
             res.Should().BeOfType<SimpleHashSet<string>>();
         }
 
@@ -85,8 +92,15 @@ namespace CollectionExtenderTest.Set.Internal
         public void GetDefault_RemoveDuplicate()
         {
             LetterSimpleSetFactory<string>.MaxList = 4;
-            var res = LetterSimpleSetFactory<string>.GetDefault(new[] { "kkk", "lll", "lll", "lll", "kkk" });
+            var res = _LetterSimpleSetFactory.GetDefault(new[] { "kkk", "lll", "lll", "lll", "kkk" });
             res.Should().BeEquivalentTo(new[] { "kkk", "lll"});
+        }
+
+        [Fact]
+        public void Factory_Return_LetterSimpleSetFactory()
+        {
+            var res = LetterSimpleSetFactory<string>.Factory;
+            res.Should().BeOfType<LetterSimpleSetFactory<string>>();
         }
     }
 }

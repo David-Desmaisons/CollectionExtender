@@ -32,8 +32,6 @@ namespace CollectionExtender.Dictionary.Internal
             _Value = default(Tvalue);
         }
 
-        #region Not Implemented
-
         public void Add(KeyValuePair<Tkey, Tvalue> item)
         {
             Add(item.Key, item.Value);
@@ -82,10 +80,6 @@ namespace CollectionExtender.Dictionary.Internal
             }
             return false;
         }
-
-        #endregion
-
-        #region readonly
 
         public bool ContainsKey(Tkey key)
         {
@@ -185,7 +179,5 @@ namespace CollectionExtender.Dictionary.Internal
         {
             get { return false; }
         }
-
-        #endregion
     }
 }

@@ -11,7 +11,7 @@ using System.Collections;
 
 namespace CollectionExtenderTest.Set.Internal
 {
-    public class ListSetTest  : IDisposable
+    public class ListSetTest
     {
         private ListSet<string> _ListSetSet;
         public ListSetTest()
@@ -19,12 +19,6 @@ namespace CollectionExtenderTest.Set.Internal
             _ListSetSet = new ListSet<string>();
             LetterSimpleSetFactory<string>.MaxList = 4;
         }
-
-        public void Dispose()
-        {
-            LetterSimpleSetFactory<string>.MaxList = 10;
-        }
-
 
         [Fact]
         public void New_IsEmpty()
@@ -126,12 +120,12 @@ namespace CollectionExtenderTest.Set.Internal
 
         private static ListSet<string> GetBorderLineHashSet()
         {
-            return new ListSet<string>(new HashSet<string>() { "one", "two", "three" });
+            return new ListSet<string>(new HashSet<string>() { "one", "two" });
         }
 
         private static ListSet<string> GetFullHashSet()
         {
-            return new ListSet<string>(new HashSet<string>() { "one", "two", "three", "four" });
+            return new ListSet<string>(new HashSet<string>() { "one", "two", "three" });
         }
 
         public static IEnumerable<object[]> OnlyCollectionData

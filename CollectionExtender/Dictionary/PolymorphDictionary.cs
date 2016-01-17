@@ -40,7 +40,7 @@ namespace CollectionExtender.Dictionary
 
         public bool Remove(KeyValuePair<TKey, TValue> item)
         {
-            TValue tv = default(TValue);
+            TValue tv;
 
             if (!_Implementation.TryGetValue(item.Key, out tv))
                 return false;

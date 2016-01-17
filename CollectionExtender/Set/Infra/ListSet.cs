@@ -26,9 +26,10 @@ namespace CollectionExtender.Set.Infra
         internal ListSet(HashSet<T> items)
         {
             int count = items.Count();
-            if (count > LetterSimpleSetFactory<T>.MaxList)
+            if (count >= LetterSimpleSetFactory<T>.MaxList)
             {
-                throw new ArgumentOutOfRangeException("items");
+                throw new ArgumentOutOfRangeException(
+                                string.Format("items count ({0}) >= Max ({1})", count, LetterSimpleSetFactory<T>.MaxList));
             }
 
             _Items = new T[LetterSimpleSetFactory<T>.MaxList];

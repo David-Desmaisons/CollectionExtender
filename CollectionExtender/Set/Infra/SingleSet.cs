@@ -9,7 +9,6 @@ namespace CollectionExtender.Set.Infra
     public class SingleSet<T> : ILetterSimpleSet<T> where T : class
     {
         private T _SingleItem = null;
-        private int _Count = 0;
 
         internal SingleSet()
         {
@@ -28,7 +27,6 @@ namespace CollectionExtender.Set.Infra
             if (_SingleItem == null)
             {
                 _SingleItem = item;
-                _Count = 1;
                 return true;
             }
                 
@@ -40,7 +38,6 @@ namespace CollectionExtender.Set.Infra
             if (_SingleItem == item)
             {
                 _SingleItem = null;
-                _Count = 0;
                 return true;
             }
 
@@ -70,7 +67,7 @@ namespace CollectionExtender.Set.Infra
 
         public int Count
         {
-            get { return _Count; }
+            get { return (_SingleItem!=null) ? 1 : 0; }
         }
 
         public ILetterSimpleSet<T> Add(T item, out bool success)

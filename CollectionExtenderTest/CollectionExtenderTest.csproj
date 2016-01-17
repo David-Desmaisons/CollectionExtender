@@ -61,6 +61,10 @@
     <Compile Include="Dictionary\Internal\MutableDictionaryTest.cs" />
     <Compile Include="Dictionary\Internal\SingleDictionaryTest.cs" />
     <Compile Include="Infra\IntrospectorTest.cs" />
+    <Compile Include="Set\Internal\LetterSimpleSetFactoryTest.cs" />
+    <Compile Include="Set\Internal\ListSetTest .cs" />
+    <Compile Include="Set\Internal\SimpleHashSetTest.cs" />
+    <Compile Include="Set\Internal\SingleSetTest.cs" />
     <Compile Include="TestInfra\DictionaryTest.cs" />
     <Compile Include="Dictionary\PolymorphDictionaryTest.cs" />
     <Compile Include="Dictionary\Internal\ListDictionaryTest.cs" />

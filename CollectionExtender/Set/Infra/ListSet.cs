@@ -106,7 +106,7 @@ namespace MoreCollection.Set.Infra
         {
             success = Add(item);
 
-            if (success && (_Count == LetterSimpleSetFactory<T>.MaxList))
+            if (success && (_Count == _Items.Length))
             {
                 return new SimpleHashSet<T>(GetEnumerable());
             }

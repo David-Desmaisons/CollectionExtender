@@ -77,7 +77,7 @@
     <Compile Include="TestInfra\DictionaryTestExtender.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CollectionExtender\MoreCollection.csproj">
+    <ProjectReference Include="..\MoreCollection\MoreCollection.csproj">
       <Project>{b5f6bf71-5acf-4951-8a85-8aff6bd7979c}</Project>
       <Name>MoreCollection</Name>
     </ProjectReference>

@@ -2,8 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MoreCollection.Extensions;
 
 namespace MoreCollection.Set
 {
@@ -33,11 +32,64 @@ namespace MoreCollection.Set
             return res;
         }
 
+        public void UnionWith(IEnumerable<T> other) {
+            other.ForEach(t => Add(t));
+        }
+
+        public void IntersectWith(IEnumerable<T> other) {
+            throw new NotImplementedException();
+        }
+
+        public void ExceptWith(IEnumerable<T> other) {
+            throw new NotImplementedException();
+        }
+
+        public void SymmetricExceptWith(IEnumerable<T> other) {
+            throw new NotImplementedException();
+        }
+
+        public bool IsSubsetOf(IEnumerable<T> other) {
+            var otherHashSet = new HashSet<T>(other);
+            return _Letter.All(otherHashSet.Contains);
+        }
+
+        public bool IsSupersetOf(IEnumerable<T> other) {
+            return other.All(_Letter.Contains);
+        }
+
+        public bool IsProperSupersetOf(IEnumerable<T> other) {
+            throw new NotImplementedException();
+        }
+
+        public bool IsProperSubsetOf(IEnumerable<T> other) {
+            throw new NotImplementedException();
+        }
+
+        public bool Overlaps(IEnumerable<T> other) {
+            return other.Any(_Letter.Contains);
+        }
+
+        public bool SetEquals(IEnumerable<T> other) {
+            throw new NotImplementedException();
+        }
+
+        public void Clear() {
+            _Letter = LetterSimpleSetFactory<T>.Factory.GetDefault();
+        }
+
+        public void CopyTo(T[] array, int arrayIndex) {
+            throw new NotImplementedException();
+        }
+
         public bool Remove(T item)
         {
             bool res;
             _Letter = _Letter.Remove(item, out res);
             return res;
+        }
+
+        void ICollection<T>.Add(T item) {
+            throw new NotImplementedException();
         }
 
         public bool Contains(T item)
@@ -49,6 +101,8 @@ namespace MoreCollection.Set
         {
             get { return _Letter.Count; }
         }
+
+        public bool IsReadOnly { get; }
 
         public IEnumerator<T> GetEnumerator()
         {

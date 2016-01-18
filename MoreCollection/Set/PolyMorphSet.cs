@@ -58,11 +58,19 @@ namespace MoreCollection.Set
         }
 
         public bool IsProperSupersetOf(IEnumerable<T> other) {
-            throw new NotImplementedException();
+            var otherHashed = new HashSet<T>(other);
+            if (otherHashed.Count == Count)
+                return false;
+
+            return otherHashed.All(_Letter.Contains);
         }
 
         public bool IsProperSubsetOf(IEnumerable<T> other) {
-            throw new NotImplementedException();
+            var otherHashed = new HashSet<T>(other);
+            if (otherHashed.Count == Count)
+                return false;
+
+            return _Letter.All(otherHashed.Contains);
         }
 
         public bool Overlaps(IEnumerable<T> other) {
@@ -70,7 +78,11 @@ namespace MoreCollection.Set
         }
 
         public bool SetEquals(IEnumerable<T> other) {
-            throw new NotImplementedException();
+            var otherHashed = new HashSet<T>(other);
+            if (otherHashed.Count != Count)
+                return false;
+
+            return _Letter.All(otherHashed.Contains);
         }
 
         public void Clear() {
@@ -89,7 +101,7 @@ namespace MoreCollection.Set
         }
 
         void ICollection<T>.Add(T item) {
-            throw new NotImplementedException();
+            Add(item);
         }
 
         public bool Contains(T item)

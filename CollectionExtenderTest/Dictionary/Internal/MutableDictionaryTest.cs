@@ -155,5 +155,14 @@ namespace MoreCollectionTest.Dictionary.Internal
                 new KeyValuePair<string, string>("Key2", "Value2")}
               );
         }
+
+        [Fact]
+        public void MutableSortedDictionary_Throw_Exception_IfElementIsNotComparable()
+        {
+            var res = new MutableSortedDictionary<object, string>();
+            res.Add(new Object(), "aaaa");
+            Action Do = () => res.Add(new Object(), "bbb");
+            Do.ShouldThrow<Exception>();
+        }
     }
 }

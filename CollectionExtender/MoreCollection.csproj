@@ -43,6 +43,7 @@
     <Compile Include="Dictionary\Internal\IMutableDictionary.cs" />
     <Compile Include="Dictionary\Internal\ListDictionary.cs" />
     <Compile Include="Dictionary\Internal\MutableDictionary.cs" />
+    <Compile Include="Dictionary\Internal\MutableDictionaryFactory.cs" />
     <Compile Include="Dictionary\Internal\MutableSortedDictionary.cs" />
     <Compile Include="Dictionary\Internal\MutableListDictionary.cs" />
     <Compile Include="Dictionary\Internal\MutableSingleDictionary.cs" />

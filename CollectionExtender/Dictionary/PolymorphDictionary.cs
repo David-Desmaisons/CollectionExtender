@@ -10,17 +10,10 @@ namespace MoreCollection.Dictionary
     public class PolymorphDictionary<TKey, TValue> : IDictionary<TKey, TValue> where TKey : class 
     {
         private IMutableDictionary<TKey, TValue> _Implementation;
-        private readonly Type _TargetMiddle;
 
         public PolymorphDictionary(int TransitionToDictionary = 25)
         {
-            bool comparable = typeof(TKey).GetInterfaces().
-                Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IComparable<>)
-                    && (i.GetGenericArguments()[0]) == typeof(TKey)).Any();
-
-            _TargetMiddle = comparable ? typeof(MutableSortedDictionary<TKey, TValue>) : typeof(MutableListDictionary<TKey, TValue>);
-
-            _Implementation = new MutableSingleDictionary<TKey, TValue>(targetType: _TargetMiddle, transition: TransitionToDictionary);          
+            _Implementation = MutableDictionaryFactory<TKey, TValue>.GetDefault(TransitionToDictionary);        
         }
 
         public void Add(TKey key, TValue value)
@@ -35,7 +28,7 @@ namespace MoreCollection.Dictionary
 
         public void Clear()
         {
-            _Implementation = new MutableSingleDictionary<TKey, TValue>(_TargetMiddle);
+            _Implementation = MutableDictionaryFactory<TKey, TValue>.GetDefault();  
         }
 
         public bool Remove(KeyValuePair<TKey, TValue> item)

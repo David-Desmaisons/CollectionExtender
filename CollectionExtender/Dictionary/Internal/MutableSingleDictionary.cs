@@ -25,6 +25,11 @@ namespace MoreCollection.Dictionary.Internal
             _TargetType = targetType;
         }
 
+        internal Type TargetType
+        {
+            get { return _TargetType; }
+        }
+
         private IMutableDictionary<TKey, TValue> GetNext()
         {
             return Introspector.BuildInstance<IMutableDictionary<TKey, TValue>>(_TargetType, this, 10);

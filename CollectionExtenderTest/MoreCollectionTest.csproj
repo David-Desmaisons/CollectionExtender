@@ -54,6 +54,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dictionary\Internal\MutableDictionaryFactoryTest.cs" />
     <Compile Include="Dictionary\Internal\MutableMiddleDictionaryTest.cs" />
     <Compile Include="Dictionary\Internal\MutableSortedDictionaryTest.cs" />
     <Compile Include="Dictionary\Internal\MutableListDictionaryTest.cs" />

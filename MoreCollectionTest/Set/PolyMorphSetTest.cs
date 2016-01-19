@@ -184,19 +184,33 @@ namespace MoreCollectionTest.Set
                 );
         }
 
-        private void ISetMethodTest(string[] strings1, string[] strings2, Action<ISet<string>, IEnumerable<string>> Build )
+        private Tuple<PolyMorphSet<string>, ISet<string>> SetUpAndBuild(string[] strings1)
         {
             ISet<string> set1 = new HashSet<string>(strings1);
             SetUp(set1);
 
-            var PolyMorphSet = new PolyMorphSet<string>();
-            Build(PolyMorphSet, strings2);
-            Build(set1, strings2);
+            return new Tuple<PolyMorphSet<string>, ISet<string>>(new PolyMorphSet<string>(), set1);
+        }
+
+        private void ISetMethodTest(string[] strings1, string[] strings2, Action<ISet<string>, IEnumerable<string>> Build )
+        {
+            var SetUp = SetUpAndBuild(strings1);
+            Build(SetUp.Item1, strings2);
+            Build(SetUp.Item2, strings2);
 
             _LetterSimpleSetFactory.Received(1).GetDefault(Arg.Any<IEnumerable<string>>());
 
             var defaulthash = new HashSet<string>(_GetDefaultParameter);
-            defaulthash.Should().BeEquivalentTo(set1);
+            defaulthash.Should().BeEquivalentTo(SetUp.Item2);
+        }
+
+        private void ISetMethodTest(string[] strings1, string[] strings2, Func<ISet<string>, IEnumerable<string>, bool> Build)
+        {
+            var SetUp = SetUpAndBuild(strings1);
+            var res = Build(SetUp.Item1, strings2);
+            var res2 = Build(SetUp.Item2, strings2);
+
+            res.Should().Be(res2);
         }
 
         [Theory, PropertyData("DataSquare")]
@@ -209,6 +223,57 @@ namespace MoreCollectionTest.Set
         public void ExceptWith_ConstructANewLetter_withCorrectElements(string[] strings1, string[] strings2)
         {
             ISetMethodTest(strings1, strings2, (set, enumerable) => set.ExceptWith(enumerable));
+        }
+
+        [Theory, PropertyData("DataSquare")]
+        public void SymmetricExceptWith_ConstructANewLetter_withCorrectElements(string[] strings1, string[] strings2)
+        {
+            ISetMethodTest(strings1, strings2, (set, enumerable) => set.SymmetricExceptWith(enumerable));
+        }
+
+        [Theory, PropertyData("DataSquare")]
+        public void IsProperSubsetOf_ConstructANewLetter_withCorrectElements(string[] strings1, string[] strings2)
+        {
+            ISetMethodTest(strings1, strings2, (set, enumerable) => set.IsProperSubsetOf(enumerable));
+        }
+
+        [Theory, PropertyData("DataSquare")]
+        public void IsProperSupersetOf_ConstructANewLetter_withCorrectElements(string[] strings1, string[] strings2)
+        {
+            ISetMethodTest(strings1, strings2, (set, enumerable) => set.IsProperSupersetOf(enumerable));
+        }
+
+        [Theory, PropertyData("DataSquare")]
+        public void IsSubsetOf_ConstructANewLetter_withCorrectElements(string[] strings1, string[] strings2)
+        {
+            ISetMethodTest(strings1, strings2, (set, enumerable) => set.IsSubsetOf(enumerable));
+        }
+
+        [Theory, PropertyData("DataSquare")]
+        public void IsSupersetOf_ConstructANewLetter_withCorrectElements(string[] strings1, string[] strings2)
+        {
+            ISetMethodTest(strings1, strings2, (set, enumerable) => set.IsSupersetOf(enumerable));
+        }
+
+        [Theory, PropertyData("DataSquare")]
+        public void Overlaps_ConstructANewLetter_withCorrectElements(string[] strings1, string[] strings2)
+        {
+            ISetMethodTest(strings1, strings2, (set, enumerable) => set.Overlaps(enumerable));
+        }
+
+        [Theory, PropertyData("DataSquare")]
+        public void SetEquals_ConstructANewLetter_withCorrectElements(string[] strings1, string[] strings2)
+        {
+            ISetMethodTest(strings1, strings2, (set, enumerable) => set.SetEquals(enumerable));
+        }
+
+        [Theory, PropertyData("Data")]
+        public void CopyTo(string[] stringArray)
+        {
+            var SetUp = SetUpAndBuild(stringArray);
+            var strings = new string[SetUp.Item2.Count];
+            SetUp.Item1.CopyTo(strings, 0);
+            strings.Should().BeEquivalentTo(SetUp.Item2);
         }
 
         public void Dispose()

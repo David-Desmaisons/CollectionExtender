@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MoreCollection.Infra;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -135,7 +136,8 @@ namespace MoreCollection.Dictionary.Internal
 
         public ICollection<Tkey> Keys
         {
-            get { 
+            get
+            { 
                 var res = new List<Tkey>(); 
                 if (_Key != null)
                     res.Add(_Key); 
@@ -161,13 +163,7 @@ namespace MoreCollection.Dictionary.Internal
 
         public void CopyTo(KeyValuePair<Tkey, Tvalue>[] array, int arrayIndex)
         {
-            if (array == null)
-                throw new ArgumentNullException();
-
-            if (arrayIndex < 0)
-                throw new ArgumentOutOfRangeException();
-
-            array[arrayIndex] = new KeyValuePair<Tkey, Tvalue>(_Key, _Value);
+            EnumerableHelper.CopyTo(this, array, arrayIndex);
         }
 
         public int Count

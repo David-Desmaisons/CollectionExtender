@@ -54,16 +54,15 @@
     <Compile Include="Extensions\DictionaryExtension.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\ListExtension.cs" />
+    <Compile Include="Infra\EnumerableHelper.cs" />
     <Compile Include="Infra\Introspector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Set\HashedSet.cs" />
     <Compile Include="Set\Infra\ILetterSimpleSet.cs" />
     <Compile Include="Set\Infra\ILetterSimpleSetFactory.cs" />
     <Compile Include="Set\Infra\LetterSimpleSetFactory.cs" />
     <Compile Include="Set\Infra\ListSet.cs" />
     <Compile Include="Set\Infra\SimpleHashSet.cs" />
     <Compile Include="Set\Infra\SingleSet.cs" />
-    <Compile Include="Set\ISet.cs" />
     <Compile Include="Set\PolyMorphSet.cs" />
   </ItemGroup>
   <ItemGroup />

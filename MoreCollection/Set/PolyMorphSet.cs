@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MoreCollection.Extensions;
+using MoreCollection.Infra;
 
 namespace MoreCollection.Set
 {
@@ -32,32 +33,43 @@ namespace MoreCollection.Set
             return res;
         }
 
-        public void UnionWith(IEnumerable<T> other) {
+        public void UnionWith(IEnumerable<T> other) 
+        {
             other.ForEach(t => Add(t));
         }
 
-        public void IntersectWith(IEnumerable<T> other) {
-            throw new NotImplementedException();
+        public void IntersectWith(IEnumerable<T> other) 
+        {
+            _Letter = LetterSimpleSetFactory<T>.Factory.GetDefault(other.Where(_Letter.Contains));
         }
 
-        public void ExceptWith(IEnumerable<T> other) {
-            throw new NotImplementedException();
+        public void ExceptWith(IEnumerable<T> other) 
+        {
+            var otherHashSet = new HashSet<T>(other);
+            _Letter = LetterSimpleSetFactory<T>.Factory.GetDefault(_Letter.Where(n => !otherHashSet.Contains(n)));
         }
 
-        public void SymmetricExceptWith(IEnumerable<T> other) {
-            throw new NotImplementedException();
+        public void SymmetricExceptWith(IEnumerable<T> other)
+        {
+            var otherHashSet = new HashSet<T>(other);
+            var first  = _Letter.Where(n => !otherHashSet.Contains(n));
+            var second = otherHashSet.Where(n => !_Letter.Contains(n));
+            _Letter = LetterSimpleSetFactory<T>.Factory.GetDefault(first.Concat(second));
         }
 
-        public bool IsSubsetOf(IEnumerable<T> other) {
+        public bool IsSubsetOf(IEnumerable<T> other) 
+        {
             var otherHashSet = new HashSet<T>(other);
             return _Letter.All(otherHashSet.Contains);
         }
 
-        public bool IsSupersetOf(IEnumerable<T> other) {
+        public bool IsSupersetOf(IEnumerable<T> other) 
+        {
             return other.All(_Letter.Contains);
         }
 
-        public bool IsProperSupersetOf(IEnumerable<T> other) {
+        public bool IsProperSupersetOf(IEnumerable<T> other) 
+        {
             var otherHashed = new HashSet<T>(other);
             if (otherHashed.Count == Count)
                 return false;
@@ -65,7 +77,8 @@ namespace MoreCollection.Set
             return otherHashed.All(_Letter.Contains);
         }
 
-        public bool IsProperSubsetOf(IEnumerable<T> other) {
+        public bool IsProperSubsetOf(IEnumerable<T> other) 
+        {
             var otherHashed = new HashSet<T>(other);
             if (otherHashed.Count == Count)
                 return false;
@@ -73,24 +86,28 @@ namespace MoreCollection.Set
             return _Letter.All(otherHashed.Contains);
         }
 
-        public bool Overlaps(IEnumerable<T> other) {
+        public bool Overlaps(IEnumerable<T> other) 
+        {
             return other.Any(_Letter.Contains);
         }
 
-        public bool SetEquals(IEnumerable<T> other) {
+        public bool SetEquals(IEnumerable<T> other) 
+        {
             var otherHashed = new HashSet<T>(other);
             if (otherHashed.Count != Count)
                 return false;
 
-            return _Letter.All(otherHashed.Contains);
+            return otherHashed.All(_Letter.Contains);
         }
 
-        public void Clear() {
+        public void Clear() 
+        {
             _Letter = LetterSimpleSetFactory<T>.Factory.GetDefault();
         }
 
-        public void CopyTo(T[] array, int arrayIndex) {
-            throw new NotImplementedException();
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            EnumerableHelper.CopyTo(this, array, arrayIndex);
         }
 
         public bool Remove(T item)
@@ -100,7 +117,8 @@ namespace MoreCollection.Set
             return res;
         }
 
-        void ICollection<T>.Add(T item) {
+        void ICollection<T>.Add(T item)
+        {
             Add(item);
         }
 
@@ -114,7 +132,10 @@ namespace MoreCollection.Set
             get { return _Letter.Count; }
         }
 
-        public bool IsReadOnly { get; }
+        public bool IsReadOnly 
+        { 
+            get { return false; } 
+        }
 
         public IEnumerator<T> GetEnumerator()
         {

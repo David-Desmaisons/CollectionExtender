@@ -3,6 +3,7 @@ using MoreCollection.Set.Infra;
 using MoreCollection.Extensions;
 using NSubstitute;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,7 @@ namespace MoreCollectionTest.Set
         private readonly ILetterSimpleSetFactory<string> _LetterSimpleSetFactory;
         private readonly ILetterSimpleSet<string> _LetterSimpleSetSubstitute;
         private readonly IEnumerable<string> _Enumerable;
+        private List<string> _GetDefaultParameter = null; 
 
         public PolyMorphSetTest()
         {
@@ -26,17 +28,23 @@ namespace MoreCollectionTest.Set
             _LetterSimpleSetFactory = Substitute.For<ILetterSimpleSetFactory<string>>();
             _LetterSimpleSetFactory.GetDefault().Returns(_LetterSimpleSetSubstitute);
             _LetterSimpleSetFactory.GetDefault(Arg.Any<string>()).Returns(_LetterSimpleSetSubstitute);
-            _LetterSimpleSetFactory.GetDefault(Arg.Any<IEnumerable<string>>()).Returns(_LetterSimpleSetSubstitute);
+            _LetterSimpleSetFactory.GetDefault(Arg.Any<IEnumerable<string>>()).Returns(arg => 
+            {
+                _GetDefaultParameter = ((IEnumerable<string>) arg[0]).ToList();
+                return _LetterSimpleSetSubstitute;
+            });
+
             bool res;
             _LetterSimpleSetSubstitute.Add(Arg.Any<string>(), out res).Returns(_LetterSimpleSetSubstitute);
             LetterSimpleSetFactory<string>.Factory = _LetterSimpleSetFactory;
         }
 
-        private void SetUp(HashSet<string> FakeCollection)
+        private void SetUp(ISet<string> FakeCollection)
         {
             _LetterSimpleSetSubstitute.GetEnumerator().Returns(FakeCollection.GetEnumerator());
             _LetterSimpleSetSubstitute.Contains(Arg.Any<string>())
                                 .Returns(argument => FakeCollection.Contains(argument[0]));
+            _LetterSimpleSetSubstitute.Count.Returns(FakeCollection.Count);
         }
 
         [Fact]
@@ -143,6 +151,7 @@ namespace MoreCollectionTest.Set
                 yield return new[] { "a", "b" } ;
                 yield return new[] { "a", "b", "c" } ;
                 yield return new[] { "a", "b", "c", "d" };
+                yield return new[] { "a", "b", "c", "a" };
             }
         }
 
@@ -175,26 +184,31 @@ namespace MoreCollectionTest.Set
                 );
         }
 
-        [Theory, PropertyData("DataSquare")]
-        public void IntersectWith_Add_ElementsToCollection(string[] strings1, string[] strings2)
+        private void ISetMethodTest(string[] strings1, string[] strings2, Action<ISet<string>, IEnumerable<string>> Build )
         {
-            var set1 = new HashSet<string>(strings1);
-            var set2 = new HashSet<string>(strings2);
+            ISet<string> set1 = new HashSet<string>(strings1);
             SetUp(set1);
 
             var PolyMorphSet = new PolyMorphSet<string>();
-            PolyMorphSet.IntersectWith(strings2);
-            set1.IntersectWith(set2);
+            Build(PolyMorphSet, strings2);
+            Build(set1, strings2);
 
-            _LetterSimpleSetFactory
-                .Received(1)
-                .GetDefault(Arg.Is<IEnumerable<string>>(col => CheckCollection(col,set1)));
+            _LetterSimpleSetFactory.Received(1).GetDefault(Arg.Any<IEnumerable<string>>());
+
+            var defaulthash = new HashSet<string>(_GetDefaultParameter);
+            defaulthash.Should().BeEquivalentTo(set1);
         }
 
-        private bool CheckCollection(IEnumerable<string> col, IEnumerable<string> expected)
+        [Theory, PropertyData("DataSquare")]
+        public void IntersectWith_ConstructANewLetter_withCorrectElements(string[] strings1, string[] strings2)
         {
-            col.Should().BeEquivalentTo(expected); 
-            return true; 
+            ISetMethodTest(strings1, strings2, (set, enumerable) => set.IntersectWith(enumerable));
+        }
+
+        [Theory, PropertyData("DataSquare")]
+        public void ExceptWith_ConstructANewLetter_withCorrectElements(string[] strings1, string[] strings2)
+        {
+            ISetMethodTest(strings1, strings2, (set, enumerable) => set.ExceptWith(enumerable));
         }
 
         public void Dispose()

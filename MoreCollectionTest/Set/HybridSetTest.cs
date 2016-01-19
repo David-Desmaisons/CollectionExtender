@@ -14,14 +14,14 @@ using Xunit.Extensions;
 
 namespace MoreCollectionTest.Set
 {
-    public class PolyMorphSetTest : IDisposable
+    public class HybridSetTest : IDisposable
     {
         private readonly ILetterSimpleSetFactory<string> _LetterSimpleSetFactory;
         private readonly ILetterSimpleSet<string> _LetterSimpleSetSubstitute;
         private readonly IEnumerable<string> _Enumerable;
         private List<string> _GetDefaultParameter = null; 
 
-        public PolyMorphSetTest()
+        public HybridSetTest()
         {
             _Enumerable = Substitute.For<IEnumerable<string>>();
             _LetterSimpleSetSubstitute = Substitute.For<ILetterSimpleSet<string>>();
@@ -50,21 +50,21 @@ namespace MoreCollectionTest.Set
         [Fact]
         public void Constructor_WithoutParameters_Call_LetterSimpleSetFactory_GetDefault_WithoutParameters()
         {
-            var PolyMorphSet = new PolyMorphSet<string>();
+            var PolyMorphSet = new HybridSet<string>();
             _LetterSimpleSetFactory.Received(1).GetDefault();
         }
 
         [Fact]
         public void Constructor_WithoneElement_Call_LetterSimpleSetFactory_GetDefault_WithoutoneElement()
         {
-            var PolyMorphSet = new PolyMorphSet<string>("abcd");
+            var PolyMorphSet = new HybridSet<string>("abcd");
             _LetterSimpleSetFactory.Received(1).GetDefault("abcd");
         }
 
         [Fact]
         public void Constructor_WithEnumerable_Call_LetterSimpleSetFactory_GetDefault_WithoutEnumerable()
         {
-            var PolyMorphSet = new PolyMorphSet<string>(_Enumerable);
+            var PolyMorphSet = new HybridSet<string>(_Enumerable);
             _LetterSimpleSetFactory.Received(1).GetDefault(_Enumerable);
         }
 
@@ -72,7 +72,7 @@ namespace MoreCollectionTest.Set
         public void Add_Call_LetterSimpleSet_Add()
         {
             bool res;
-            var PolyMorphSet = new PolyMorphSet<string>();
+            var PolyMorphSet = new HybridSet<string>();
             PolyMorphSet.Add("key");
             _LetterSimpleSetSubstitute.Received(1).Add("key", out res);
         }
@@ -81,7 +81,7 @@ namespace MoreCollectionTest.Set
         public void Add_ICollection_Call_LetterSimpleSet_Add()
         {
             bool res;
-            ICollection<string> PolyMorphSet = new PolyMorphSet<string>();
+            ICollection<string> PolyMorphSet = new HybridSet<string>();
             PolyMorphSet.Add("key");
             _LetterSimpleSetSubstitute.Received(1).Add("key", out res);
         }
@@ -90,7 +90,7 @@ namespace MoreCollectionTest.Set
         public void Remove_Call_LetterSimpleSet_Remove()
         {
             bool res;
-            var PolyMorphSet = new PolyMorphSet<string>();
+            var PolyMorphSet = new HybridSet<string>();
             PolyMorphSet.Remove("key");
             _LetterSimpleSetSubstitute.Received(1).Remove("key", out res);
         }
@@ -98,7 +98,7 @@ namespace MoreCollectionTest.Set
         [Fact]
         public void Contains_Call_LetterSimpleSet_Contains()
         {
-            var PolyMorphSet = new PolyMorphSet<string>();
+            var PolyMorphSet = new HybridSet<string>();
             PolyMorphSet.Contains("key");
             _LetterSimpleSetSubstitute.Received(1).Contains("key");
         }
@@ -106,7 +106,7 @@ namespace MoreCollectionTest.Set
         [Fact]
         public void Count_Call_LetterSimpleSet_Count()
         {
-            var PolyMorphSet = new PolyMorphSet<string>();
+            var PolyMorphSet = new HybridSet<string>();
             var count = PolyMorphSet.Count;
             var res = _LetterSimpleSetSubstitute.Received(1).Count;
         }
@@ -114,7 +114,7 @@ namespace MoreCollectionTest.Set
          [Fact]
         public void Clear_Call_LetterSimpleSetFactory_GetDefault()
         {
-            var PolyMorphSet = new PolyMorphSet<string>();
+            var PolyMorphSet = new HybridSet<string>();
             _LetterSimpleSetFactory.ClearReceivedCalls();
             PolyMorphSet.Clear();
             _LetterSimpleSetFactory.Received(1).GetDefault();
@@ -124,7 +124,7 @@ namespace MoreCollectionTest.Set
         [Fact]
         public void GetEnumerator_Call_LetterSimpleSet_GetEnumerator()
         {
-            var PolyMorphSet = new PolyMorphSet<string>();
+            var PolyMorphSet = new HybridSet<string>();
             PolyMorphSet.GetEnumerator();
             _LetterSimpleSetSubstitute.Received(1).GetEnumerator();
         }
@@ -132,7 +132,7 @@ namespace MoreCollectionTest.Set
         [Fact]
         public void Collections_GetEnumerator_Call_LetterSimpleSet_GetEnumerator()
         {
-            System.Collections.IEnumerable PolyMorphSet = new PolyMorphSet<string>();
+            System.Collections.IEnumerable PolyMorphSet = new HybridSet<string>();
             PolyMorphSet.GetEnumerator();
             _LetterSimpleSetSubstitute.Received(1).GetEnumerator();
         }
@@ -140,7 +140,7 @@ namespace MoreCollectionTest.Set
         [Fact]
         public void IsReadOnly_IsFalse()
         {
-            var PolyMorphSet = new PolyMorphSet<string>();
+            var PolyMorphSet = new HybridSet<string>();
             PolyMorphSet.IsReadOnly.Should().BeFalse();
         }
 
@@ -175,7 +175,7 @@ namespace MoreCollectionTest.Set
         [Theory, PropertyData("Data")]
         public void UnionWith_Add_ElementsToCollection(string[] strings)
         {
-            var PolyMorphSet = new PolyMorphSet<string>();
+            var PolyMorphSet = new HybridSet<string>();
             PolyMorphSet.UnionWith(strings);
             bool res;
 
@@ -184,12 +184,12 @@ namespace MoreCollectionTest.Set
                 );
         }
 
-        private Tuple<PolyMorphSet<string>, ISet<string>> SetUpAndBuild(string[] strings1)
+        private Tuple<HybridSet<string>, ISet<string>> SetUpAndBuild(string[] strings1)
         {
             ISet<string> set1 = new HashSet<string>(strings1);
             SetUp(set1);
 
-            return new Tuple<PolyMorphSet<string>, ISet<string>>(new PolyMorphSet<string>(), set1);
+            return new Tuple<HybridSet<string>, ISet<string>>(new HybridSet<string>(), set1);
         }
 
         private void ISetMethodTest(string[] strings1, string[] strings2, Action<ISet<string>, IEnumerable<string>> Build )

@@ -47,7 +47,7 @@
     <Compile Include="Dictionary\Internal\MutableSortedDictionary.cs" />
     <Compile Include="Dictionary\Internal\MutableListDictionary.cs" />
     <Compile Include="Dictionary\Internal\MutableSingleDictionary.cs" />
-    <Compile Include="Dictionary\PolymorphDictionary.cs" />
+    <Compile Include="Dictionary\HybridDictionaryDictionary.cs" />
     <Compile Include="Dictionary\Internal\SingleDictionary.cs" />
     <Compile Include="Extensions\CollectionResult.cs" />
     <Compile Include="Extensions\CollectionStatus.cs" />
@@ -63,7 +63,7 @@
     <Compile Include="Set\Infra\ListSet.cs" />
     <Compile Include="Set\Infra\SimpleHashSet.cs" />
     <Compile Include="Set\Infra\SingleSet.cs" />
-    <Compile Include="Set\PolyMorphSet.cs" />
+    <Compile Include="Set\HybridSet.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace MoreCollection.Dictionary
 {
-    public class PolymorphDictionary<TKey, TValue> : IDictionary<TKey, TValue> where TKey : class 
+    public class HybridDictionary<TKey, TValue> : IDictionary<TKey, TValue> where TKey : class 
     {
         private IMutableDictionary<TKey, TValue> _Implementation;
 
-        public PolymorphDictionary(int TransitionToDictionary = 25)
+        public HybridDictionary(int TransitionToDictionary = 25)
         {
             _Implementation = MutableDictionaryFactory<TKey, TValue>.GetDefault(TransitionToDictionary);        
         }

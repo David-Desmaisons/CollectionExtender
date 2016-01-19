@@ -66,9 +66,9 @@
     <Compile Include="Set\Internal\ListSetTest .cs" />
     <Compile Include="Set\Internal\SimpleHashSetTest.cs" />
     <Compile Include="Set\Internal\SingleSetTest.cs" />
-    <Compile Include="Set\PolyMorphSetTest.cs" />
+    <Compile Include="Set\HybridSetTest.cs" />
     <Compile Include="TestInfra\DictionaryTest.cs" />
-    <Compile Include="Dictionary\PolymorphDictionaryTest.cs" />
+    <Compile Include="Dictionary\HybridDictionaryTest.cs" />
     <Compile Include="Dictionary\Internal\ListDictionaryTest.cs" />
     <Compile Include="Extensions\DictionaryExtensionTest.cs" />
     <Compile Include="Extensions\ListExtensionTest.cs" />

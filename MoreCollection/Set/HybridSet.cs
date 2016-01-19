@@ -7,21 +7,21 @@ using MoreCollection.Infra;
 
 namespace MoreCollection.Set
 {
-    public class PolyMorphSet<T> : ISet<T> where T: class
+    public class HybridSet<T> : ISet<T> where T: class
     {
         private ILetterSimpleSet<T> _Letter;
 
-        internal PolyMorphSet()
+        internal HybridSet()
         {
             _Letter = LetterSimpleSetFactory<T>.Factory.GetDefault();
         }
 
-        internal PolyMorphSet(T firstitem)
+        internal HybridSet(T firstitem)
         {
             _Letter = LetterSimpleSetFactory<T>.Factory.GetDefault(firstitem);
         }
 
-        internal PolyMorphSet(IEnumerable<T> firstitem)
+        internal HybridSet(IEnumerable<T> firstitem)
         {
             _Letter = LetterSimpleSetFactory<T>.Factory.GetDefault(firstitem);
         }

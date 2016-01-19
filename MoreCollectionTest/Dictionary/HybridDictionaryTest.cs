@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace MoreCollectionTest.Dictionary
 {
-    public class PolymorphDictionaryTest : DictionaryTest
+    public class HybridDictionaryTest : DictionaryTest
     {
-        public PolymorphDictionaryTest()
+        public HybridDictionaryTest()
         {
-            _dictionary = new PolymorphDictionary<string, string>();
+            _dictionary = new HybridDictionary<string, string>();
         }
     }
 }

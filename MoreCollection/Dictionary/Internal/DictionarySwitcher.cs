@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace MoreCollection.Dictionary.Internal
 {
-    internal class DictionarySwitcher<TKey, TValue> 
-        where TKey : class
+    internal class DictionarySwitcher<TKey, TValue>  where TKey : class
     {
         private readonly int _TransitionToDictionary;
         private readonly IMutableDictionary<TKey, TValue> _Current;
@@ -46,18 +45,14 @@ namespace MoreCollection.Dictionary.Internal
 
         public IMutableDictionary<TKey, TValue> Remove(TKey key, out bool Result)
         {
-            Result = false;
-            if (_Current.Count == 2)
+            Result = _Current.Remove(key);
+            
+            if (_Current.Count == 1)
             {
-                Result = _Current.Remove(key);
-                if (!Result)
-                    return _Current;
-
                 return new MutableSingleDictionary<TKey, TValue>(_Current, 
-                    _Current.GetType(), _TransitionToDictionary);
+                                        _Current.GetType(), _TransitionToDictionary);
             }
 
-            Result = _Current.Remove(key);
             return _Current;
         }
     }

@@ -41,18 +41,12 @@ namespace MoreCollection.Dictionary.Internal
 
         public IMutableDictionary<TKey,TValue> Remove(TKey key, out bool Result)
         {
-            Result = false;
-            if (Count == _TransitionToList + 1)
+            Result = Remove(key);
+            if (Count == _TransitionToList)
             {
-                if (!Remove(key))
-                {
-                    return this;
-                }
-                Result = true;
                 return Introspector.BuildInstance<IMutableDictionary<TKey, TValue>>(_TargetType, this, _TransitionToList);
             }
 
-            Result = Remove(key);
             return this;
         }
     }

@@ -1,9 +1,6 @@
 ﻿using MoreCollection.Infra;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MoreCollection.Dictionary.Internal
 {
@@ -42,12 +39,9 @@ namespace MoreCollection.Dictionary.Internal
         public IMutableDictionary<TKey,TValue> Remove(TKey key, out bool Result)
         {
             Result = Remove(key);
-            if (Count == _TransitionToList)
-            {
-                return Introspector.BuildInstance<IMutableDictionary<TKey, TValue>>(_TargetType, this, _TransitionToList);
-            }
-
-            return this;
+            return (Count == _TransitionToList) ? 
+                        Introspector.BuildInstance<IMutableDictionary<TKey, TValue>>(_TargetType, this, _TransitionToList)
+                     :  this;
         }
     }
 }

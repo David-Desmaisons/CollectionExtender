@@ -35,10 +35,7 @@ namespace MoreCollection.Dictionary
         {
             TValue tv;
 
-            if (!_Implementation.TryGetValue(item.Key, out tv))
-                return false;
-
-            if (!Object.Equals(tv, item.Value))
+            if (!_Implementation.TryGetValue(item.Key, out tv) || (!Object.Equals(tv, item.Value)))
                 return false;
 
             return Remove(item.Key);
@@ -46,7 +43,7 @@ namespace MoreCollection.Dictionary
 
         public bool Remove(TKey key)
         {
-            bool res = false;
+            bool res;
             _Implementation = _Implementation.Remove(key, out res);
             return res;
         }

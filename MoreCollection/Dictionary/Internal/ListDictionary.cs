@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MoreCollection.Extensions;
 
 namespace MoreCollection.Dictionary.Internal
@@ -117,7 +115,7 @@ namespace MoreCollection.Dictionary.Internal
         public bool Contains(KeyValuePair<TKey, TValue> item)
         {
             var index = GetIndex(item.Key);
-            return (index == -1) ? false : object.Equals(_List[index].Value, item.Value);
+            return (index != -1) && Object.Equals(_List[index].Value, item.Value);
         }
 
         public bool Remove(KeyValuePair<TKey, TValue> item)
@@ -129,7 +127,7 @@ namespace MoreCollection.Dictionary.Internal
             }
 
             var found = _List[index];
-            if (!object.Equals(item.Value, found.Value))
+            if (!Object.Equals(item.Value, found.Value))
                 return false;
 
             _List.RemoveAt(index);

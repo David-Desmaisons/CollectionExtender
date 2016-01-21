@@ -9,13 +9,14 @@ namespace MoreCollection.Dictionary.Internal
 {
     public class MutableDictionaryFactory
     {
-        private static Dictionary<Type, bool> _IsComparable = new Dictionary<Type, bool>();
+        private static readonly Dictionary<Type, bool> _IsComparable = new Dictionary<Type, bool>();
+        private static readonly Type IComparableType = typeof (IComparable<>);
 
         private static bool IsComparable(Type type)
         {
-            return type.GetInterfaces().Any(i => i.IsGenericType
-                            && i.GetGenericTypeDefinition() == typeof(IComparable<>)
-                            && (i.GetGenericArguments()[0]) == type);
+            return type.GetInterfaces().Any(interfaceType => interfaceType.IsGenericType
+                            && interfaceType.GetGenericTypeDefinition() == IComparableType
+                            && (interfaceType.GetGenericArguments()[0]) == type);
         }
 
         public static IMutableDictionary<TKey, TValue> GetDefault<TKey, TValue> (int TransitionToDictionary = 25)

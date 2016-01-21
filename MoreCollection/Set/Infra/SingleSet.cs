@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MoreCollection.Set.Infra
 {
@@ -30,7 +27,7 @@ namespace MoreCollection.Set.Infra
                 return true;
             }
                 
-            return (Object.Equals(item, _SingleItem)) ? false : new Nullable<bool>();
+            return (Object.Equals(item, _SingleItem)) ? false : new bool?();
         }
 
         private bool Remove(T item)
@@ -72,7 +69,7 @@ namespace MoreCollection.Set.Infra
 
         public ILetterSimpleSet<T> Add(T item, out bool success)
         {
-            Nullable<bool> res = Add(item);
+            var res = Add(item);
             if (res != null)
             {
                 success = res.Value;

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace MoreCollection.Set.Infra
 {
@@ -19,7 +15,7 @@ namespace MoreCollection.Set.Infra
 
         public ILetterSimpleSet<T> Add(T item, out bool success)
         {
-            success = this.Add(item);
+            success = Add(item);
             return this;
         }
 

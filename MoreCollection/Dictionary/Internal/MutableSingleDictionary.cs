@@ -32,7 +32,7 @@ namespace MoreCollection.Dictionary.Internal
 
         private IMutableDictionary<TKey, TValue> GetNext()
         {
-            return Introspector.BuildInstance<IMutableDictionary<TKey, TValue>>(_TargetType, this, 10);
+            return Introspector.BuildInstance<IMutableDictionary<TKey, TValue>>(_TargetType, this, _Transition);
         }
 
         IMutableDictionary<TKey, TValue> IMutableDictionary<TKey, TValue>.AddMutable(TKey key, TValue value)

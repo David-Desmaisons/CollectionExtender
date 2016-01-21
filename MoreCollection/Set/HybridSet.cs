@@ -1,7 +1,6 @@
-﻿using MoreCollection.Set.Infra;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using MoreCollection.Set.Infra;
 using MoreCollection.Extensions;
 using MoreCollection.Infra;
 
@@ -71,19 +70,13 @@ namespace MoreCollection.Set
         public bool IsProperSupersetOf(IEnumerable<T> other) 
         {
             var otherHashed = new HashSet<T>(other);
-            if (otherHashed.Count == Count)
-                return false;
-
-            return otherHashed.All(_Letter.Contains);
+            return ((otherHashed.Count != Count) && otherHashed.All(_Letter.Contains));
         }
 
         public bool IsProperSubsetOf(IEnumerable<T> other) 
         {
             var otherHashed = new HashSet<T>(other);
-            if (otherHashed.Count == Count)
-                return false;
-
-            return _Letter.All(otherHashed.Contains);
+            return ((otherHashed.Count != Count) && _Letter.All(otherHashed.Contains));
         }
 
         public bool Overlaps(IEnumerable<T> other) 
@@ -94,10 +87,7 @@ namespace MoreCollection.Set
         public bool SetEquals(IEnumerable<T> other) 
         {
             var otherHashed = new HashSet<T>(other);
-            if (otherHashed.Count != Count)
-                return false;
-
-            return otherHashed.All(_Letter.Contains);
+            return ((otherHashed.Count == Count) && otherHashed.All(_Letter.Contains));
         }
 
         public void Clear() 

@@ -24,7 +24,7 @@ namespace MoreCollection.Dictionary.Internal
             }
 
             if (count != 0)
-                throw new ArgumentOutOfRangeException("dictionary should have only 0 or 1 element");
+                throw new ArgumentOutOfRangeException("dictionary", "dictionary should have only 0 or 1 element");
         }
 
         internal SingleDictionary()
@@ -89,14 +89,15 @@ namespace MoreCollection.Dictionary.Internal
 
         public bool TryGetValue(Tkey key, out Tvalue value)
         {
-            bool ok = (_Key!=null) && Object.Equals(key, _Key);
+            var ok = (_Key!=null) && Object.Equals(key, _Key);
             value = ok ? _Value : default(Tvalue);
             return ok;
         }
 
         public ICollection<Tvalue> Values
         {
-            get { 
+            get
+            { 
                 var res = new List<Tvalue>(); 
                 if (_Key != null) 
                     res.Add(_Value); 
@@ -124,7 +125,6 @@ namespace MoreCollection.Dictionary.Internal
                     _Value = value;
                     return;
                 }
-
 
                 if (Object.Equals(key, _Key))
                 {

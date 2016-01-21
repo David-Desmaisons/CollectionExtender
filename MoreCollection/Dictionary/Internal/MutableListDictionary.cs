@@ -10,7 +10,7 @@ namespace MoreCollection.Dictionary.Internal
                         IMutableDictionary<TKey, TValue> where TKey : class                              
     {
         private readonly DictionarySwitcher<TKey, TValue> _DictionarySwitcher;
-        public MutableListDictionary(int limit=10):base()
+        public MutableListDictionary(int limit=10)
         {
             _DictionarySwitcher = new DictionarySwitcher<TKey, TValue>(this, limit);
         }
@@ -31,9 +31,9 @@ namespace MoreCollection.Dictionary.Internal
             return _DictionarySwitcher.Update(key, value);
         }
 
-        public IMutableDictionary<TKey,TValue> Remove(TKey key, out bool Result)
+        public IMutableDictionary<TKey,TValue> Remove(TKey key, out bool result)
         {
-            return _DictionarySwitcher.Remove(key, out Result);
+            return _DictionarySwitcher.Remove(key, out result);
         }
     }
 }

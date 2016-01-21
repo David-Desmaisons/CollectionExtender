@@ -123,7 +123,7 @@ namespace MoreCollection.Dictionary.Internal
         public bool Remove(KeyValuePair<TKey, TValue> item)
         {
             var index = GetIndex(item.Key);
-            if ((index == -1))
+            if (index == -1)
             {
                 return false;
             }
@@ -158,7 +158,7 @@ namespace MoreCollection.Dictionary.Internal
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
-            return _List.GetEnumerator();
+            return GetEnumerator();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace MoreCollection.Dictionary
 
         public HybridDictionary(int TransitionToDictionary = 25)
         {
-            _Implementation = MutableDictionaryFactory<TKey, TValue>.GetDefault(TransitionToDictionary);        
+            _Implementation = MutableDictionaryFactory.GetDefault<TKey, TValue>(TransitionToDictionary);        
         }
 
         public void Add(TKey key, TValue value)
@@ -28,7 +28,7 @@ namespace MoreCollection.Dictionary
 
         public void Clear()
         {
-            _Implementation = MutableDictionaryFactory<TKey, TValue>.GetDefault();  
+            _Implementation = MutableDictionaryFactory.GetDefault<TKey, TValue>();  
         }
 
         public bool Remove(KeyValuePair<TKey, TValue> item)

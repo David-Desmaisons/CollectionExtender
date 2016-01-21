@@ -14,14 +14,14 @@ namespace MoreCollectionTest.Dictionary.Internal
         [Fact]
         public void GetDefault_Return_MutableDictionaryFactory()
         {
-            var res = MutableDictionaryFactory<string, string>.GetDefault();
+            var res = MutableDictionaryFactory.GetDefault<string, string>();
             res.Should().BeOfType<MutableSingleDictionary<string, string>>();
         }
 
         [Fact]
         public void GetDefault_Return_MutableDictionaryFactory_With_Target_MutableSortedDictionary_ComparableT()
         {
-            var res = MutableDictionaryFactory<string, string>.GetDefault() 
+            var res = MutableDictionaryFactory.GetDefault<string, string>() 
                 as MutableSingleDictionary<string, string>;
             res.TargetType.Should().Be(typeof(MutableSortedDictionary<string, string>));
         }
@@ -29,7 +29,7 @@ namespace MoreCollectionTest.Dictionary.Internal
         [Fact]
         public void GetDefault_Return_MutableDictionaryFactory_With_Target_MutableSortedDictionary_NoneComparableT()
         {
-            var res = MutableDictionaryFactory<object, string>.GetDefault()
+            var res = MutableDictionaryFactory.GetDefault<object, string>()
                 as MutableSingleDictionary<object, string>;
             res.TargetType.Should().Be(typeof(MutableListDictionary<object, string>));
         }

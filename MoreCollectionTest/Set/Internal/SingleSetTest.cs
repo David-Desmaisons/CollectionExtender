@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 using FluentAssertions;
 using Xunit.Extensions;
-using System.Collections;
 using MoreCollection.Set.Infra;
 
 namespace MoreCollectionTest.Set.Internal

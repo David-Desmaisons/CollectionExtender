@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MoreCollection.Dictionary.Internal
+﻿namespace MoreCollection.Dictionary.Internal
 {
     internal class DictionarySwitcher<TKey, TValue>  where TKey : class
     {

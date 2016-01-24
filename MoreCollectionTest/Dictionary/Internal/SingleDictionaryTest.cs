@@ -3,8 +3,6 @@ using MoreCollectionTest.TestInfra;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 using FluentAssertions;
 using Xunit.Extensions;
@@ -98,8 +96,7 @@ namespace MoreCollectionTest.Dictionary.Internal
         {
             var res = _dictionary.Remove("key2");
             res.Should().BeFalse();
-            _dictionary.AsEnumerable().Should().BeEquivalentTo(new KeyValuePair<string, string>[]{
-                new KeyValuePair<string, string>("key","value")});
+            _dictionary.AsEnumerable().Should().BeEquivalentTo(new[]{ new KeyValuePair<string, string>("key","value")});
         }
 
         [Fact]

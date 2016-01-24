@@ -7,17 +7,18 @@ namespace MoreCollection.Dictionary.Internal
 {
     internal class MutableDictionary<TKey, TValue>: Dictionary<TKey, TValue>, IMutableDictionary<TKey, TValue> where TKey:class 
     {
-        private readonly IDictionaryStrategy<TKey, TValue> _DictionarySwitcher;
+        private readonly IDictionaryStrategy<TKey, TValue> _DictionaryStrategy;
 
-        internal MutableDictionary(IDictionaryStrategy<TKey, TValue> switcher): base()
+        internal MutableDictionary(IDictionaryStrategy<TKey, TValue> dictionaryStrategy)
+            : base()
         {
-            _DictionarySwitcher = switcher;
+            _DictionaryStrategy = dictionaryStrategy;
         }
 
-        internal MutableDictionary(IDictionary<TKey, TValue> collection, IDictionaryStrategy<TKey, TValue> switcher)
+        internal MutableDictionary(IDictionary<TKey, TValue> collection, IDictionaryStrategy<TKey, TValue> dictionaryStrategy)
             : base(collection)
         {
-            _DictionarySwitcher = switcher;
+            _DictionaryStrategy = dictionaryStrategy;
         }
 
         IMutableDictionary<TKey, TValue> IMutableDictionary<TKey, TValue>.AddMutable(TKey key, TValue value)
@@ -35,12 +36,12 @@ namespace MoreCollection.Dictionary.Internal
         public IMutableDictionary<TKey,TValue> Remove(TKey key, out bool Result)
         {
             Result = Remove(key);
-            return Result ? _DictionarySwitcher.CheckDictionaryRemoved(this) : this;
+            return Result ? _DictionaryStrategy.CheckDictionaryRemoved(this) : this;
         }
 
         public IMutableDictionary<TKey, TValue> ClearMutable()
         {
-            return _DictionarySwitcher.GetEmpty();
+            return _DictionaryStrategy.GetEmpty();
         }
     }
 }

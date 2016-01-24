@@ -9,36 +9,36 @@ namespace MoreCollection.Dictionary.Internal
 {
     public class MutableListDictionary<TKey, TValue> : ListDictionary<TKey, TValue>, IMutableDictionary<TKey, TValue> where TKey : class                              
     {
-        private readonly IDictionaryStrategy<TKey, TValue> _DictionarySwitcher;
-        public MutableListDictionary(IDictionaryStrategy<TKey, TValue> switcher)
+        private readonly IDictionaryStrategy<TKey, TValue> _DictionaryStrategy;
+        public MutableListDictionary(IDictionaryStrategy<TKey, TValue> dictionaryStrategy)
         {
-            _DictionarySwitcher = switcher;
+            _DictionaryStrategy = dictionaryStrategy;
         }
 
-        public MutableListDictionary(IDictionary<TKey, TValue> collection, IDictionaryStrategy<TKey, TValue> switcher)
-            : base(collection)
+        public MutableListDictionary(IDictionary<TKey, TValue> collection, 
+                    IDictionaryStrategy<TKey, TValue> dictionaryStrategy) : base(collection)
         {
-            _DictionarySwitcher = switcher;
+            _DictionaryStrategy = dictionaryStrategy;
         }
 
         IMutableDictionary<TKey, TValue> IMutableDictionary<TKey, TValue>.AddMutable(TKey key, TValue value)
         {
-            return _DictionarySwitcher.Add(this, key, value);
+            return _DictionaryStrategy.Add(this, key, value);
         }
 
         public IMutableDictionary<TKey, TValue> Update(TKey key, TValue value)
         {
-            return _DictionarySwitcher.Update(this,  key, value);
+            return _DictionaryStrategy.Update(this,  key, value);
         }
 
         public IMutableDictionary<TKey,TValue> Remove(TKey key, out bool result)
         {
-            return _DictionarySwitcher.Remove(this,  key, out result);
+            return _DictionaryStrategy.Remove(this,  key, out result);
         }
 
         public IMutableDictionary<TKey, TValue> ClearMutable()
         {
-            return _DictionarySwitcher.GetEmpty();
+            return _DictionaryStrategy.GetEmpty();
         }
     }
 }

@@ -10,21 +10,22 @@ namespace MoreCollection.Dictionary.Internal
     internal class MutableSingleDictionary<TKey, TValue> : SingleDictionary<TKey, TValue>, IMutableDictionary<TKey, TValue>
                         where TKey : class
     {
-        private readonly IDictionaryStrategy<TKey, TValue> _Switcher;
-        internal MutableSingleDictionary( IDictionary<TKey, TValue> dictionary, IDictionaryStrategy<TKey, TValue> switcher )
+        private readonly IDictionaryStrategy<TKey, TValue> _DictionaryStrategy;
+        internal MutableSingleDictionary(IDictionary<TKey, TValue> dictionary, IDictionaryStrategy<TKey, TValue> dictionaryStrategy)
             : base(dictionary)
         {
-            _Switcher = switcher;
+            _DictionaryStrategy = dictionaryStrategy;
         }
 
-        internal MutableSingleDictionary(IDictionaryStrategy<TKey, TValue> switcher) : base()
+        internal MutableSingleDictionary(IDictionaryStrategy<TKey, TValue> dictionaryStrategy)
+            : base()
         {
-            _Switcher = switcher;
+            _DictionaryStrategy = dictionaryStrategy;
         }
 
         private IMutableDictionary<TKey, TValue> GetNext()
         {
-            return _Switcher.GetIntermediateCollection(this);
+            return _DictionaryStrategy.GetIntermediateCollection(this);
         }
 
         IMutableDictionary<TKey, TValue> IMutableDictionary<TKey, TValue>.AddMutable(TKey key, TValue value)

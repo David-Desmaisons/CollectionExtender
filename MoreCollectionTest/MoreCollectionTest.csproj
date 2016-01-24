@@ -54,13 +54,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dictionary\Internal\MutableDictionaryFactoryTest.cs" />
     <Compile Include="Dictionary\Internal\MutableMiddleDictionaryTest.cs" />
     <Compile Include="Dictionary\Internal\MutableSortedDictionaryTest.cs" />
     <Compile Include="Dictionary\Internal\MutableListDictionaryTest.cs" />
     <Compile Include="Dictionary\Internal\MutableSingleDictionaryTest.cs" />
     <Compile Include="Dictionary\Internal\MutableDictionaryTest.cs" />
     <Compile Include="Dictionary\Internal\SingleDictionaryTest.cs" />
+    <Compile Include="Dictionary\Internal\Strategy\DictionaryStrategyFactoryTest.cs" />
+    <Compile Include="Dictionary\Internal\Strategy\DictionaryStrategyTest.cs" />
+    <Compile Include="Dictionary\Internal\Strategy\OrderedDictionaryStrategyTest.cs" />
+    <Compile Include="Dictionary\Internal\Strategy\UnorderedDictionaryStrategyTest.cs" />
     <Compile Include="Infra\IntrospectorTest.cs" />
     <Compile Include="Set\Internal\LetterSimpleSetFactoryTest.cs" />
     <Compile Include="Set\Internal\ListSetTest .cs" />
@@ -85,6 +88,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

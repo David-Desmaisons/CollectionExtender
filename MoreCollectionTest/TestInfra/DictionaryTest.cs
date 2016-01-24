@@ -103,6 +103,18 @@ namespace MoreCollectionTest.TestInfra
             _dictionary.AsEnumerable().Should().BeEmpty();
         }
 
+        [Fact]
+        public void Remove_ExistingKey_IntermediateSize_ReturnTrue()
+        {
+            Do(d => d.Add("toto", "Value0"));
+            Do(d => d.Add("toto1", "Value1"));
+            var ok = _dictionary.ShouldBehaveTheSame(_target, d => d.Remove("toto"));
+            ok.Should().BeTrue();
+            _dictionary.AsEnumerable().Should().BeEquivalentTo(new []{ 
+                new KeyValuePair<string,string>("toto1", "Value1")}
+                );
+        }
+
         [Theory]
         [InlineData("K1", "V1")]
         [InlineData("K2", "V2")]

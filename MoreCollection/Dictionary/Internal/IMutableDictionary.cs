@@ -13,5 +13,7 @@ namespace MoreCollection.Dictionary.Internal
         IMutableDictionary<TKey, TValue> Update(TKey key, TValue value);
 
         IMutableDictionary<TKey, TValue> Remove(TKey key, out bool Result);
+
+        IMutableDictionary<TKey, TValue> ClearMutable();
     }
 }

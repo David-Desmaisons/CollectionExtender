@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using MoreCollection.Extensions;
 
-namespace MoreCollection.Dictionary.Internal
+namespace MoreCollection.Dictionary.Internal.Strategy
 {
-    public class MutableDictionaryFactory
+    internal class DictionaryStrategyFactory 
     {
         private static readonly Dictionary<Type, bool> _IsComparable = new Dictionary<Type, bool>();
-        private static readonly Type IComparableType = typeof (IComparable<>);
+        private static readonly Type IComparableType = typeof(IComparable<>);
 
         private static bool IsComparable(Type type)
         {
@@ -19,14 +19,14 @@ namespace MoreCollection.Dictionary.Internal
                             && (interfaceType.GetGenericArguments()[0]) == type);
         }
 
-        public static IMutableDictionary<TKey, TValue> GetDefault<TKey, TValue> (int TransitionToDictionary = 25)
-            where TKey: class
+        public IDictionaryStrategy<TKey, TValue> GetStrategy<TKey, TValue>(int ListTransition)  where TKey:class
         {
             bool comparable = _IsComparable.FindOrCreateEntity(typeof(TKey), IsComparable);
 
-            var targetMiddle = comparable ? typeof(MutableSortedDictionary<TKey, TValue>) : typeof(MutableListDictionary<TKey, TValue>);
+            if (comparable)
+                return new OrderedDictionaryStrategy<TKey, TValue>(ListTransition);
 
-            return new MutableSingleDictionary<TKey, TValue>(targetType: targetMiddle, transition: TransitionToDictionary);          
+            return new UnorderedDictionaryStrategy<TKey, TValue>(ListTransition);
         }
     }
 }

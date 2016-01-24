@@ -1,27 +1,23 @@
-﻿using MoreCollection.Infra;
+﻿using MoreCollection.Dictionary.Internal.Strategy;
+using MoreCollection.Infra;
 using System;
 using System.Collections.Generic;
 
 namespace MoreCollection.Dictionary.Internal
 {
-    internal class MutableDictionary<TKey, TValue>: Dictionary<TKey, TValue>,
-        IMutableDictionary<TKey, TValue> 
+    internal class MutableDictionary<TKey, TValue>: Dictionary<TKey, TValue>, IMutableDictionary<TKey, TValue> where TKey:class 
     {
-        private readonly int _TransitionToList;
-        private readonly Type _TargetType;
+        private readonly IDictionaryStrategy<TKey, TValue> _DictionarySwitcher;
 
-        internal MutableDictionary(Type targetType, int limit = 10)
-            : base()
+        internal MutableDictionary(IDictionaryStrategy<TKey, TValue> switcher): base()
         {
-            _TransitionToList = limit;
-            _TargetType = targetType;
+            _DictionarySwitcher = switcher;
         }
 
-        internal MutableDictionary(IDictionary<TKey, TValue> collection, Type targetType, int limit = 10)
+        internal MutableDictionary(IDictionary<TKey, TValue> collection, IDictionaryStrategy<TKey, TValue> switcher)
             : base(collection)
         {
-            _TransitionToList = limit;
-            _TargetType = targetType;
+            _DictionarySwitcher = switcher;
         }
 
         IMutableDictionary<TKey, TValue> IMutableDictionary<TKey, TValue>.AddMutable(TKey key, TValue value)
@@ -39,9 +35,12 @@ namespace MoreCollection.Dictionary.Internal
         public IMutableDictionary<TKey,TValue> Remove(TKey key, out bool Result)
         {
             Result = Remove(key);
-            return (Count == _TransitionToList) ? 
-                        Introspector.BuildInstance<IMutableDictionary<TKey, TValue>>(_TargetType, this, _TransitionToList)
-                     :  this;
+            return Result ? _DictionarySwitcher.CheckDictionaryRemoved(this) : this;
+        }
+
+        public IMutableDictionary<TKey, TValue> ClearMutable()
+        {
+            return _DictionarySwitcher.GetEmpty();
         }
     }
 }

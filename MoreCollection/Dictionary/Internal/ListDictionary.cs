@@ -5,7 +5,7 @@ using MoreCollection.Extensions;
 
 namespace MoreCollection.Dictionary.Internal
 {
-    internal class ListDictionary<TKey, TValue> : IDictionary<TKey, TValue>
+    public class ListDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
         private List<KeyValuePair<TKey, TValue>> _List;
 

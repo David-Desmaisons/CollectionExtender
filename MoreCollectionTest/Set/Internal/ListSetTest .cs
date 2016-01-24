@@ -16,7 +16,11 @@ namespace MoreCollectionTest.Set.Internal
         private ListSet<string> _ListSetSet;
         public ListSetTest()
         {
-            _ListSetSet = new ListSet<string>();
+            _ListSetSet = new ListSet<string>();        
+        }
+
+        static ListSetTest()
+        {
             LetterSimpleSetFactory<string>.MaxList = 4;
         }
 

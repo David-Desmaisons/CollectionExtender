@@ -6,22 +6,25 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using FluentAssertions;
+using NSubstitute;
+using MoreCollection.Dictionary.Internal.Strategy;
 
 namespace MoreCollectionTest.Dictionary.Internal
 {
     public class MutableSingleDictionaryTest
     {
-        private IMutableDictionary<string, string> _DictionaryNoElement;
-        private IMutableDictionary<string, string> _DictionaryOneElement;
+        private readonly IMutableDictionary<string, string> _DictionaryNoElement;
+        private readonly IMutableDictionary<string, string> _DictionaryOneElement;
+        private readonly IDictionaryStrategy<string, string> _DictionarySwitcher;
 
         public MutableSingleDictionaryTest()
         {
-            _DictionaryNoElement =
-                new MutableSingleDictionary<string, string>(typeof(MutableListDictionary<string, string>));
+            _DictionarySwitcher = Substitute.For<IDictionaryStrategy<string, string>>();
+
+            _DictionaryNoElement = new MutableSingleDictionary<string, string>( _DictionarySwitcher);
 
             var Dictionary = new Dictionary<string, string>(){{"Key0", "Value0"}};
-            _DictionaryOneElement =
-                new MutableSingleDictionary<string, string>(Dictionary, typeof(MutableListDictionary<string, string>));
+            _DictionaryOneElement = new MutableSingleDictionary<string, string>( Dictionary, _DictionarySwitcher);
         }
 
         [Fact]
@@ -46,20 +49,24 @@ namespace MoreCollectionTest.Dictionary.Internal
         }
 
         [Fact]
-        public void Add_Return_NewObject_IfElementNumberAboveLimit()
+        public void Add_Call_DictionarySwitcher_Add()
         {
             var res = _DictionaryOneElement.AddMutable("Key1", "Value1");
-            res.Should().BeOfType<MutableListDictionary<string, string>>();
+            _DictionarySwitcher.Received(1).GetIntermediateCollection(_DictionaryOneElement);
         }
 
         [Fact]
-        public void Add_UpdateCollection_IfElementNumberAboveLimit()
+        public void ClearMutable_Return_SameObject()
         {
-            var res = _DictionaryOneElement.AddMutable("Key1", "Value1");
-            res.AsEnumerable().Should().Equal(new[] { 
-                new KeyValuePair<string, string>("Key0", "Value0"),
-                new KeyValuePair<string, string>("Key1", "Value1")}
-                );
+            var res = _DictionaryOneElement.ClearMutable();
+            res.Should().BeSameAs(_DictionaryOneElement);
+        }
+
+        [Fact]
+        public void ClearMutable_EmptyCollection()
+        {
+            _DictionaryOneElement.ClearMutable();
+            _DictionaryOneElement.Should().BeEmpty();
         }
     }
 }

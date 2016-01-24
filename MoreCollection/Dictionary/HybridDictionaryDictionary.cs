@@ -14,7 +14,7 @@ namespace MoreCollection.Dictionary
 
         public HybridDictionary(int TransitionToDictionary = 25)
         {
-            var strategy = new DictionaryStrategyFactory().GetStrategy<TKey, TValue>(TransitionToDictionary);
+            var strategy = DictionaryStrategyFactory.GetStrategy<TKey, TValue>(TransitionToDictionary);
             _Implementation = strategy.GetEmpty();       
         }
 

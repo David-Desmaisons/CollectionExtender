@@ -7,7 +7,7 @@ using MoreCollection.Extensions;
 
 namespace MoreCollection.Dictionary.Internal.Strategy
 {
-    internal class DictionaryStrategyFactory 
+    internal static class DictionaryStrategyFactory 
     {
         private static readonly Dictionary<Type, bool> _IsComparable = new Dictionary<Type, bool>();
         private static readonly Type IComparableType = typeof(IComparable<>);
@@ -19,7 +19,7 @@ namespace MoreCollection.Dictionary.Internal.Strategy
                             && (interfaceType.GetGenericArguments()[0]) == type);
         }
 
-        public IDictionaryStrategy<TKey, TValue> GetStrategy<TKey, TValue>(int ListTransition)  where TKey:class
+        public static IDictionaryStrategy<TKey, TValue> GetStrategy<TKey, TValue>(int ListTransition) where TKey : class
         {
             bool comparable = _IsComparable.FindOrCreateEntity(typeof(TKey), IsComparable);
 

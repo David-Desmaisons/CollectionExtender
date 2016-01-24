@@ -9,16 +9,18 @@ namespace MoreCollectionTest.Set.Internal
 {
     public class ListSetTest
     {
+        private const int _Transition = 4;
         private ListSet<string> _ListSetSet;
         public ListSetTest()
         {
-            _ListSetSet = new ListSet<string>();        
+            _ListSetSet = new ListSet<string>(GetFactory(), _Transition);        
         }
 
-        static ListSetTest()
+        private static ILetterSimpleSetFactory<string> GetFactory()
         {
-            LetterSimpleSetFactory<string>.MaxList = 4;
+            return new LetterSimpleSetFactory<string>(_Transition);
         }
+
 
         [Fact]
         public void New_IsEmpty()
@@ -30,14 +32,14 @@ namespace MoreCollectionTest.Set.Internal
         public void Constructor_WithOtherSizedCollection_ThrowException()
         {
             var collection = new HashSet<string> { "one", "two", "three", "three", "four", "five", "six" };
-            Action Do = () => new ListSet<string>(collection);
+            Action Do = () => new ListSet<string>(GetFactory(), collection, _Transition);
             Do.ShouldThrow<ArgumentOutOfRangeException>();
         }
 
         [Fact]
         public void Constructor_WithOneItem_BehaveAsExpected()
         {
-            var target = new ListSet<string>("one");
+            var target = new ListSet<string>(GetFactory(), "one", _Transition);
             target.Should().BeEquivalentTo(new[] { "one" });
         }
 
@@ -55,7 +57,7 @@ namespace MoreCollectionTest.Set.Internal
             bool success;
             var res = target.Add(added, out success);
 
-            if (success && (res.Count == LetterSimpleSetFactory<string>.MaxList))
+            if (success && (res.Count == _Transition))
             {
                 res.Should().BeOfType<SimpleHashSet<string>>();
             }
@@ -115,17 +117,17 @@ namespace MoreCollectionTest.Set.Internal
 
         private static ListSet<string> GetEmpty()
         {
-            return new ListSet<string>();
+            return new ListSet<string>(GetFactory(), _Transition);
         }
 
         private static ListSet<string> GetBorderLineHashSet()
         {
-            return new ListSet<string>(new HashSet<string>() { "one", "two" });
+            return new ListSet<string>(GetFactory(), new HashSet<string>() { "one", "two" }, _Transition);
         }
 
         private static ListSet<string> GetFullHashSet()
         {
-            return new ListSet<string>(new HashSet<string>() { "one", "two", "three" });
+            return new ListSet<string>(GetFactory(), new HashSet<string>() { "one", "two", "three" }, _Transition);
         }
 
         public static IEnumerable<object[]> OnlyCollectionData

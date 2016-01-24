@@ -6,13 +6,16 @@ namespace MoreCollection.Set.Infra
     public class SingleSet<T> : ILetterSimpleSet<T> where T : class
     {
         private T _SingleItem = null;
+        private readonly ILetterSimpleSetFactory<T> _Factory;
 
-        internal SingleSet()
+        internal SingleSet(ILetterSimpleSetFactory<T> Factory)
         {
+            _Factory = Factory;
         }
 
-        internal SingleSet(T item)
+        internal SingleSet(ILetterSimpleSetFactory<T> Factory, T item)
         {
+            _Factory = Factory;
             Add(item);
         }
 
@@ -76,7 +79,8 @@ namespace MoreCollection.Set.Infra
                 return this;
             }
 
-            return new ListSet<T>(_SingleItem).Add(item, out success);
+            success = true;
+            return _Factory.GetDefault(_SingleItem, item);
         }
 
         public ILetterSimpleSet<T> Remove(T item, out bool success)

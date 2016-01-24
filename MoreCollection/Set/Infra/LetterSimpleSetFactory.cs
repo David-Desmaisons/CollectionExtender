@@ -6,24 +6,21 @@ namespace MoreCollection.Set.Infra
 {
     internal class LetterSimpleSetFactory<T> : ILetterSimpleSetFactory<T>  where T : class
     {
-        public static int MaxList = 10;
+        private int _MaxList;
 
-        private static ILetterSimpleSetFactory<T> _Factory;
-        
-        internal static ILetterSimpleSetFactory<T>  Factory
+        internal LetterSimpleSetFactory(int MaxList)
         {
-            get { return _Factory ?? (_Factory = new LetterSimpleSetFactory<T>()); }
-            set { _Factory = value; }
+            _MaxList = MaxList;
         }
 
         public ILetterSimpleSet<T> GetDefault()
         {
-            return new SingleSet<T>();
+            return new SingleSet<T>(this);
         }
 
         public ILetterSimpleSet<T> GetDefault(T Item)
         {
-            return new SingleSet<T>(Item);
+            return new SingleSet<T>(this,Item);
         }
 
         public ILetterSimpleSet<T> GetDefault(IEnumerable<T> Items)
@@ -34,16 +31,33 @@ namespace MoreCollection.Set.Infra
             var FiItems = new HashSet<T>(Items);
 
             int count = FiItems.Count;
-            if (count >= MaxList)
-                return new SimpleHashSet<T>(FiItems);
+            if (count >= _MaxList)
+                return new SimpleHashSet<T>(this, FiItems);
 
             if (count > 1)
-                return new ListSet<T>(FiItems);
+                return new ListSet<T>(this, FiItems, _MaxList);
 
             if (count == 1)
                 return GetDefault(FiItems.First());
 
             return GetDefault();
         }
+
+       public ILetterSimpleSet<T> OnAdd(ILetterSimpleSet<T> current)
+       {
+           return (current.Count == _MaxList) ? new SimpleHashSet<T>(this, current) : current;
+       }
+
+       public ILetterSimpleSet<T> OnRemove(SimpleHashSet<T> current)
+       {
+           ILetterSimpleSet<T> ListSet = current;
+           return (current.Count == _MaxList - 1) ? new ListSet<T>(this, current, _MaxList) : ListSet;
+       }
+
+       public ILetterSimpleSet<T> GetDefault(T item, T added)
+       {
+           bool success;
+           return new ListSet<T>(this, item, _MaxList).Add(added, out success);
+       }
     }
 }

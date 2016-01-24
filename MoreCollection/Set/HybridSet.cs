@@ -9,20 +9,29 @@ namespace MoreCollection.Set
     public class HybridSet<T> : ISet<T> where T: class
     {
         private ILetterSimpleSet<T> _Letter;
+        private ILetterSimpleSetFactory<T> _Factory;
 
-        internal HybridSet()
+        internal HybridSet(int MaxList=10)
         {
-            _Letter = LetterSimpleSetFactory<T>.Factory.GetDefault();
+            _Factory = GetLetterFactory<T>(MaxList);
+            _Letter = _Factory.GetDefault();
         }
 
-        internal HybridSet(T firstitem)
+        internal HybridSet(T firstitem, int MaxList = 10)
         {
-            _Letter = LetterSimpleSetFactory<T>.Factory.GetDefault(firstitem);
+            _Factory = GetLetterFactory<T>(MaxList);
+            _Letter = _Factory.GetDefault(firstitem);
         }
 
-        internal HybridSet(IEnumerable<T> firstitem)
+        internal HybridSet(IEnumerable<T> firstitem, int MaxList = 10)
         {
-            _Letter = LetterSimpleSetFactory<T>.Factory.GetDefault(firstitem);
+            _Factory = GetLetterFactory<T>(MaxList);
+            _Letter = _Factory.GetDefault(firstitem);
+        }
+
+        private static ILetterSimpleSetFactory<TElement> GetLetterFactory<TElement>(int MaxList) where TElement: class
+        {
+            return LetterSimpleSetFactoryBuilder.Builder.GetFactory<TElement>(MaxList);
         }
 
         public bool Add(T item)
@@ -39,13 +48,13 @@ namespace MoreCollection.Set
 
         public void IntersectWith(IEnumerable<T> other) 
         {
-            _Letter = LetterSimpleSetFactory<T>.Factory.GetDefault(other.Where(_Letter.Contains));
+            _Letter = _Factory.GetDefault(other.Where(_Letter.Contains));
         }
 
         public void ExceptWith(IEnumerable<T> other) 
         {
             var otherHashSet = new HashSet<T>(other);
-            _Letter = LetterSimpleSetFactory<T>.Factory.GetDefault(_Letter.Where(n => !otherHashSet.Contains(n)));
+            _Letter = _Factory.GetDefault(_Letter.Where(n => !otherHashSet.Contains(n)));
         }
 
         public void SymmetricExceptWith(IEnumerable<T> other)
@@ -53,7 +62,7 @@ namespace MoreCollection.Set
             var otherHashSet = new HashSet<T>(other);
             var first  = _Letter.Where(n => !otherHashSet.Contains(n));
             var second = otherHashSet.Where(n => !_Letter.Contains(n));
-            _Letter = LetterSimpleSetFactory<T>.Factory.GetDefault(first.Concat(second));
+            _Letter = _Factory.GetDefault(first.Concat(second));
         }
 
         public bool IsSubsetOf(IEnumerable<T> other) 
@@ -92,7 +101,7 @@ namespace MoreCollection.Set
 
         public void Clear() 
         {
-            _Letter = LetterSimpleSetFactory<T>.Factory.GetDefault();
+            _Letter = _Factory.GetDefault();
         }
 
         public void CopyTo(T[] array, int arrayIndex)

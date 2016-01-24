@@ -1,4 +1,5 @@
 ﻿using MoreCollection.Dictionary.Internal;
+using MoreCollection.Dictionary.Internal.Strategy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,8 @@ namespace MoreCollection.Dictionary
 
         public HybridDictionary(int TransitionToDictionary = 25)
         {
-            _Implementation = MutableDictionaryFactory.GetDefault<TKey, TValue>(TransitionToDictionary);        
+            var strategy = DictionaryStrategyFactory.GetStrategy<TKey, TValue>(TransitionToDictionary);
+            _Implementation = strategy.GetEmpty();       
         }
 
         public void Add(TKey key, TValue value)
@@ -28,7 +30,7 @@ namespace MoreCollection.Dictionary
 
         public void Clear()
         {
-            _Implementation = MutableDictionaryFactory.GetDefault<TKey, TValue>();  
+            _Implementation = _Implementation.ClearMutable();
         }
 
         public bool Remove(KeyValuePair<TKey, TValue> item)

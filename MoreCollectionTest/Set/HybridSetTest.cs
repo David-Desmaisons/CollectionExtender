@@ -11,7 +11,7 @@ using Xunit.Extensions;
 
 namespace MoreCollectionTest.Set
 {
-    public class HybridSetTest : IDisposable
+    public class HybridSetTest 
     {
         private readonly ILetterSimpleSetFactory<string> _LetterSimpleSetFactory;
         private readonly ILetterSimpleSet<string> _LetterSimpleSetSubstitute;
@@ -33,7 +33,7 @@ namespace MoreCollectionTest.Set
 
             bool res;
             _LetterSimpleSetSubstitute.Add(Arg.Any<string>(), out res).Returns(_LetterSimpleSetSubstitute);
-            LetterSimpleSetFactory<string>.Factory = _LetterSimpleSetFactory;
+            //LetterSimpleSetFactory<string>.Factory = _LetterSimpleSetFactory;
         }
 
         private void SetUp(ISet<string> FakeCollection)
@@ -271,11 +271,6 @@ namespace MoreCollectionTest.Set
             var strings = new string[SetUp.Item2.Count];
             SetUp.Item1.CopyTo(strings, 0);
             strings.Should().BeEquivalentTo(SetUp.Item2);
-        }
-
-        public void Dispose()
-        {
-            LetterSimpleSetFactory<string>.Factory = new LetterSimpleSetFactory<string>();
         }
     }
 }

@@ -7,18 +7,13 @@ using Xunit.Extensions;
 
 namespace MoreCollectionTest.Set.Internal
 {
-    public class SimpleHashSetTest : IDisposable
+    public class SimpleHashSetTest 
     {
         private SimpleHashSet<string> _SimpleHashSet;
+        private static int _Transition = 4;
         public SimpleHashSetTest()
         {
-            _SimpleHashSet = new SimpleHashSet<string>();
-            LetterSimpleSetFactory<string>.MaxList = 4;
-        }
-
-        public void Dispose()
-        {
-            LetterSimpleSetFactory<string>.MaxList = 10;
+            _SimpleHashSet = new SimpleHashSet<string>(null);
         }
 
         [Fact]
@@ -38,7 +33,7 @@ namespace MoreCollectionTest.Set.Internal
         {
             var collection = new[] { "one", "two", "three", "three", "four" };
             var expected = new[] { "one", "two", "three", "four" };
-            var target = new SimpleHashSet<string>(collection);
+            var target = new SimpleHashSet<string>(null, collection);
             target.Should().BeEquivalentTo(expected);
         }
 
@@ -71,7 +66,7 @@ namespace MoreCollectionTest.Set.Internal
 
             var res = target.Remove(removed, out success);
 
-            if (res.Count == LetterSimpleSetFactory<string>.MaxList-1)
+            if (res.Count == _Transition-1)
             {
                 res.Should().BeOfType<ListSet<string>>();
             }
@@ -94,13 +89,18 @@ namespace MoreCollectionTest.Set.Internal
             result.Should().Be(success);
         }
 
+        private static ILetterSimpleSetFactory<string> GetFactory()
+        {
+            return new LetterSimpleSetFactory<string>(_Transition);
+        }
+
         public static IEnumerable<object[]> CollectionData
         {
             get
             {
-                var EmptyHashSet = new SimpleHashSet<string>();
-                var BorderLineHashSet = new SimpleHashSet<string>(new[] { "one", "two", "three", "four" });
-                var FullHashSet = new SimpleHashSet<string>(new[] { "one", "two", "three", "four", "five" });
+                var EmptyHashSet = new SimpleHashSet<string>(GetFactory());
+                var BorderLineHashSet = new SimpleHashSet<string>(GetFactory(), new[] { "one", "two", "three", "four" });
+                var FullHashSet = new SimpleHashSet<string>(GetFactory(), new[] { "one", "two", "three", "four", "five" });
 
                 yield return new object[] { EmptyHashSet, "one" };
                 yield return new object[] { EmptyHashSet, "five" };

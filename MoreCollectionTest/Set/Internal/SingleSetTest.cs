@@ -12,7 +12,7 @@ namespace MoreCollectionTest.Set.Internal
         private SingleSet<string> _SingleSetSet;
         public SingleSetTest()
         {
-            _SingleSetSet = new SingleSet<string>();
+            _SingleSetSet = new SingleSet<string>(null);
         }
 
         [Fact]
@@ -30,7 +30,7 @@ namespace MoreCollectionTest.Set.Internal
         [Fact]
         public void Count_WithOneElement_Is1()
         {
-            var target = new SingleSet<string>("");
+            var target = new SingleSet<string>(null, "");
             target.Count.Should().Be(1);
         }
 
@@ -40,7 +40,7 @@ namespace MoreCollectionTest.Set.Internal
         [InlineData("three")]
         public void Constructor_WithArgument_ShouldCreateCorrectEnumerable(string value)
         {
-            var target = new SingleSet<string>(value);
+            var target = new SingleSet<string>(null, value);
             target.Should().BeEquivalentTo(new object[] { value });
         }
 
@@ -126,7 +126,7 @@ namespace MoreCollectionTest.Set.Internal
         [InlineData("four")]
         public void Contains_Should_BeCoherent_ObjectFound(string value)
         {
-            var target = new SingleSet<string>(value);
+            var target = new SingleSet<string>(null, value);
             var res = target.Contains(value);
             res.Should().BeTrue();
         }
@@ -138,7 +138,7 @@ namespace MoreCollectionTest.Set.Internal
         [InlineData("four", "three")]
         public void Contains_Should_BeCoherent_ObjectNotFound(string value, string lookingfor)
         {
-            var target = new SingleSet<string>(value);
+            var target = new SingleSet<string>(null, value);
             var res = target.Contains(lookingfor);
             res.Should().BeFalse();
         }
@@ -149,14 +149,19 @@ namespace MoreCollectionTest.Set.Internal
             _SingleSetSet.Contains(null).Should().BeFalse();
         }
 
+        private static ILetterSimpleSetFactory<string> GetFactory()
+        {
+            return new LetterSimpleSetFactory<string>(4);
+        }
+
         private static SingleSet<string> GetEmpty()
         {
-            return new SingleSet<string>();
+            return new SingleSet<string>(GetFactory());
         }
 
         private static SingleSet<string> GetFullHashSet()
         {
-            return new SingleSet<string>("one");
+            return new SingleSet<string>(GetFactory(), "one");
         }
 
         public static IEnumerable<object[]> OnlyCollectionData

@@ -8,29 +8,33 @@ namespace MoreCollection.Set.Infra
     {
         private T[] _Items;
         private int _Count = 0;
+        private readonly ILetterSimpleSetFactory<T> _Factory;
 
-        internal ListSet()
+        internal ListSet(ILetterSimpleSetFactory<T> Factory, int MaxItem)
         {
-            _Items = new T[LetterSimpleSetFactory<T>.MaxList];
+            _Factory = Factory;
+            _Items = new T[MaxItem];
         }
 
-        internal ListSet(T item)
+        internal ListSet(ILetterSimpleSetFactory<T> Factory, T item, int MaxItem)
         {
-            _Items = new T[LetterSimpleSetFactory<T>.MaxList];
+            _Factory = Factory;
+            _Items = new T[MaxItem];
             _Items[0] = item;
             _Count = 1;
         }
 
-        internal ListSet(HashSet<T> items)
+        internal ListSet(ILetterSimpleSetFactory<T> Factory, HashSet<T> items, int MaxItem)
         {
+            _Factory = Factory;
             int count = items.Count();
-            if (count >= LetterSimpleSetFactory<T>.MaxList)
+            if (count >= MaxItem)
             {
                 throw new ArgumentOutOfRangeException(
-                                string.Format("items count ({0}) >= Max ({1})", count, LetterSimpleSetFactory<T>.MaxList));
+                                string.Format("items count ({0}) >= Max ({1})", count, MaxItem));
             }
 
-            _Items = new T[LetterSimpleSetFactory<T>.MaxList];
+            _Items = new T[MaxItem];
 
             int index = 0;
             foreach (T item in items)
@@ -104,12 +108,7 @@ namespace MoreCollection.Set.Infra
         {
             success = Add(item);
 
-            if (success && (_Count == _Items.Length))
-            {
-                return new SimpleHashSet<T>(GetEnumerable());
-            }
-
-            return this;
+            return success ? _Factory.OnAdd(this) : this;
         }
 
         public ILetterSimpleSet<T> Remove(T item, out bool success)

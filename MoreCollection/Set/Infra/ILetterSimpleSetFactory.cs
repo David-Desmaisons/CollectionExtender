@@ -7,5 +7,8 @@ namespace MoreCollection.Set.Infra
         ILetterSimpleSet<T> GetDefault();
         ILetterSimpleSet<T> GetDefault(IEnumerable<T> Items);
         ILetterSimpleSet<T> GetDefault(T Item);
+        ILetterSimpleSet<T> GetDefault(T first, T added);
+        ILetterSimpleSet<T> OnAdd(ILetterSimpleSet<T> current);
+        ILetterSimpleSet<T> OnRemove(SimpleHashSet<T> current);
     }
 }

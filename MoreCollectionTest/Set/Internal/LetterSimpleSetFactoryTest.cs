@@ -11,9 +11,10 @@ namespace MoreCollectionTest.Set.Internal
     public class LetterSimpleSetFactoryTest
     {
         private LetterSimpleSetFactory<string> _LetterSimpleSetFactory;
+        private int _Transition = 4;
         public LetterSimpleSetFactoryTest()
         {
-            _LetterSimpleSetFactory = new LetterSimpleSetFactory<string>();
+            _LetterSimpleSetFactory = new LetterSimpleSetFactory<string>(_Transition);
         }
 
 
@@ -81,7 +82,6 @@ namespace MoreCollectionTest.Set.Internal
         [Fact]
         public void GetDefault_IEnumerableT_Return_HashSet_MoreElementsThanLimit()
         {
-            LetterSimpleSetFactory<string>.MaxList = 4;
             var res = _LetterSimpleSetFactory.GetDefault(new[] { "kkk", "lll", "kkkp", "lllp" });
             res.Should().BeOfType<SimpleHashSet<string>>();
         }
@@ -89,16 +89,8 @@ namespace MoreCollectionTest.Set.Internal
         [Fact]
         public void GetDefault_RemoveDuplicate()
         {
-            LetterSimpleSetFactory<string>.MaxList = 4;
             var res = _LetterSimpleSetFactory.GetDefault(new[] { "kkk", "lll", "lll", "lll", "kkk" });
             res.Should().BeEquivalentTo(new[] { "kkk", "lll"});
-        }
-
-        [Fact]
-        public void Factory_Return_LetterSimpleSetFactory()
-        {
-            var res = LetterSimpleSetFactory<string>.Factory;
-            res.Should().BeOfType<LetterSimpleSetFactory<string>>();
         }
     }
 }

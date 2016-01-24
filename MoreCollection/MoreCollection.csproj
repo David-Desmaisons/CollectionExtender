@@ -48,7 +48,7 @@
     <Compile Include="Dictionary\Internal\MutableSortedDictionary.cs" />
     <Compile Include="Dictionary\Internal\MutableListDictionary.cs" />
     <Compile Include="Dictionary\Internal\MutableSingleDictionary.cs" />
-    <Compile Include="Dictionary\HybridDictionaryDictionary.cs" />
+    <Compile Include="Dictionary\HybridDictionary.cs" />
     <Compile Include="Dictionary\Internal\SingleDictionary.cs" />
     <Compile Include="Dictionary\Internal\Strategy\UnorderedDictionaryStrategy.cs" />
     <Compile Include="Dictionary\Internal\Strategy\OrderedDictionaryStrategy.cs" />
@@ -62,7 +62,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Set\Infra\ILetterSimpleSet.cs" />
     <Compile Include="Set\Infra\ILetterSimpleSetFactory.cs" />
+    <Compile Include="Set\Infra\ILetterSimpleSetFactoryBuilder.cs" />
     <Compile Include="Set\Infra\LetterSimpleSetFactory.cs" />
+    <Compile Include="Set\Infra\LetterSimpleSetFactoryBuilder.cs" />
     <Compile Include="Set\Infra\ListSet.cs" />
     <Compile Include="Set\Infra\SimpleHashSet.cs" />
     <Compile Include="Set\Infra\SingleSet.cs" />

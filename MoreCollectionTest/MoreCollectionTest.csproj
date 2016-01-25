@@ -65,11 +65,13 @@
     <Compile Include="Dictionary\Internal\Strategy\OrderedDictionaryStrategyTest.cs" />
     <Compile Include="Dictionary\Internal\Strategy\UnorderedDictionaryStrategyTest.cs" />
     <Compile Include="Infra\IntrospectorTest.cs" />
+    <Compile Include="Set\HybridIntegratedTest.cs" />
     <Compile Include="Set\Internal\LetterSimpleSetFactoryTest.cs" />
     <Compile Include="Set\Internal\ListSetTest .cs" />
     <Compile Include="Set\Internal\SimpleHashSetTest.cs" />
     <Compile Include="Set\Internal\SingleSetTest.cs" />
     <Compile Include="Set\HybridSetTest.cs" />
+    <Compile Include="Set\SetTest.cs" />
     <Compile Include="TestInfra\DictionaryTest.cs" />
     <Compile Include="Dictionary\HybridDictionaryTest.cs" />
     <Compile Include="Dictionary\Internal\ListDictionaryTest.cs" />

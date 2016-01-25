@@ -21,7 +21,6 @@ namespace MoreCollectionTest.Set.Internal
             return new LetterSimpleSetFactory<string>(_Transition);
         }
 
-
         [Fact]
         public void New_IsEmpty()
         {

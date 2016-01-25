@@ -23,10 +23,10 @@ namespace MoreCollection.Set
             _Letter = _Factory.GetDefault(firstitem);
         }
 
-        internal HybridSet(IEnumerable<T> firstitem, int MaxList = 10)
+        internal HybridSet(IEnumerable<T> items, int MaxList = 10)
         {
             _Factory = GetLetterFactory<T>(MaxList);
-            _Letter = _Factory.GetDefault(firstitem);
+            _Letter = _Factory.GetDefault(items);
         }
 
         private static ILetterSimpleSetFactory<TElement> GetLetterFactory<TElement>(int MaxList) where TElement: class

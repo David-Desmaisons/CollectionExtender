@@ -1,15 +1,11 @@
 ﻿using MoreCollection.Dictionary.Internal.Strategy;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 using FluentAssertions;
 using MoreCollection.Dictionary.Internal;
 using MoreCollection.Extensions;
 using NSubstitute;
-using System.Collections;
 
 namespace MoreCollectionTest.Dictionary.Internal.Strategy
 {

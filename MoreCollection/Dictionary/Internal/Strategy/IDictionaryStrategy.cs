@@ -1,5 +1,4 @@
-﻿using System;
-namespace MoreCollection.Dictionary.Internal.Strategy
+﻿namespace MoreCollection.Dictionary.Internal.Strategy
 {
     public interface IDictionaryStrategy<TKey, TValue> where TKey : class
     {       

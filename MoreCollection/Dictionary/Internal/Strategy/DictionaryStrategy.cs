@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MoreCollection.Extensions;
-
-namespace MoreCollection.Dictionary.Internal.Strategy
+﻿namespace MoreCollection.Dictionary.Internal.Strategy
 {
     internal abstract class DictionaryStrategy<TKey, TValue> : IDictionaryStrategy<TKey,TValue>  where TKey : class
     {

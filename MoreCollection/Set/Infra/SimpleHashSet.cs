@@ -26,11 +26,6 @@ namespace MoreCollection.Set.Infra
         {
             success = this.Remove(item);
             return _Factory.OnRemove(this);
-            //if (Count == _Factory.Transition - 1)
-            //{
-            //    return new ListSet<T>(_Factory, this);
-            //}
-            //return this;
         }
     }
 }

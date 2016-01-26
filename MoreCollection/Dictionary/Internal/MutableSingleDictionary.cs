@@ -1,9 +1,5 @@
 ﻿using MoreCollection.Dictionary.Internal.Strategy;
-using MoreCollection.Infra;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MoreCollection.Dictionary.Internal
 {

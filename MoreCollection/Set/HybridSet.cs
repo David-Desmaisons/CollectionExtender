@@ -31,7 +31,7 @@ namespace MoreCollection.Set
 
         private static ILetterSimpleSetFactory<TElement> GetLetterFactory<TElement>(int MaxList) where TElement: class
         {
-            return LetterSimpleSetFactoryBuilder.Builder.GetFactory<TElement>(MaxList);
+            return LetterSimpleSetFactoryBuilder<TElement>.GetFactory(MaxList);
         }
 
         public bool Add(T item)

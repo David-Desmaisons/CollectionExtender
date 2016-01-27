@@ -1,20 +1,17 @@
-﻿namespace MoreCollection.Set.Infra
+﻿using System;
+
+namespace MoreCollection.Set.Infra
 {
-    internal class LetterSimpleSetFactoryBuilder : ILetterSimpleSetFactoryBuilder
+    internal class LetterSimpleSetFactoryBuilder<T>  where T : class
     {
         static LetterSimpleSetFactoryBuilder()
         {
-            Builder = new LetterSimpleSetFactoryBuilder();
+            GetFactory = (maxList) => new LetterSimpleSetFactory<T>(maxList);
         }
 
-        public ILetterSimpleSetFactory<T> GetFactory<T>(int MaxList) where T: class 
+        internal static Func<int, ILetterSimpleSetFactory<T>> GetFactory
         {
-            return new LetterSimpleSetFactory<T>(MaxList);
-        }
-
-        internal static ILetterSimpleSetFactoryBuilder Builder
-        {
-            get;  set;
+            get; set;
         }
     }
 }

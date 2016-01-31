@@ -2,7 +2,7 @@
 C# collection framework
 
 
-##Enumerable Extensions
+##IEnumerable Extensions
 
 Cartesian
 
@@ -50,5 +50,19 @@ Zip
                           Func<TSource1, TSource2, TSource3, TResult> Agregate)
 
 
+##IList Extensions
 
+AddRange
 
+    public static IList<T> AddRange<T>(this IList<T> list, IEnumerable<T> enumerable)
+    
+##IDictionary Extensions
+
+FindOrCreate
+
+         TValue FindOrCreateEntity<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, Func<TKey, TValue> Fac)
+
+UpdateOrCreate
+
+        public static TValue UpdateOrCreate<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, Func<TKey, TValue> Fac,
+                                                                Action<TKey, TValue> Updater)

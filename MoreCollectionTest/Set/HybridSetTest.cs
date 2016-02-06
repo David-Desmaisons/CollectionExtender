@@ -20,7 +20,6 @@ namespace MoreCollectionTest.Set
 
         public HybridSetTest()
         {
-            var builder = Substitute.For<ILetterSimpleSetFactoryBuilder>();
             _Enumerable = Substitute.For<IEnumerable<string>>();
             _LetterSimpleSetSubstitute = Substitute.For<ILetterSimpleSet<string>>();
             _LetterSimpleSetFactory = Substitute.For<ILetterSimpleSetFactory<string>>();
@@ -34,8 +33,7 @@ namespace MoreCollectionTest.Set
 
             bool res;
             _LetterSimpleSetSubstitute.Add(Arg.Any<string>(), out res).Returns(_LetterSimpleSetSubstitute);
-            builder.GetFactory<string>(Arg.Any<int>()).Returns(_LetterSimpleSetFactory);
-            LetterSimpleSetFactoryBuilder.Builder = builder;
+            LetterSimpleSetFactoryBuilder<string>.GetFactory = _ => _LetterSimpleSetFactory;
         }
 
         private void SetUp(ISet<string> FakeCollection)

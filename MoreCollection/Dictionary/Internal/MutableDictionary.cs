@@ -1,6 +1,4 @@
 ﻿using MoreCollection.Dictionary.Internal.Strategy;
-using MoreCollection.Infra;
-using System;
 using System.Collections.Generic;
 
 namespace MoreCollection.Dictionary.Internal

@@ -9,7 +9,7 @@ namespace MoreCollection.Extensions
         public static CollectionResult<TValue> FindOrCreate<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, Func<TKey, TValue> Fac)
         {
             if (dic == null)
-                throw new ArgumentNullException("enumerable");
+                throw new ArgumentNullException("dic");
 
             var res = default(TValue);
             if (dic.TryGetValue(key, out res))
@@ -23,7 +23,7 @@ namespace MoreCollection.Extensions
         public static TValue FindOrCreateEntity<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, Func<TKey, TValue> Fac)
         {
             if (dic == null)
-                throw new ArgumentNullException("enumerable");
+                throw new ArgumentNullException("dic");
 
             var res = default(TValue);
             if (dic.TryGetValue(key, out res))
@@ -38,7 +38,7 @@ namespace MoreCollection.Extensions
                                                                 Func<TKey, TValue, TValue> Updater)
         {
             if (dic == null)
-                throw new ArgumentNullException("enumerable");
+                throw new ArgumentNullException("dic");
 
             var res = default(TValue);
             if (dic.TryGetValue(key, out res))
@@ -57,6 +57,16 @@ namespace MoreCollection.Extensions
                                                                 Action<TKey, TValue> Updater)
         {
             return dic.UpdateOrCreate(key, Fac, (k, v) => { Updater(k, v); return v; });
+        }
+
+        public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key)
+        {
+            if (dic == null)
+                throw new ArgumentNullException("dic");
+
+            TValue res;
+            dic.TryGetValue(key, out res);
+            return res;
         }
 
         public static IDictionary<TKey, TValue> Import<TKey, TValue>(this IDictionary<TKey, TValue> dic, IDictionary<TKey, TValue> source)

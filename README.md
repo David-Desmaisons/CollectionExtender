@@ -41,7 +41,6 @@ Indexes
     
     public static IEnumerable<int> Indexes<T>(this IEnumerable<T> enumerable, T value)
     
-    
 Zip
 
     public static IEnumerable<TResult> Zip<TResult, TSource1, TSource2, TSource3>(
@@ -56,13 +55,19 @@ AddRange
 
     public static IList<T> AddRange<T>(this IList<T> list, IEnumerable<T> enumerable)
     
+Move
+    
+    public static IList<T> Move<T>(this IList<T> list, int oldIndex, int newIndex)
+
+ 
 ##IDictionary Extensions
 
 FindOrCreate
 
-         TValue FindOrCreateEntity<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, Func<TKey, TValue> Fac)
+    public TValue FindOrCreateEntity<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, 
+                                                    Func<TKey, TValue> Fac)
 
 UpdateOrCreate
 
-        public static TValue UpdateOrCreate<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, 
+    public static TValue UpdateOrCreate<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, 
                                         Func<TKey, TValue> Fac, Action<TKey, TValue> Updater)

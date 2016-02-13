@@ -64,8 +64,8 @@ Move
 
 FindOrCreate
 
-    public TValue FindOrCreateEntity<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, 
-                                                    Func<TKey, TValue> Fac)
+    public static TValue FindOrCreateEntity<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, 
+                                                            Func<TKey, TValue> Fac)
 
 UpdateOrCreate
 

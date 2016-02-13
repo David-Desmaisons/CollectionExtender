@@ -2,7 +2,7 @@
 {
     public interface IDictionaryStrategy<TKey, TValue> where TKey : class
     {       
-        IMutableDictionary<TKey, TValue> GetEmpty();
+        IMutableDictionary<TKey, TValue> GetEmpty(int expectedCapacity=0);
         IMutableDictionary<TKey, TValue> GetIntermediateCollection(IMutableDictionary<TKey, TValue> current);
         IMutableDictionary<TKey, TValue> Add(IMutableDictionary<TKey, TValue> current, TKey key, TValue value);
         IMutableDictionary<TKey, TValue> Remove(IMutableDictionary<TKey, TValue> current, TKey key, out bool Result);

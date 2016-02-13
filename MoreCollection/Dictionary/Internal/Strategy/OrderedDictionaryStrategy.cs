@@ -11,5 +11,10 @@
         {
             return new MutableSortedDictionary<TKey, TValue>(current, this);
         }
+
+        public override IMutableDictionary<TKey, TValue> GetIntermediateCollection()
+        {
+            return new MutableSortedDictionary<TKey, TValue>(this);
+        }
     }
 }

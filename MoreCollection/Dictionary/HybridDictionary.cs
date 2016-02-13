@@ -9,10 +9,10 @@ namespace MoreCollection.Dictionary
     {
         private IMutableDictionary<TKey, TValue> _Implementation;
 
-        public HybridDictionary(int TransitionToDictionary = 25)
+        public HybridDictionary(int ExceptedCapacity=0, int TransitionToDictionary = 25)
         {
             var strategy = DictionaryStrategyFactory.GetStrategy<TKey, TValue>(TransitionToDictionary);
-            _Implementation = strategy.GetEmpty();       
+            _Implementation = strategy.GetEmpty(ExceptedCapacity);       
         }
 
         public void Add(TKey key, TValue value)

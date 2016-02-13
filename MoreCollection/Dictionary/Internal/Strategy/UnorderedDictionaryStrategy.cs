@@ -11,5 +11,10 @@
         {
             return new MutableListDictionary<TKey, TValue>(current, this);
         }
+
+        public override IMutableDictionary<TKey, TValue> GetIntermediateCollection()
+        {
+            return new MutableListDictionary<TKey, TValue>(this);
+        }
     }
 }

@@ -49,9 +49,17 @@
 
         public abstract IMutableDictionary<TKey, TValue> GetIntermediateCollection(IMutableDictionary<TKey, TValue> current);
 
-        public IMutableDictionary<TKey, TValue> GetEmpty()
+        public abstract IMutableDictionary<TKey, TValue> GetIntermediateCollection();
+
+        public IMutableDictionary<TKey, TValue> GetEmpty(int expectedCapacity=0)
         {
-            return new MutableSingleDictionary<TKey, TValue>(this);
+            if (expectedCapacity<2)
+                return new MutableSingleDictionary<TKey, TValue>(this);
+
+            if (expectedCapacity <= _TransitionToDictionary)
+                return GetIntermediateCollection();
+
+            return new MutableDictionary<TKey, TValue>(this);
         }
 
         public IMutableDictionary<TKey, TValue> CheckDictionaryRemoved(IMutableDictionary<TKey, TValue> current)

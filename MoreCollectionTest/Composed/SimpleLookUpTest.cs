@@ -17,5 +17,15 @@ namespace MoreCollectionTest.Composed
         {
             _Lookup.Should().BeEmpty();
         }
+
+        [Theory]
+        [InlineData("a", 1)]
+        [InlineData("b", 1)]
+        [InlineData("c", 34)]
+        public void Add_AddAnElement(string key, int value) 
+        {
+            _Lookup.Add(key, value);
+            _Lookup[key].Should().BeEquivalentTo(new[] {value});
+        }
     }
 }

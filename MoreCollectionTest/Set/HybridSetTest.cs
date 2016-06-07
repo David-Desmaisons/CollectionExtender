@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 using FluentAssertions;
-using Xunit.Extensions;
 
 namespace MoreCollectionTest.Set
 {
@@ -169,7 +168,7 @@ namespace MoreCollectionTest.Set
             }
         }
 
-        [Theory, PropertyData("Data")]
+        [Theory, MemberData("Data")]
         public void UnionWith_Add_ElementsToCollection(string[] strings)
         {
             var PolyMorphSet = new HybridSet<string>();
@@ -210,61 +209,61 @@ namespace MoreCollectionTest.Set
             res.Should().Be(res2);
         }
 
-        [Theory, PropertyData("DataSquare")]
+        [Theory, MemberData("DataSquare")]
         public void IntersectWith_ConstructANewLetter_withCorrectElements(string[] strings1, string[] strings2)
         {
             ISetMethodTest(strings1, strings2, (set, enumerable) => set.IntersectWith(enumerable));
         }
 
-        [Theory, PropertyData("DataSquare")]
+        [Theory, MemberData("DataSquare")]
         public void ExceptWith_ConstructANewLetter_withCorrectElements(string[] strings1, string[] strings2)
         {
             ISetMethodTest(strings1, strings2, (set, enumerable) => set.ExceptWith(enumerable));
         }
 
-        [Theory, PropertyData("DataSquare")]
+        [Theory, MemberData("DataSquare")]
         public void SymmetricExceptWith_ConstructANewLetter_withCorrectElements(string[] strings1, string[] strings2)
         {
             ISetMethodTest(strings1, strings2, (set, enumerable) => set.SymmetricExceptWith(enumerable));
         }
 
-        [Theory, PropertyData("DataSquare")]
+        [Theory, MemberData("DataSquare")]
         public void IsProperSubsetOf_ConstructANewLetter_withCorrectElements(string[] strings1, string[] strings2)
         {
             ISetMethodTest(strings1, strings2, (set, enumerable) => set.IsProperSubsetOf(enumerable));
         }
 
-        [Theory, PropertyData("DataSquare")]
+        [Theory, MemberData("DataSquare")]
         public void IsProperSupersetOf_ConstructANewLetter_withCorrectElements(string[] strings1, string[] strings2)
         {
             ISetMethodTest(strings1, strings2, (set, enumerable) => set.IsProperSupersetOf(enumerable));
         }
 
-        [Theory, PropertyData("DataSquare")]
+        [Theory, MemberData("DataSquare")]
         public void IsSubsetOf_ConstructANewLetter_withCorrectElements(string[] strings1, string[] strings2)
         {
             ISetMethodTest(strings1, strings2, (set, enumerable) => set.IsSubsetOf(enumerable));
         }
 
-        [Theory, PropertyData("DataSquare")]
+        [Theory, MemberData("DataSquare")]
         public void IsSupersetOf_ConstructANewLetter_withCorrectElements(string[] strings1, string[] strings2)
         {
             ISetMethodTest(strings1, strings2, (set, enumerable) => set.IsSupersetOf(enumerable));
         }
 
-        [Theory, PropertyData("DataSquare")]
+        [Theory, MemberData("DataSquare")]
         public void Overlaps_ConstructANewLetter_withCorrectElements(string[] strings1, string[] strings2)
         {
             ISetMethodTest(strings1, strings2, (set, enumerable) => set.Overlaps(enumerable));
         }
 
-        [Theory, PropertyData("DataSquare")]
+        [Theory, MemberData("DataSquare")]
         public void SetEquals_ConstructANewLetter_withCorrectElements(string[] strings1, string[] strings2)
         {
             ISetMethodTest(strings1, strings2, (set, enumerable) => set.SetEquals(enumerable));
         }
 
-        [Theory, PropertyData("Data")]
+        [Theory, MemberData("Data")]
         public void CopyTo(string[] stringArray)
         {
             var SetUp = SetUpAndBuild(stringArray);

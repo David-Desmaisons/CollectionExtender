@@ -4,7 +4,6 @@ using System.Linq;
 using MoreCollection.Extensions;
 using Xunit;
 using FluentAssertions;
-using Xunit.Extensions;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 
@@ -17,7 +16,7 @@ namespace MoreCollectionTest.Extensions
         private readonly IList<int> _FullList;
         private readonly IList<int> _FullListObservable;
         private readonly ObservableCollection<int> _RawFullListObservable;
-        private readonly IList<int> _NullList;
+        private readonly IList<int> _NullList=null;
         public ListExtensionTest()
         {
             _List = new List<int>();
@@ -26,7 +25,7 @@ namespace MoreCollectionTest.Extensions
             _FullListObservable = _RawFullListObservable;
         }
 
-        [Theory, PropertyData("Data")]
+        [Theory, MemberData("Data")]
         public void AddRange_AppendsElement(IEnumerable<int> enumerable)
         {
             var excepcted = new List<int>(enumerable ?? Enumerable.Empty<int>());
@@ -36,7 +35,7 @@ namespace MoreCollectionTest.Extensions
             List.Should().Equals(excepcted);
         }
 
-        [Theory, PropertyData("Data")]
+        [Theory, MemberData("Data")]
         public void AddRange_ReturnsCallingList(IEnumerable<int> enumerable)
         {
             var res = List.AddRange(enumerable);

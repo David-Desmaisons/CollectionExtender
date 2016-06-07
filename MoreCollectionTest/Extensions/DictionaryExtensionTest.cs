@@ -11,7 +11,7 @@ namespace MoreCollectionTest.Extensions
     public class DictionaryExtensionTest
     {
         private readonly Dictionary<string, string> _Dictionary;
-        private readonly Dictionary<string, string> _NullDictionary;
+        private readonly Dictionary<string, string> _NullDictionary=null;
         private readonly Func<string, string> _Creator;
         private readonly Func<string, string, string> _Updater;
         private readonly Action<string, string> _Updater2;

@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
-using Xunit.Extensions;
 using MoreCollection.Extensions;
 
 namespace MoreCollectionTest.Set
@@ -60,14 +57,14 @@ namespace MoreCollectionTest.Set
             Test(s => s.Add("aa"));
         }
 
-        [Theory, PropertyData("Data")]
+        [Theory, MemberData("Data")]
         public void StressTestAdd(string[] strings)
         {
             SetUp(s => strings.ForEach(r => s.Add(r)));
             Test(s => s.Add("aa"));
         }
 
-        [Theory, PropertyData("Data")]
+        [Theory, MemberData("Data")]
         public void StressTestAdd_2(string[] strings)
         {
             Test(s => { strings.ForEach(r => s.Add(r)); });
@@ -97,7 +94,7 @@ namespace MoreCollectionTest.Set
             Test(s => s.Remove("aa"));
         }
 
-        [Theory, PropertyData("Data")]
+        [Theory, MemberData("Data")]
         public void StressTestRemove(string[] strings)
         {
             SetUp(s => strings.ForEach(r => s.Add(r)));

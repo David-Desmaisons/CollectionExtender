@@ -5,7 +5,6 @@ using MoreCollection.Extensions;
 using Xunit;
 using FluentAssertions;
 using NSubstitute;
-using Xunit.Extensions;
 using System.Threading;
 
 namespace MoreCollectionTest.Extensions
@@ -54,7 +53,7 @@ namespace MoreCollectionTest.Extensions
             });
         }
 
-        [Theory, PropertyData("Data")]
+        [Theory, MemberData("Data")]
         public void ForEach_Returns_CallingElement(IEnumerable<int> enumerable)
         {
             var res = enumerable.ForEach(_Action);
@@ -115,7 +114,7 @@ namespace MoreCollectionTest.Extensions
             });
         }
 
-        [Theory, PropertyData("Data")]
+        [Theory, MemberData("Data")]
         public void ForEachCancellation_Returns_True_OnSuccess(IEnumerable<int> enumerable)
         {
             var res = enumerable.ForEach(_Action, CancellationToken.None);
@@ -452,7 +451,7 @@ namespace MoreCollectionTest.Extensions
             return Math.Min(Math.Min(first, second), third);
         }
 
-        [Theory, PropertyData("CollectionData")]
+        [Theory, MemberData("CollectionData")]
         public void Zip_ReturnCollection_WithAsMuchElementAsSmallestCollection(IEnumerable<int> first,
             IEnumerable<int> second, IEnumerable<int> third)
         {
@@ -467,7 +466,7 @@ namespace MoreCollectionTest.Extensions
             _Agregator2.DidNotReceive().Invoke(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>());
         }
 
-        [Theory, PropertyData("CollectionData")]
+        [Theory, MemberData("CollectionData")]
         public void Zip_Call_Agregator(IEnumerable<int> first, IEnumerable<int> second, IEnumerable<int> third)
         {
             var res1 = first.Zip(second, third, _Agregator2).ToList();
@@ -491,7 +490,7 @@ namespace MoreCollectionTest.Extensions
             }
         }
 
-        [Theory, PropertyData("CollectionData")]
+        [Theory, MemberData("CollectionData")]
         public void Zip_Create_Sequence_AsExpected(IEnumerable<int> first, IEnumerable<int> second, IEnumerable<int> third)
         {
             Func<int, int, int, int> zipper = (a, b, c) => a * 100 + b * 10 + c;

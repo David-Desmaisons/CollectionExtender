@@ -1,9 +1,7 @@
 ﻿using MoreCollection.Set.Infra;
-using System;
 using System.Collections.Generic;
 using Xunit;
 using FluentAssertions;
-using Xunit.Extensions;
 
 namespace MoreCollectionTest.Set.Internal
 {
@@ -37,7 +35,7 @@ namespace MoreCollectionTest.Set.Internal
             target.Should().BeEquivalentTo(expected);
         }
 
-        [Theory, PropertyData("CollectionData")]
+        [Theory, MemberData("CollectionData")]
         internal void Add_Returns_SameInstance(SimpleHashSet<string> target, string added)
         {
             bool success;
@@ -46,7 +44,7 @@ namespace MoreCollectionTest.Set.Internal
             res.Should().BeSameAs(target);
         }
 
-        [Theory, PropertyData("CollectionData")]
+        [Theory, MemberData("CollectionData")]
         internal void Add_UpdateDicionaryAsExpected(SimpleHashSet<string> target, string added)
         {
             bool success;
@@ -59,7 +57,7 @@ namespace MoreCollectionTest.Set.Internal
             result.Should().Be(success);
         }
 
-        [Theory, PropertyData("CollectionData")]
+        [Theory, MemberData("CollectionData")]
         internal void Remove_ReturnDifferentInstance_IfLimitReaches(SimpleHashSet<string> target, string removed)
         {
             bool success;
@@ -76,7 +74,7 @@ namespace MoreCollectionTest.Set.Internal
             }
         }
 
-        [Theory, PropertyData("CollectionData")]
+        [Theory, MemberData("CollectionData")]
         internal void Remove_UpdateDicionaryAsExpected(SimpleHashSet<string> target, string removed)
         {
             bool success;

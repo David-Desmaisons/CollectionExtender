@@ -50,7 +50,7 @@ namespace MoreCollectionTest.Set.Internal
             res.Should().BeFalse();
         }
 
-        [Theory, PropertyData("CollectionData")]
+        [Theory, MemberData("CollectionData")]
         internal void Add_Returns_SameInstance(ListSet<string> target, string added)
         {
             bool success;
@@ -66,7 +66,7 @@ namespace MoreCollectionTest.Set.Internal
             }
         }
 
-        [Theory, PropertyData("CollectionData")]
+        [Theory, MemberData("CollectionData")]
         internal void Add_UpdateDicionaryAsExpected(ListSet<string> target, string added)
         {
             bool success;
@@ -79,7 +79,7 @@ namespace MoreCollectionTest.Set.Internal
             result.Should().Be(success);
         }
 
-        [Theory, PropertyData("CollectionData")]
+        [Theory, MemberData("CollectionData")]
         internal void Remove_ReturnSameInstance(ListSet<string> target, string removed)
         {
             bool success;
@@ -89,7 +89,7 @@ namespace MoreCollectionTest.Set.Internal
             res.Should().BeSameAs(target);
         }
 
-        [Theory, PropertyData("OnlyCollectionData")]
+        [Theory, MemberData("OnlyCollectionData")]
         internal void IEnumerable_GetEnumerator_ReturnCorrectCollection(ListSet<string> target)
         {
             System.Collections.IEnumerable nonetype = target;
@@ -101,7 +101,7 @@ namespace MoreCollectionTest.Set.Internal
             }
         }
 
-        [Theory, PropertyData("CollectionData")]
+        [Theory, MemberData("CollectionData")]
         internal void Remove_UpdateDicionaryAsExpected(ListSet<string> target, string removed)
         {
             bool success;

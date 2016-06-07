@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Xunit;
 using FluentAssertions;
-using Xunit.Extensions;
 using MoreCollection.Set.Infra;
 
 namespace MoreCollectionTest.Set.Internal
@@ -44,7 +43,7 @@ namespace MoreCollectionTest.Set.Internal
             target.Should().BeEquivalentTo(new object[] { value });
         }
 
-        [Theory, PropertyData("CollectionData")]
+        [Theory, MemberData("CollectionData")]
         internal void Remove_UpdateDicionaryAsExpected(SingleSet<string> target, string removed)
         {
             bool success;
@@ -57,7 +56,7 @@ namespace MoreCollectionTest.Set.Internal
             result.Should().Be(success);
         }
 
-        [Theory, PropertyData("CollectionData")]
+        [Theory, MemberData("CollectionData")]
         internal void Remove_ReturnSelf(SingleSet<string> target, string removed)
         {
             bool success;
@@ -77,7 +76,7 @@ namespace MoreCollectionTest.Set.Internal
             res.Should().BeFalse();
         }
 
-        [Theory, PropertyData("CollectionData")]
+        [Theory, MemberData("CollectionData")]
         internal void Add_UpdateDicionaryAsExpected(SingleSet<string> target, string removed)
         {
             bool success;
@@ -90,7 +89,7 @@ namespace MoreCollectionTest.Set.Internal
             result.Should().Be(success);
         }
 
-        [Theory, PropertyData("CollectionData")]
+        [Theory, MemberData("CollectionData")]
         internal void Add_ReturnNewInstanceIfSuccessfull(SingleSet<string> target, string removed)
         {
             bool success;
@@ -107,7 +106,7 @@ namespace MoreCollectionTest.Set.Internal
             }
         }
 
-        [Theory, PropertyData("OnlyCollectionData")]
+        [Theory, MemberData("OnlyCollectionData")]
         internal void IEnumerable_GetEnumerator_ReturnCorrectCollection(SingleSet<string> target)
         {
             System.Collections.IEnumerable nonetype = target;

@@ -22,7 +22,7 @@ namespace MoreCollection.Composed
 
         public void Add(TKey key, TElement element)
         {
-            _LookUpDictionary.FindOrCreateEntity(key, (k) => new List<TElement>(1)).Add(element);
+            _LookUpDictionary.FindOrCreateEntity(key, (k) => new List<TElement>()).Add(element);
         }
 
         public bool Remove(TKey key, TElement element)
@@ -56,7 +56,7 @@ namespace MoreCollection.Composed
                 if (_LookUpDictionary.TryGetValue(key, out res))
                     return res;
 
-                return Enumerable.Empty<TElement>();
+                throw new KeyNotFoundException();
             }
         }
 

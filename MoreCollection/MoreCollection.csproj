@@ -58,7 +58,7 @@
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\ListExtension.cs" />
     <Compile Include="Infra\EnumerableHelper.cs" />
-    <Compile Include="Composed\LookUp.cs" />
+    <Compile Include="Composed\SimpleLookUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Set\Infra\ILetterSimpleSet.cs" />
     <Compile Include="Set\Infra\ILetterSimpleSetFactory.cs" />

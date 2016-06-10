@@ -57,6 +57,7 @@
     <Compile Include="Extensions\CollectionResult.cs" />
     <Compile Include="Extensions\CollectionStatus.cs" />
     <Compile Include="Extensions\DictionaryExtension.cs" />
+    <Compile Include="Extensions\EnumerableAlgoExtender.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\IComparerExtender.cs" />
     <Compile Include="Extensions\ListExtension.cs" />

@@ -78,8 +78,10 @@
     <Compile Include="Dictionary\Internal\Strategy\DictionaryStrategyTest.cs" />
     <Compile Include="Dictionary\Internal\Strategy\OrderedDictionaryStrategyTest.cs" />
     <Compile Include="Dictionary\Internal\Strategy\UnorderedDictionaryStrategyTest.cs" />
+    <Compile Include="Extensions\EnumerableAlgoExtenderTest.cs" />
     <Compile Include="Infra\IntrospectorTest.cs" />
     <Compile Include="Composed\SimpleLookUpTest.cs" />
+    <Compile Include="MyObject.cs" />
     <Compile Include="Set\HybridIntegratedTest.cs" />
     <Compile Include="Set\Internal\LetterSimpleSetFactoryTest.cs" />
     <Compile Include="Set\Internal\ListSetTest .cs" />
@@ -95,6 +97,7 @@
     <Compile Include="Extensions\EnumerableExtensionsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestInfra\DictionaryTestExtender.cs" />
+    <Compile Include="TimeTracer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MoreCollection\MoreCollection.csproj">

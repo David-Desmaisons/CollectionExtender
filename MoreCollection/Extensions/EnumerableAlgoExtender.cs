@@ -9,7 +9,7 @@ namespace MoreCollection.Extensions
     public static class EnumerableAlgoExtender
     {
 
-        public static ICollection<T> SortFirst<T>(this IEnumerable<T> @this, int iFirst, IComparer<T> iComparer = null, bool isameelements = false)
+        public static ICollection<T> SortFirst<T>(this IEnumerable<T> @this, int iFirst, IComparer<T> comparer = null, bool sameElements = false)
         {
             if (@this == null)
                 throw new ArgumentNullException();
@@ -17,14 +17,14 @@ namespace MoreCollection.Extensions
             if (iFirst <= 0)
                 throw new ArgumentException("iFirst");
 
-            var pq = new PriorityQueue<T>(iComparer, iFirst + 1);
+            var pq = new PriorityQueue<T>(comparer, iFirst + 1);
 
             foreach (T el in @this.Take(iFirst))
             {
                 pq.Enqueue(el);
             }
 
-            var notOK = isameelements ? new List<T>() : null;
+            var notOK = sameElements ? new List<T>() : null;
 
             foreach (T el in @this.Skip(iFirst))
             {
@@ -52,10 +52,10 @@ namespace MoreCollection.Extensions
             return res;
         }
 
-        public static ICollection<T> SortLast<T>(this IEnumerable<T> @this, int iFirst, IComparer<T> iComparer = null)
+        public static ICollection<T> SortLast<T>(this IEnumerable<T> @this, int first, IComparer<T> comparer = null)
         {
-            IComparer<T> IntComparer = iComparer ?? Comparer<T>.Default;
-            return @this.SortFirst(iFirst, IntComparer.Revert());
+            IComparer<T> IntComparer = comparer ?? Comparer<T>.Default;
+            return @this.SortFirst(first, IntComparer.Revert());
         }
 
         private static void Merge<T>(this PriorityQueue<T> first, PriorityQueue<T> second)
@@ -73,27 +73,27 @@ namespace MoreCollection.Extensions
             }
         }
 
-        public static ICollection<T> SortFirstParallel<T>(this IEnumerable<T> @this, int iFirst, IComparer<T> iComparer = null)
+        public static ICollection<T> SortFirstParallel<T>(this IEnumerable<T> @this, int first, IComparer<T> comparer = null)
         {
             if (@this == null)
                 throw new ArgumentNullException();
 
-            if (iFirst <= 0)
+            if (first <= 0)
                 throw new ArgumentException("iFirst");
 
-            if (10 * iFirst > @this.Count())
+            if (10 * first > @this.Count())
             {
-                return @this.SortFirst(iFirst, iComparer);
+                return @this.SortFirst(first, comparer);
             }
 
             var res = new LinkedList<T>();
             PriorityQueue<T> refpq = null;
 
             Parallel.ForEach(@this,
-                   () => new PriorityQueue<T>(iComparer, iFirst + 1),
+                   () => new PriorityQueue<T>(comparer, first + 1),
                    (el, lc, localqueue) =>
                    {
-                       if (localqueue.Count < iFirst)
+                       if (localqueue.Count < first)
                        {
                            localqueue.Enqueue(el);
                        }
@@ -124,14 +124,14 @@ namespace MoreCollection.Extensions
             return res;
         }
 
-        public static T MinBy<T>(this IEnumerable<T> @this, IComparer<T> icomparer = null) where T : class
+        public static T MinBy<T>(this IEnumerable<T> @this, IComparer<T> comparer = null) where T : class
         {
             if (@this == null)
                 throw new ArgumentNullException();
 
-            if (icomparer == null)
+            if (comparer == null)
             {
-                icomparer = Comparer<T>.Default;
+                comparer = Comparer<T>.Default;
             }
 
             using (IEnumerator<T> sourceIterator = @this.GetEnumerator())
@@ -146,7 +146,7 @@ namespace MoreCollection.Extensions
                 while (sourceIterator.MoveNext())
                 {
                     T candidate = sourceIterator.Current;
-                    if (icomparer.Compare(candidate, min) < 0)
+                    if (comparer.Compare(candidate, min) < 0)
                     {
                         min = candidate;
                     }
@@ -155,14 +155,14 @@ namespace MoreCollection.Extensions
             }
         }
 
-        public static T MaxBy<T>(this IEnumerable<T> @this, IComparer<T> icomparer = null) where T : class
+        public static T MaxBy<T>(this IEnumerable<T> @this, IComparer<T> comparer = null) where T : class
         {
-            if (icomparer == null)
+            if (comparer == null)
             {
-                icomparer = Comparer<T>.Default;
+                comparer = Comparer<T>.Default;
             }
 
-            return @this.MinBy(icomparer.Revert());
+            return @this.MinBy(comparer.Revert());
         }
     }
 }

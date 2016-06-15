@@ -177,6 +177,21 @@ namespace MoreCollectionTest.Extensions
         }
 
         [Fact]
+        public void GetOrDefaultWithValue_ReturnValue_WhenFound()
+        {
+            _Dictionary.Add("Key", "value");
+            var res = _Dictionary.GetOrDefault("Key", "not found");
+            res.Should().Be("value");
+        }
+
+        [Fact]
+        public void GetOrDefaultWithValue_ReturnDefault_WhenNotFound()
+        {
+            var res = _Dictionary.GetOrDefault("Key", "not found");
+            res.Should().Be("not found");
+        }
+
+        [Fact]
         public void Import_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullDictionary.Import( new Dictionary<string,string>());

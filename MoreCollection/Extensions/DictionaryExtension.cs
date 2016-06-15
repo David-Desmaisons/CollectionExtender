@@ -59,14 +59,16 @@ namespace MoreCollection.Extensions
             return dic.UpdateOrCreate(key, Fac, (k, v) => { Updater(k, v); return v; });
         }
 
-        public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key)
+        public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, TValue defaultValue= default(TValue))
         {
             if (dic == null)
                 throw new ArgumentNullException("dic");
 
             TValue res;
-            dic.TryGetValue(key, out res);
-            return res;
+            if (dic.TryGetValue(key, out res))
+                return res;
+
+            return defaultValue;
         }
 
         public static IDictionary<TKey, TValue> Import<TKey, TValue>(this IDictionary<TKey, TValue> dic, IDictionary<TKey, TValue> source)

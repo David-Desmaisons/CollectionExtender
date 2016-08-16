@@ -16,9 +16,8 @@ namespace MoreCollectionTest.Extensions
         private readonly Func<int, int, int> _Agregator;
         private readonly Func<int, int, int, int> _Agregator2;
         private readonly IEnumerable<int> _NullEnumerable = null;
-        private readonly IEnumerable<int> _Enumerable;
-        private readonly IEnumerable<int> _Enumerable2;
-        private readonly IEnumerable<int> _Enumerable3;
+        private readonly IEnumerable<int> _Enumerable; 
+        private readonly IEnumerable<ClassForMin> _EnumerableForMin;
 
         public EnumerableExtensionsTest()
         {
@@ -27,8 +26,7 @@ namespace MoreCollectionTest.Extensions
             _Agregator = Substitute.For<Func<int, int, int>>();
             _Agregator2 = Substitute.For<Func<int, int, int, int>>();
             _Enumerable = Enumerable.Range(0, 10);
-            _Enumerable2 = Enumerable.Range(0, 5);
-            _Enumerable3 = Enumerable.Range(0, 20);
+            _EnumerableForMin = Enumerable.Range(0, 10).Select(i => new ClassForMin(i));
         }
 
         [Fact]
@@ -419,7 +417,6 @@ namespace MoreCollectionTest.Extensions
             Do.ShouldThrow<ArgumentNullException>();
         }
 
-
         [Fact]
         public void Zip_ThrowNullArgumentException_WhenCalledWithNullArgument_3()
         {
@@ -496,6 +493,34 @@ namespace MoreCollectionTest.Extensions
             Func<int, int, int, int> zipper = (a, b, c) => a * 100 + b * 10 + c;
             var res1 = first.Zip(second, third, zipper);
             res1.Should().BeEquivalentTo(ManualZip(first, second, third, zipper));
+        }
+
+        [Fact]
+        public void GetMinElement_ReturnExpectedResult_BasicLambda() 
+        {
+            var res = _EnumerableForMin.GetMinElement(element => element.Value);
+            res.Value.Should().Be(0);
+        }
+
+        [Fact]
+        public void GetMinElement_ReturnExpectedResult() 
+        {
+            var res = _EnumerableForMin.GetMinElement(element => -element.Value);
+            res.Value.Should().Be(9);
+        }
+
+        [Fact]
+        public void GetMaxElement_ReturnExpectedResult_BasicLambda() 
+        {
+            var res = _EnumerableForMin.GetMaxElement(element => element.Value);
+            res.Value.Should().Be(9);
+        }
+
+        [Fact]
+        public void GetMaxElement_ReturnExpectedResult() 
+        {
+            var res = _EnumerableForMin.GetMaxElement(element => -element.Value);
+            res.Value.Should().Be(0);
         }
     }
 }

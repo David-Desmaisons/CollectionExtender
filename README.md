@@ -1,6 +1,7 @@
 # CollectionExtender
-C# collection framework
+[![build](https://img.shields.io/appveyor/ci/David-Desmaisons/EasyActor.svg)](https://ci.appveyor.com/project/David-Desmaisons/EasyActor)
 
+C# utility extension methods for collection and collections implementation
 
 ##IEnumerable Extensions
 

@@ -10,9 +10,9 @@ namespace MoreCollectionTest.Set
     public abstract class SetTest
     {
         protected ISet<string> _Set;
-        protected ISet<string> _ReferenceSet;
+        private ISet<string> _ReferenceSet;
 
-        public SetTest()
+        protected SetTest()
         {
             _ReferenceSet = new HashSet<string>();
         }
@@ -98,7 +98,7 @@ namespace MoreCollectionTest.Set
         public void StressTestRemove(string[] strings)
         {
             SetUp(s => strings.ForEach(r => s.Add(r)));
-            Test(s => s.Add("c"));
+            Test(s => s.Remove("c"));
         }
 
         public static IEnumerable<object[]> Data

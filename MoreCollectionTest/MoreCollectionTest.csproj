@@ -85,7 +85,7 @@
     <Compile Include="Infra\IntrospectorTest.cs" />
     <Compile Include="Composed\SimpleLookUpTest.cs" />
     <Compile Include="MyObject.cs" />
-    <Compile Include="Set\HybridIntegratedTest.cs" />
+    <Compile Include="Set\HybridSetIntegratedTest.cs" />
     <Compile Include="Set\Internal\LetterSimpleSetFactoryTest.cs" />
     <Compile Include="Set\Internal\ListSetTest .cs" />
     <Compile Include="Set\Internal\SimpleHashSetTest.cs" />

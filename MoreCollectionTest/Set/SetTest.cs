@@ -9,11 +9,12 @@ namespace MoreCollectionTest.Set
 {
     public abstract class SetTest
     {
-        protected ISet<string> _Set;
-        private ISet<string> _ReferenceSet;
+        private readonly ISet<string> _Set;
+        private readonly ISet<string> _ReferenceSet;
 
-        protected SetTest()
+        protected SetTest(ISet<string> set)
         {
+            _Set = set;
             _ReferenceSet = new HashSet<string>();
         }
 

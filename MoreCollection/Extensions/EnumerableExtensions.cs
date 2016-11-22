@@ -143,5 +143,17 @@ namespace MoreCollection.Extensions
 
             return ZipInternal(enumerable, enumerable2, enumerable3, Agregate);
         }
+
+
+        public static IEnumerable<TSource> DistinctBy<TSource, TKey> (this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+
+            if (keySelector == null)
+                throw new ArgumentNullException(nameof(keySelector));
+
+            var seenKeys = new HashSet<TKey>();
+            return source.Where(element => seenKeys.Add(keySelector(element)));
+        }
     }
 }

@@ -52,20 +52,14 @@ namespace MoreCollection.Dictionary
             return  _Implementation.ContainsKey(key);
         }
 
-        public ICollection<TKey> Keys
-        {
-            get { return _Implementation.Keys; }
-        }
+        public ICollection<TKey> Keys => _Implementation.Keys;
 
         public bool TryGetValue(TKey key, out TValue value)
         {
             return _Implementation.TryGetValue(key, out value);
         }
 
-        public ICollection<TValue> Values
-        {
-            get { return _Implementation.Values; }
-        }
+        public ICollection<TValue> Values => _Implementation.Values;
 
         public TValue this[TKey key]
         {
@@ -89,15 +83,9 @@ namespace MoreCollection.Dictionary
             _Implementation.CopyTo(array, arrayIndex);
         }
 
-        public int Count
-        {
-            get { return _Implementation.Count; }
-        }
+        public int Count => _Implementation.Count;
 
-        public bool IsReadOnly
-        {
-            get { return false; }
-        }
+        public bool IsReadOnly => false;
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {

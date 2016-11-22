@@ -9,7 +9,7 @@ namespace MoreCollection.Extensions
         public static CollectionResult<TValue> FindOrCreate<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, Func<TKey, TValue> Fac)
         {
             if (dic == null)
-                throw new ArgumentNullException("dic");
+                throw new ArgumentNullException(nameof(dic));
 
             var res = default(TValue);
             if (dic.TryGetValue(key, out res))
@@ -23,7 +23,7 @@ namespace MoreCollection.Extensions
         public static TValue FindOrCreateEntity<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, Func<TKey, TValue> Fac)
         {
             if (dic == null)
-                throw new ArgumentNullException("dic");
+                throw new ArgumentNullException(nameof(dic));
 
             var res = default(TValue);
             if (dic.TryGetValue(key, out res))
@@ -38,7 +38,7 @@ namespace MoreCollection.Extensions
                                                                 Func<TKey, TValue, TValue> Updater)
         {
             if (dic == null)
-                throw new ArgumentNullException("dic");
+                throw new ArgumentNullException(nameof(dic));
 
             var res = default(TValue);
             if (dic.TryGetValue(key, out res))
@@ -62,7 +62,7 @@ namespace MoreCollection.Extensions
         public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, TValue defaultValue= default(TValue))
         {
             if (dic == null)
-                throw new ArgumentNullException("dic");
+                throw new ArgumentNullException(nameof(dic));
 
             TValue res;
             if (dic.TryGetValue(key, out res))
@@ -74,7 +74,7 @@ namespace MoreCollection.Extensions
         public static IDictionary<TKey, TValue> Import<TKey, TValue>(this IDictionary<TKey, TValue> dic, IDictionary<TKey, TValue> source)
         {
             if (dic == null)
-                throw new ArgumentNullException("enumerable");
+                throw new ArgumentNullException(nameof(dic));
 
             source.ForEach(el => dic.Add(el.Key, el.Value));
             return dic;

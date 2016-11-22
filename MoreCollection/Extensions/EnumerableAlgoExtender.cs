@@ -9,35 +9,34 @@ namespace MoreCollection.Extensions
     public static class EnumerableAlgoExtender
     {
 
-        public static ICollection<T> SortFirst<T>(this IEnumerable<T> @this, int iFirst, IComparer<T> comparer = null, bool sameElements = false)
+        public static ICollection<T> SortFirst<T>(this IEnumerable<T> @this, int first, IComparer<T> comparer = null, bool sameElements = false)
         {
             if (@this == null)
                 throw new ArgumentNullException();
 
-            if (iFirst <= 0)
-                throw new ArgumentException("iFirst");
+            if (first <= 0)
+                throw new ArgumentException(nameof(first));
 
-            var pq = new PriorityQueue<T>(comparer, iFirst + 1);
+            var pq = new PriorityQueue<T>(comparer, first + 1);
 
-            foreach (T el in @this.Take(iFirst))
+            foreach (T el in @this.Take(first))
             {
                 pq.Enqueue(el);
             }
 
             var notOK = sameElements ? new List<T>() : null;
 
-            foreach (T el in @this.Skip(iFirst))
+            foreach (T el in @this.Skip(first))
             {
                 if (pq.ItemComparer.Compare(el, pq.Peek()) < 0)
                 {
                     pq.Enqueue(el);
                     var no = pq.Dequeue();
-                    if (notOK != null)
-                        notOK.Add(no);
+                    notOK?.Add(no);
                 }
-                else if (notOK != null)
-                    notOK.Add(el);
-
+                else {
+                    notOK?.Add(el);
+                }
             }
 
             var res = new LinkedList<T>();
@@ -46,8 +45,7 @@ namespace MoreCollection.Extensions
                 res.AddFirst(pq.Dequeue());
             }
 
-            if (notOK != null)
-                notOK.ForEach(n => res.AddLast(n));
+            notOK?.ForEach(n => res.AddLast(n));
 
             return res;
         }

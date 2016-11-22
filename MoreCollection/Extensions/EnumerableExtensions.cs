@@ -12,7 +12,7 @@ namespace MoreCollection.Extensions
         public static IEnumerable<T> ForEach<T>(this IEnumerable<T> enumerable, Action<T> action) 
         {
             if (enumerable == null)
-                throw new ArgumentNullException("enumerable");
+                throw new ArgumentNullException(nameof(enumerable));
 
             foreach (var o in enumerable) {
                 action(o);
@@ -25,7 +25,7 @@ namespace MoreCollection.Extensions
         public static IEnumerable<T> ForEach<T>(this IEnumerable<T> enumerable, Action<T, int> action) 
         {
             if (enumerable == null)
-                throw new ArgumentNullException("enumerable");
+                throw new ArgumentNullException(nameof(enumerable));
 
             int i = 0;
             foreach (T o in enumerable) {
@@ -39,7 +39,7 @@ namespace MoreCollection.Extensions
         public static bool ForEach<T>(this IEnumerable<T> enumerable, Action<T> action, CancellationToken cancellationToken) 
         {
             if (enumerable == null)
-                throw new ArgumentNullException("enumerable");
+                throw new ArgumentNullException(nameof(enumerable));
 
             foreach (T o in enumerable) 
             {
@@ -56,7 +56,7 @@ namespace MoreCollection.Extensions
                                 IEnumerable<TSource2> second, Func<TSource1, TSource2, TResult> agregator) 
         {
             if (second == null)
-                throw new ArgumentNullException("second");
+                throw new ArgumentNullException(nameof(second));
 
             return first.SelectMany(_ => second, (ts1, ts2) => agregator(ts1, ts2));
         }
@@ -65,7 +65,7 @@ namespace MoreCollection.Extensions
         public static void ForEachCartesian<TSource1, TSource2>(this IEnumerable<TSource1> first,
                                 IEnumerable<TSource2> second, Action<TSource1, TSource2> Do) {
             if (second == null)
-                throw new ArgumentNullException("second");
+                throw new ArgumentNullException(nameof(second));
 
             first.SelectMany(_ => second, (ts1, ts2) => new { TSource1 = ts1, TSource2 = ts2 })
                 .ForEach(t => Do(t.TSource1, t.TSource2));
@@ -133,13 +133,13 @@ namespace MoreCollection.Extensions
                                Func<TSource1, TSource2, TSource3, TResult> Agregate) 
         {
             if (enumerable == null)
-                throw new ArgumentNullException("enumerable");
+                throw new ArgumentNullException(nameof(enumerable));
 
             if (enumerable2 == null)
-                throw new ArgumentNullException("enumerable2");
+                throw new ArgumentNullException(nameof(enumerable2));
 
             if (enumerable3 == null)
-                throw new ArgumentNullException("enumerable3");
+                throw new ArgumentNullException(nameof(enumerable3));
 
             return ZipInternal(enumerable, enumerable2, enumerable3, Agregate);
         }

@@ -23,7 +23,7 @@ namespace MoreCollection.Dictionary.Internal
         private int GetIndex(TKey key)
         {
             if (key == null)
-                throw new ArgumentNullException("key");
+                throw new ArgumentNullException(nameof(key));
 
             return _List.Index(kvp => kvp.Key.Equals(key));
         }
@@ -32,7 +32,7 @@ namespace MoreCollection.Dictionary.Internal
         {
             if (key == null)
             {
-                throw new ArgumentNullException("key", "ArgumentNull_Key");
+                throw new ArgumentNullException(nameof(key), "ArgumentNull_Key");
             }
 
             if (ContainsKey(key))

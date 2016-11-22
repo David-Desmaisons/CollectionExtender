@@ -22,7 +22,7 @@ namespace MoreCollection.Dictionary.Internal
             }
 
             if (count != 0)
-                throw new ArgumentOutOfRangeException("dictionary", "dictionary should have only 0 or 1 element");
+                throw new ArgumentOutOfRangeException(nameof(dictionary), "dictionary should have only 0 or 1 element");
         }
 
         internal SingleDictionary()
@@ -164,14 +164,8 @@ namespace MoreCollection.Dictionary.Internal
             EnumerableHelper.CopyTo(this, array, arrayIndex);
         }
 
-        public int Count
-        {
-            get { return (_Key == null) ? 0 : 1; }
-        }
+        public int Count => (_Key == null) ? 0 : 1;
 
-        public bool IsReadOnly
-        {
-            get { return false; }
-        }
+        public bool IsReadOnly => false;
     }
 }

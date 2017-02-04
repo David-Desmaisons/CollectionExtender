@@ -2,7 +2,7 @@
 
 namespace MoreCollection.Set.Infra
 {
-    internal class LetterSimpleSetFactoryBuilder<T>  where T : class
+    internal class LetterSimpleSetFactoryBuilder<T>
     {
         static LetterSimpleSetFactoryBuilder()
         {

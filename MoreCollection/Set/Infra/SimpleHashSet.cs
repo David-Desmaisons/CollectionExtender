@@ -2,7 +2,7 @@
 
 namespace MoreCollection.Set.Infra
 {
-    internal class SimpleHashSet<T> : HashSet<T>, ILetterSimpleSet<T> where T : class
+    internal class SimpleHashSet<T> : HashSet<T>, ILetterSimpleSet<T>
     {
         private readonly ILetterSimpleSetFactory<T> _Factory;
         public SimpleHashSet(ILetterSimpleSetFactory<T> Factory)

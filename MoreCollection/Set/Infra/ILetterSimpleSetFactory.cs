@@ -2,7 +2,7 @@
 
 namespace MoreCollection.Set.Infra
 {
-    internal interface ILetterSimpleSetFactory<T> where T : class
+    internal interface ILetterSimpleSetFactory<T>
     {
         ILetterSimpleSet<T> GetDefault();
         ILetterSimpleSet<T> GetDefault(IEnumerable<T> Items);

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace MoreCollection.Set.Infra
 {
-    internal class LetterSimpleSetFactory<T> : ILetterSimpleSetFactory<T>  where T : class
+    internal class LetterSimpleSetFactory<T> : ILetterSimpleSetFactory<T>
     {
         private int _MaxList;
 

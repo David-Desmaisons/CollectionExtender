@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace MoreCollection.Set.Infra
 {
-    public class SingleSet<T> : ILetterSimpleSet<T> where T : class
+    public class SingleSet<T> : ILetterSimpleSet<T>
     {
-        private T _SingleItem = null;
+        private object _SingleItem = null;
         private readonly ILetterSimpleSetFactory<T> _Factory;
 
         internal SingleSet(ILetterSimpleSetFactory<T> Factory)
@@ -35,7 +35,7 @@ namespace MoreCollection.Set.Infra
 
         private bool Remove(T item)
         {
-            if (_SingleItem == item)
+            if (Object.Equals(_SingleItem,item))
             {
                 _SingleItem = null;
                 return true;
@@ -52,7 +52,7 @@ namespace MoreCollection.Set.Infra
         private IEnumerable<T> GetEnumerable()
         {
             if (_SingleItem!=null)
-                yield return _SingleItem;
+                yield return (T)_SingleItem;
         }
 
         public IEnumerator<T> GetEnumerator()
@@ -80,7 +80,7 @@ namespace MoreCollection.Set.Infra
             }
 
             success = true;
-            return _Factory.GetDefault(_SingleItem, item);
+            return _Factory.GetDefault((T)_SingleItem, item);
         }
 
         public ILetterSimpleSet<T> Remove(T item, out bool success)

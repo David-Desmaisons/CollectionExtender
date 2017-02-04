@@ -6,7 +6,7 @@ using MoreCollection.Infra;
 
 namespace MoreCollection.Set
 {
-    public class HybridSet<T> : ISet<T> where T: class
+    public class HybridSet<T> : ISet<T>
     {
         private ILetterSimpleSet<T> _Letter;
         private ILetterSimpleSetFactory<T> _Factory;
@@ -29,7 +29,7 @@ namespace MoreCollection.Set
             _Letter = _Factory.GetDefault(items);
         }
 
-        private static ILetterSimpleSetFactory<TElement> GetLetterFactory<TElement>(int MaxList) where TElement: class
+        private static ILetterSimpleSetFactory<TElement> GetLetterFactory<TElement>(int MaxList) //where TElement: class
         {
             return LetterSimpleSetFactoryBuilder<TElement>.GetFactory(MaxList);
         }

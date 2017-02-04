@@ -2,7 +2,7 @@
 
 namespace MoreCollection.Set.Infra
 {
-    public interface ILetterSimpleSet<T> : IEnumerable<T> where T : class
+    public interface ILetterSimpleSet<T> : IEnumerable<T>
     {
         ILetterSimpleSet<T> Add(T item, out bool success);
 

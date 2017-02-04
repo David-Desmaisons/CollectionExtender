@@ -4,22 +4,22 @@ using System.Linq;
 
 namespace MoreCollection.Set.Infra
 {
-    internal class ListSet<T> : ILetterSimpleSet<T> where T : class
+    internal class ListSet<T> : ILetterSimpleSet<T>
     {
-        private T[] _Items;
+        private object[] _Items;
         private int _Count = 0;
         private readonly ILetterSimpleSetFactory<T> _Factory;
 
         internal ListSet(ILetterSimpleSetFactory<T> Factory, int MaxItem)
         {
             _Factory = Factory;
-            _Items = new T[MaxItem];
+            _Items = new object[MaxItem];
         }
 
         internal ListSet(ILetterSimpleSetFactory<T> Factory, T item, int MaxItem)
         {
             _Factory = Factory;
-            _Items = new T[MaxItem];
+            _Items = new object[MaxItem];
             _Items[0] = item;
             _Count = 1;
         }
@@ -34,7 +34,7 @@ namespace MoreCollection.Set.Infra
                                 string.Format("items count ({0}) >= Max ({1})", count, MaxItem));
             }
 
-            _Items = new T[MaxItem];
+            _Items = new object[MaxItem];
 
             int index = 0;
             foreach (T item in items)
@@ -61,8 +61,7 @@ namespace MoreCollection.Set.Infra
 
             for (int i = 0; i < _Count; i++)
             {
-                T iitem = _Items[i];
-                if (Object.Equals(item, iitem))
+                if (Object.Equals(item, _Items[i]))
                 {
                     _Items[i] = _Items[_Count - 1];
                     _Items[_Count - 1] = null;
@@ -91,7 +90,7 @@ namespace MoreCollection.Set.Infra
 
         private IEnumerable<T> GetEnumerable()
         {
-            return _Items.TakeWhile(t => t != null);
+            return _Items.Cast<T>().TakeWhile(t => t != null);
         }
 
         public IEnumerator<T> GetEnumerator()

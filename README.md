@@ -1,5 +1,5 @@
-# CollectionExtender
-[![build](https://img.shields.io/appveyor/ci/David-Desmaisons/EasyActor.svg)](https://ci.appveyor.com/project/David-Desmaisons/EasyActor)
+# MoreCollection
+[![build](https://img.shields.io/appveyor/ci/David-Desmaisons/morecollection.svg)](https://ci.appveyor.com/project/David-Desmaisons/morecollection)
 
 C# utility extension methods for collection and collections implementation
 

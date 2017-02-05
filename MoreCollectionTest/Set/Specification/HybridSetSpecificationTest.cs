@@ -9,10 +9,10 @@ namespace MoreCollectionTest.Set.Specification
 {
     public class HybridSetSpecificationTest 
     {
-        [Property(MaxTest = 1000)]
-        public Property HybridSet_ShouldBehaveAsSet()
+        [Property(MaxTest = 2000)]
+        public Property HybridSet_BehaveAsSet()
         {
-            return new OperationSpecification().ToProperty();
+            return new SetOperationSpecification().ToProperty();
         }
 
         [Property(MaxTest = 300)]
@@ -60,13 +60,14 @@ namespace MoreCollectionTest.Set.Specification
         [Property(MaxTest = 300)]
         public Property Constructor_ReturnsCorrectValue()
         {
+            var transition = 10;
             return Prop.ForAll<int[]>((arr1) =>
             {
-                var set = new HashSet<int>(arr1);
-                var hybridSet = new HybridSet<int>(arr1, 4);
-                return set.SetEquals(hybridSet).Classify(set.Count<=1, "Single")
-                                                .Classify(set.Count>1 && set.Count <= 4, "List")
-                                                .Classify(set.Count >4 , "Hash");
+                var set = new HashSet<int>(arr1);          
+                var hybridSet = new HybridSet<int>(arr1, 10);
+                return set.SetEquals(hybridSet).Classify(set.Count <= transition, "Single")
+                                                .Classify(set.Count > 1 && set.Count <= transition, "List")
+                                                .Classify(set.Count > transition, "Hash");
             });
         }
 

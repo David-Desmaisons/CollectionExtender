@@ -6,13 +6,13 @@ using System.Linq;
 
 namespace MoreCollectionTest.Set.Specification
 {
-    public class OperationSpecification : ICommandGenerator<ISet<int>, ISet<int>>
+    public class SetOperationSpecification : ICommandGenerator<ISet<int>, ISet<int>>
     {
         public ISet<int> InitialActual => new HybridSet<int>(3);
 
         public ISet<int> InitialModel => new HashSet<int>();
 
-        private Gen<int> Elements => Gen.Choose(0, 10);
+        private Gen<int> Elements => Gen.Choose(0, 6);
 
         private Gen<Command<ISet<int>, ISet<int>>> Build(Func<int, Command<ISet<int>, ISet<int>>> builder)
         {

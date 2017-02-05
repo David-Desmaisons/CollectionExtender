@@ -101,7 +101,7 @@
     <Compile Include="Set\Specification\Clear.cs" />
     <Compile Include="Set\Specification\Add.cs" />
     <Compile Include="Set\Specification\Remove.cs" />
-    <Compile Include="Set\Specification\OperationSpecification.cs" />
+    <Compile Include="Set\Specification\SetOperationSpecification.cs" />
     <Compile Include="Set\Specification\HybridSetSpecificationTest.cs" />
     <Compile Include="Set\Internal\LetterSimpleSetFactoryTest.cs" />
     <Compile Include="Set\Internal\ListSetTest .cs" />

@@ -3,9 +3,11 @@ using System.Linq;
 using MoreCollection.Set.Infra;
 using MoreCollection.Extensions;
 using MoreCollection.Infra;
+using System.Diagnostics;
 
 namespace MoreCollection.Set
 {
+    [DebuggerDisplay("Count = {Count}")]
     public class HybridSet<T> : ISet<T>
     {
         private ILetterSimpleSet<T> _Letter;

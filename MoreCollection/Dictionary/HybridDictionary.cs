@@ -2,9 +2,11 @@
 using MoreCollection.Dictionary.Internal.Strategy;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace MoreCollection.Dictionary
 {
+    [DebuggerDisplay("Count = {Count}")]
     public class HybridDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
         private IMutableDictionary<TKey, TValue> _Implementation;

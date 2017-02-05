@@ -96,11 +96,11 @@ namespace MoreCollectionTest.Extensions
         public void Test_Sort_Int_Reverse()
         {
             ICollection<int> res = null;
-            using (TimeTracer.TimeTrack(string.Format("find 5 in a list of 100000")))
+            using (TimeTracer.TimeTrack("find 5 in a list of 100000"))
             {
                 res = _MyList.SortLast(5);
             }
-            using (TimeTracer.TimeTrack(string.Format("full sort a list of 100000")))
+            using (TimeTracer.TimeTrack("full sort a list of 100000"))
             {
                 _MyList.Sort();
             }
@@ -113,7 +113,7 @@ namespace MoreCollectionTest.Extensions
         public void Test_Sort_Int_Parrellel()
         {
             ICollection<int> res = null;
-            using (TimeTracer.TimeTrack(string.Format("find 10 in a list of 100000")))
+            using (TimeTracer.TimeTrack("find 10 in a list of 100000"))
             {
                 res = _MyList.SortFirstParallel(10);
             }
@@ -128,7 +128,7 @@ namespace MoreCollectionTest.Extensions
             _MyList = Enumerable.Range(0, 50).ToList();
 
             ICollection<int> res = null;
-            using (TimeTracer.TimeTrack(string.Format("find 10 in a list of 50")))
+            using (TimeTracer.TimeTrack("find 10 in a list of 50"))
             {
                 res = _MyList.SortFirstParallel(10);
             }
@@ -152,11 +152,11 @@ namespace MoreCollectionTest.Extensions
         public void Test_Sort_Int()
         {
             ICollection<int> res = null;
-            using (TimeTracer.TimeTrack(string.Format("find 10 in a list of 100000")))
+            using (TimeTracer.TimeTrack("find 10 in a list of 100000"))
             {
                 res = _MyList.SortFirst(10);
             }
-            using (TimeTracer.TimeTrack(string.Format("full sort a list of 100000")))
+            using (TimeTracer.TimeTrack("full sort a list of 100000"))
             {
                 _MyList.Sort();
             }
@@ -166,11 +166,11 @@ namespace MoreCollectionTest.Extensions
 
             _MyList = Enumerable.Range(0, 100000).Reverse().ToList();
             res = null;
-            using (TimeTracer.TimeTrack(string.Format("find 10 in a list of 100000")))
+            using (TimeTracer.TimeTrack("find 10 in a list of 100000"))
             {
                 res = _MyList.SortFirst(10);
             }
-            using (TimeTracer.TimeTrack(string.Format("full sort a list of 100000")))
+            using (TimeTracer.TimeTrack("full sort a list of 100000"))
             {
                 _MyList.Sort();
             }
@@ -187,11 +187,11 @@ namespace MoreCollectionTest.Extensions
             ICollection<MyObject> res = null;
             GC.Collect();
             GC.WaitForPendingFinalizers();
-            using (TimeTracer.TimeTrack(string.Format("find 10 in a list of 100000")))
+            using (TimeTracer.TimeTrack("find 10 in a list of 100000"))
             {
                 res = _MyList.SortFirst(10);
             }
-            using (TimeTracer.TimeTrack(string.Format("full sort a list of 100000")))
+            using (TimeTracer.TimeTrack("full sort a list of 100000"))
             {
                 _MyList.Sort();
             }
@@ -209,15 +209,15 @@ namespace MoreCollectionTest.Extensions
             ICollection<MyObject> res, res2 = null;
             GC.Collect();
             GC.WaitForPendingFinalizers();
-            using (TimeTracer.TimeTrack(string.Format("find 10 in a list of 2000000")))
+            using (TimeTracer.TimeTrack("find 10 in a list of 2000000"))
             {
                 res = _MyList.SortFirst(10);
             }
-            using (TimeTracer.TimeTrack(string.Format("find 10 parallel in a list of 2000000")))
+            using (TimeTracer.TimeTrack("find 10 parallel in a list of 2000000"))
             {
                 res2 = _MyList.SortFirstParallel(10);
             }
-            using (TimeTracer.TimeTrack(string.Format("full sort a list of 2000000")))
+            using (TimeTracer.TimeTrack("full sort a list of 2000000"))
             {
                 _MyList.Sort();
             }
@@ -240,15 +240,15 @@ namespace MoreCollectionTest.Extensions
             GC.Collect();
             GC.WaitForPendingFinalizers();
 
-            using (TimeTracer.TimeTrack(string.Format("find 10 in a list of 200000")))
+            using (TimeTracer.TimeTrack("find 10 in a list of 200000"))
             {
                 res = _MyList.SortFirst(10, cm);
             }
-            using (TimeTracer.TimeTrack(string.Format("find 10 parallel in a list of 2000000")))
+            using (TimeTracer.TimeTrack("find 10 parallel in a list of 2000000"))
             {
                 res2 = _MyList.SortFirstParallel(10, cm);
             }
-            using (TimeTracer.TimeTrack(string.Format("full sort a list of 200000")))
+            using (TimeTracer.TimeTrack("full sort a list of 200000"))
             {
                 fullexpected = _MyList.OrderBy(s => s, cm).ToList();
             }
@@ -264,7 +264,6 @@ namespace MoreCollectionTest.Extensions
         [Fact]
         public void Test_Sort_MyObject_2()
         {
-
             CompareMyObject cm = new CompareMyObject();
             ICollection<MyObject> res = null;
             List<MyObject> fullexpected = null;
@@ -272,11 +271,11 @@ namespace MoreCollectionTest.Extensions
             GC.Collect();
             GC.WaitForPendingFinalizers();
 
-            using (TimeTracer.TimeTrack(string.Format("find 10 in a list of 100000")))
+            using (TimeTracer.TimeTrack("find 10 in a list of 100000"))
             {
                 res = _MyList.SortFirst(10, cm);
             }
-            using (TimeTracer.TimeTrack(string.Format("full sort a list of 100000")))
+            using (TimeTracer.TimeTrack("full sort a list of 100000"))
             {
                 fullexpected = _MyList.OrderBy(s => s, cm).ToList();
             }

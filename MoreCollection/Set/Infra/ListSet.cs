@@ -30,8 +30,7 @@ namespace MoreCollection.Set.Infra
             int count = items.Count();
             if (count >= MaxItem)
             {
-                throw new ArgumentOutOfRangeException(
-                                string.Format("items count ({0}) >= Max ({1})", count, MaxItem));
+                throw new ArgumentOutOfRangeException($"items count ({count}) >= Max ({MaxItem})");
             }
 
             _Items = new object[MaxItem];

@@ -26,7 +26,7 @@ namespace MoreCollection.Set.Infra
         public ILetterSimpleSet<T> GetDefault(IEnumerable<T> Items)
         {
             if (Items == null)
-                throw new ArgumentNullException("Items");
+                throw new ArgumentNullException(nameof(Items));
 
             var FiItems = new HashSet<T>(Items);
 

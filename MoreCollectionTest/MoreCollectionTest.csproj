@@ -41,6 +41,18 @@
     <Reference Include="FluentAssertions.Core">
       <HintPath>..\packages\FluentAssertions.4.1.1\lib\net45\FluentAssertions.Core.dll</HintPath>
     </Reference>
+    <Reference Include="FsCheck, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FsCheck.2.7.0\lib\net45\FsCheck.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FsCheck.Xunit, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FsCheck.Xunit.2.7.0\lib\net45\FsCheck.Xunit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FSharp.Core, Version=4.3.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FSharp.Core.3.1.2.5\lib\net40\FSharp.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NSubstitute">
       <HintPath>..\packages\NSubstitute.1.9.2.0\lib\net45\NSubstitute.dll</HintPath>
     </Reference>
@@ -86,12 +98,19 @@
     <Compile Include="Composed\SimpleLookUpTest.cs" />
     <Compile Include="MyObject.cs" />
     <Compile Include="Set\HybridSetIntegratedTest.cs" />
+    <Compile Include="Set\Specification\Clear.cs" />
+    <Compile Include="Set\Specification\Add.cs" />
+    <Compile Include="Set\Specification\Remove.cs" />
+    <Compile Include="Set\Specification\OperationSpecification.cs" />
+    <Compile Include="Set\Specification\HybridSetSpecificationTest.cs" />
     <Compile Include="Set\Internal\LetterSimpleSetFactoryTest.cs" />
     <Compile Include="Set\Internal\ListSetTest .cs" />
     <Compile Include="Set\Internal\SimpleHashSetTest.cs" />
     <Compile Include="Set\Internal\SingleSetTest.cs" />
     <Compile Include="Set\HybridSetTest.cs" />
     <Compile Include="Set\SetTest.cs" />
+    <Compile Include="Set\Specification\SetComandArgument.cs" />
+    <Compile Include="Set\Specification\SetComand.cs" />
     <Compile Include="TestInfra\DictionaryTest.cs" />
     <Compile Include="Dictionary\HybridDictionaryTest.cs" />
     <Compile Include="Dictionary\Internal\ListDictionaryTest.cs" />

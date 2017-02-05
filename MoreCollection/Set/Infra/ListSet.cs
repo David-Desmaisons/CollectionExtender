@@ -90,7 +90,7 @@ namespace MoreCollection.Set.Infra
 
         private IEnumerable<T> GetEnumerable()
         {
-            return _Items.Cast<T>().TakeWhile(t => t != null);
+            return _Items.TakeWhile(t => t != null).Cast<T>();
         }
 
         public IEnumerator<T> GetEnumerator()

@@ -11,6 +11,9 @@ namespace MoreCollection.Set
         private ILetterSimpleSet<T> _Letter;
         private ILetterSimpleSetFactory<T> _Factory;
 
+        public int Count => _Letter.Count;
+        public bool IsReadOnly => false;
+
         internal HybridSet(int MaxList=10)
         {
             _Factory = GetLetterFactory<T>(MaxList);
@@ -29,7 +32,7 @@ namespace MoreCollection.Set
             _Letter = _Factory.GetDefault(items);
         }
 
-        private static ILetterSimpleSetFactory<TElement> GetLetterFactory<TElement>(int MaxList) //where TElement: class
+        private static ILetterSimpleSetFactory<TElement> GetLetterFactory<TElement>(int MaxList)
         {
             return LetterSimpleSetFactoryBuilder<TElement>.GetFactory(MaxList);
         }
@@ -124,16 +127,6 @@ namespace MoreCollection.Set
         public bool Contains(T item)
         {
             return _Letter.Contains(item);
-        }
-
-        public int Count
-        {
-            get { return _Letter.Count; }
-        }
-
-        public bool IsReadOnly 
-        { 
-            get { return false; } 
         }
 
         public IEnumerator<T> GetEnumerator()

@@ -9,6 +9,10 @@ namespace MoreCollection.Dictionary.Internal
     {
         private List<KeyValuePair<TKey, TValue>> _List;
 
+        public int Count => _List.Count;
+
+        public bool IsReadOnly => false;
+
         public ListDictionary()
         {
             _List = new List<KeyValuePair<TKey, TValue>>();
@@ -137,16 +141,6 @@ namespace MoreCollection.Dictionary.Internal
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
             _List.CopyTo(array, arrayIndex);
-        }
-
-        public int Count
-        {
-            get { return _List.Count; }
-        }
-
-        public bool IsReadOnly
-        {
-            get { return false; }
         }
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()

@@ -1,6 +1,6 @@
 ﻿namespace MoreCollection.Dictionary.Internal.Strategy
 {
-    public interface IDictionaryStrategy<TKey, TValue> where TKey : class
+    public interface IDictionaryStrategy<TKey, TValue>
     {       
         IMutableDictionary<TKey, TValue> GetEmpty(int expectedCapacity=0);
         IMutableDictionary<TKey, TValue> GetIntermediateCollection(IMutableDictionary<TKey, TValue> current);

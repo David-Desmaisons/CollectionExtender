@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MoreCollection.Dictionary.Internal
 {
-    public class MutableListDictionary<TKey, TValue> : ListDictionary<TKey, TValue>, IMutableDictionary<TKey, TValue> where TKey : class                              
+    public class MutableListDictionary<TKey, TValue> : ListDictionary<TKey, TValue>, IMutableDictionary<TKey, TValue>                              
     {
         private readonly IDictionaryStrategy<TKey, TValue> _DictionaryStrategy;
         public MutableListDictionary(IDictionaryStrategy<TKey, TValue> dictionaryStrategy)

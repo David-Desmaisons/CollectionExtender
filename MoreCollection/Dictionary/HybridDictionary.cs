@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace MoreCollection.Dictionary
 {
-    public class HybridDictionary<TKey, TValue> : IDictionary<TKey, TValue> where TKey : class 
+    public class HybridDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
         private IMutableDictionary<TKey, TValue> _Implementation;
 

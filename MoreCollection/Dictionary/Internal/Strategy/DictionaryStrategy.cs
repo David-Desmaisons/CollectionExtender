@@ -1,6 +1,6 @@
 ﻿namespace MoreCollection.Dictionary.Internal.Strategy
 {
-    internal abstract class DictionaryStrategy<TKey, TValue> : IDictionaryStrategy<TKey,TValue>  where TKey : class
+    internal abstract class DictionaryStrategy<TKey, TValue> : IDictionaryStrategy<TKey,TValue>
     {
         private readonly int _TransitionToDictionary;
         public DictionaryStrategy (int limit = 10)

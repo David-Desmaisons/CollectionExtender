@@ -17,7 +17,7 @@ namespace MoreCollection.Dictionary.Internal.Strategy
                             && (interfaceType.GetGenericArguments()[0]) == type);
         }
 
-        public static IDictionaryStrategy<TKey, TValue> GetStrategy<TKey, TValue>(int ListTransition) where TKey : class
+        public static IDictionaryStrategy<TKey, TValue> GetStrategy<TKey, TValue>(int ListTransition)
         {
             bool comparable = _IsComparable.FindOrCreateEntity(typeof(TKey), IsComparable);
 

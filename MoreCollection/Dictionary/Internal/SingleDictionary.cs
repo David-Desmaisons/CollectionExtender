@@ -5,10 +5,14 @@ using System.Linq;
 
 namespace MoreCollection.Dictionary.Internal
 {
-    internal class SingleDictionary<Tkey, Tvalue> : IDictionary<Tkey, Tvalue> where Tkey: class
+    internal class SingleDictionary<Tkey, Tvalue> : IDictionary<Tkey, Tvalue>
     {
-        private Tkey _Key;
+        private object _Key;
         private Tvalue _Value;
+
+        public int Count => (_Key == null) ? 0 : 1;
+        public bool IsReadOnly => false;
+
         internal SingleDictionary(IDictionary<Tkey, Tvalue> dictionary):this()
         {
             var count = dictionary.Count();
@@ -138,7 +142,7 @@ namespace MoreCollection.Dictionary.Internal
             { 
                 var res = new List<Tkey>(); 
                 if (_Key != null)
-                    res.Add(_Key); 
+                    res.Add((Tkey)_Key); 
                 return res; 
             }
         }
@@ -146,7 +150,7 @@ namespace MoreCollection.Dictionary.Internal
         public IEnumerator<KeyValuePair<Tkey, Tvalue>> GetEnumerator()
         {
             if (_Key!=null)
-                yield return new KeyValuePair<Tkey, Tvalue>(_Key, _Value);
+                yield return new KeyValuePair<Tkey, Tvalue>((Tkey)_Key, _Value);
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
@@ -163,9 +167,5 @@ namespace MoreCollection.Dictionary.Internal
         {
             EnumerableHelper.CopyTo(this, array, arrayIndex);
         }
-
-        public int Count => (_Key == null) ? 0 : 1;
-
-        public bool IsReadOnly => false;
     }
 }

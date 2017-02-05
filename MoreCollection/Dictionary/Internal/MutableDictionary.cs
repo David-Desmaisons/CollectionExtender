@@ -3,12 +3,11 @@ using System.Collections.Generic;
 
 namespace MoreCollection.Dictionary.Internal
 {
-    internal class MutableDictionary<TKey, TValue>: Dictionary<TKey, TValue>, IMutableDictionary<TKey, TValue> where TKey:class 
+    internal class MutableDictionary<TKey, TValue>: Dictionary<TKey, TValue>, IMutableDictionary<TKey, TValue>
     {
         private readonly IDictionaryStrategy<TKey, TValue> _DictionaryStrategy;
 
-        internal MutableDictionary(IDictionaryStrategy<TKey, TValue> dictionaryStrategy)
-            : base()
+        internal MutableDictionary(IDictionaryStrategy<TKey, TValue> dictionaryStrategy): base()
         {
             _DictionaryStrategy = dictionaryStrategy;
         }

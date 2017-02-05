@@ -1,7 +1,6 @@
 ﻿namespace MoreCollection.Dictionary.Internal.Strategy
 {
     internal class OrderedDictionaryStrategy<TKey, TValue> :   DictionaryStrategy<TKey, TValue> 
-                        where TKey : class
     {
         internal OrderedDictionaryStrategy(int DictionaryTransition):base(DictionaryTransition)
         {

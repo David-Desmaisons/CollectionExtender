@@ -4,7 +4,6 @@ using System.Collections.Generic;
 namespace MoreCollection.Dictionary.Internal
 {
     internal class MutableSingleDictionary<TKey, TValue> : SingleDictionary<TKey, TValue>, IMutableDictionary<TKey, TValue>
-                        where TKey : class
     {
         private readonly IDictionaryStrategy<TKey, TValue> _DictionaryStrategy;
         internal MutableSingleDictionary(IDictionary<TKey, TValue> dictionary, IDictionaryStrategy<TKey, TValue> dictionaryStrategy)

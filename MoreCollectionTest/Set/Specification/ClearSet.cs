@@ -2,7 +2,7 @@
 
 namespace MoreCollectionTest.Set.Specification
 {
-    internal class Clear : SetComand
+    internal class ClearSet : SetComand
     {
         protected override void Perform(ISet<int> c)
         {

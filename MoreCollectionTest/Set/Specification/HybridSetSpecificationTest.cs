@@ -9,10 +9,28 @@ namespace MoreCollectionTest.Set.Specification
 {
     public class HybridSetSpecificationTest 
     {
-        [Property(MaxTest = 2000)]
-        public Property HybridSet_BehaveAsSet()
+        [Property(MaxTest = 1000)]
+        public Property HybridSet_BuildFromEmptyBehaveAsSet()
         {
-            return new SetOperationSpecification().ToProperty();
+            return SetOperationSpecification.FromEmpty();
+        }
+
+        [Property(MaxTest = 1000)]
+        public Property HybridSet_BuildFromSingleBehaveAsSet()
+        {
+            return SetOperationSpecification.FromSingle();
+        }
+
+        [Property(MaxTest = 1000)]
+        public Property HybridSet_BuildFromListBehaveAsSet()
+        {
+            return SetOperationSpecification.FromList();
+        }
+
+        [Property(MaxTest = 1000)]
+        public Property HybridSet_BuildFromHashBehaveAsSet()
+        {
+            return SetOperationSpecification.FromHash();
         }
 
         [Property(MaxTest = 300)]

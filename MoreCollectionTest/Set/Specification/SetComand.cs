@@ -25,9 +25,9 @@ namespace MoreCollectionTest.Set.Specification
 
         public override Property Post(ISet<int> c, ISet<int> m)
         {
-            return (m.SetEquals(c)).Label("Same collection compared from model")
-                        .And(c.SetEquals(m)).Label("Same collection compared from hybrid")
-                        .And(c.Count == m.Count).Label("Count");
+            return (m.SetEquals(c)).Label($"Same collection compared from model. Expected:[{(string.Join(",",m))}], actual:[{(string.Join(",", c))}]")
+                        .And(c.SetEquals(m)).Label($"Same collection compared from hybrid. Expected:[{(string.Join(", ",m))}], actual:[{(string.Join(", ", c))}]")
+                        .And(c.Count == m.Count).Label($"Count expected:{m.Count} actual {c.Count}");
         }
 
         public override string ToString()

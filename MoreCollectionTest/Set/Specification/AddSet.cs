@@ -2,15 +2,15 @@
 
 namespace MoreCollectionTest.Set.Specification
 {
-    internal class Remove : SetComandArgument
+    internal class AddSet : SetComandArgument
     {
-        public Remove(int parameter) : base(parameter)
+        public AddSet(int parameter) : base(parameter)
         {
         }
 
         protected override void Perform(ISet<int> c, int parameter)
         {
-            c.Remove(parameter);
+            c.Add(parameter);
         }
     }
 }

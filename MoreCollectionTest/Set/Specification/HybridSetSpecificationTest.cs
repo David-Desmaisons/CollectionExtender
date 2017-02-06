@@ -70,7 +70,7 @@ namespace MoreCollectionTest.Set.Specification
         public Property Contains_ReturnsCorrectValue()
         {
             return BuilPropertyFromArrays(
-              (set, arr) => arr.Select(el => set.Contains(el)).ToList(),
+              (set, arr) => arr.Select(set.Contains).ToList(),
               (s1, s2) => s1.SequenceEqual(s2),
               (_, __, set) => set.All(el => el==false), "No Overlaps");
         }
@@ -78,7 +78,7 @@ namespace MoreCollectionTest.Set.Specification
         [Property(MaxTest = 300)]
         public Property Constructor_ReturnsCorrectValue()
         {
-            var transition = 10;
+            const int transition = 10;
             return Prop.ForAll<int[]>((arr) =>
             {
                 var set = new HashSet<int>(arr);          

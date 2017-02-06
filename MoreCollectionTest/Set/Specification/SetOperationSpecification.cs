@@ -53,16 +53,7 @@ namespace MoreCollectionTest.Set.Specification
         private class SetOperationSpecificationFromSingle : SetOperationSpecification, ICommandGenerator<ISet<int>, ISet<int>>
         {
             public ISet<int> InitialActual => new HybridSet<int>(Value, 3);
-            public ISet<int> InitialModel
-            {
-                get
-                {
-                    var res = new HashSet<int>();
-                    res.Add(Value);
-                    return res;
-                }
-            }
-
+            public ISet<int> InitialModel => new HashSet<int> { Value };
             private int Value { get; } = Gen.Choose(0, 6).Generate();
         }
 

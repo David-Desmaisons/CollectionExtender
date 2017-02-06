@@ -79,13 +79,15 @@ namespace MoreCollectionTest.Set.Specification
         public Property Constructor_ReturnsCorrectValue()
         {
             var transition = 10;
-            return Prop.ForAll<int[]>((arr1) =>
+            return Prop.ForAll<int[]>((arr) =>
             {
-                var set = new HashSet<int>(arr1);          
-                var hybridSet = new HybridSet<int>(arr1, 10);
-                return set.SetEquals(hybridSet).Classify(set.Count <= transition, "Single")
+                var set = new HashSet<int>(arr);          
+                var hybridSet = new HybridSet<int>(arr, 10);
+                return set.SetEquals(hybridSet).Classify(set.Count <= 1, "Single")
                                                 .Classify(set.Count > 1 && set.Count <= transition, "List")
-                                                .Classify(set.Count > transition, "Hash");
+                                                .Classify(set.Count > transition, "Hash")
+                                                .Classify(set.Count != arr.Length, "None trivial")
+                                                .Classify(set.Count == arr.Length, "trivial");
             });
         }
 

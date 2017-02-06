@@ -92,6 +92,7 @@
     <Compile Include="Dictionary\Internal\Strategy\DictionaryStrategyTest.cs" />
     <Compile Include="Dictionary\Internal\Strategy\OrderedDictionaryStrategyTest.cs" />
     <Compile Include="Dictionary\Internal\Strategy\UnorderedDictionaryStrategyTest.cs" />
+    <Compile Include="Dictionary\Specification\HybridDictionarySpecificationTest.cs" />
     <Compile Include="Extensions\ClassForMin.cs" />
     <Compile Include="Extensions\EnumerableAlgoExtenderTest.cs" />
     <Compile Include="FsCheckHelper\GenExtender.cs" />

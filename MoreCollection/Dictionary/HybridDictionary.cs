@@ -11,10 +11,14 @@ namespace MoreCollection.Dictionary
     {
         private IMutableDictionary<TKey, TValue> _Implementation;
 
-        public HybridDictionary(int ExceptedCapacity=0, int TransitionToDictionary = 25)
+        public int Count => _Implementation.Count;
+        public bool IsReadOnly => false;
+        public ICollection<TValue> Values => _Implementation.Values;
+
+        public HybridDictionary(int exceptedCapacity=0, int transitionToDictionary = 25)
         {
-            var strategy = DictionaryStrategyFactory.GetStrategy<TKey, TValue>(TransitionToDictionary);
-            _Implementation = strategy.GetEmpty(ExceptedCapacity);       
+            var strategy = DictionaryStrategyFactory.GetStrategy<TKey, TValue>(transitionToDictionary);
+            _Implementation = strategy.GetEmpty(exceptedCapacity);       
         }
 
         public void Add(TKey key, TValue value)
@@ -61,8 +65,6 @@ namespace MoreCollection.Dictionary
             return _Implementation.TryGetValue(key, out value);
         }
 
-        public ICollection<TValue> Values => _Implementation.Values;
-
         public TValue this[TKey key]
         {
             get { return _Implementation[key]; }
@@ -84,10 +86,6 @@ namespace MoreCollection.Dictionary
 
             _Implementation.CopyTo(array, arrayIndex);
         }
-
-        public int Count => _Implementation.Count;
-
-        public bool IsReadOnly => false;
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {

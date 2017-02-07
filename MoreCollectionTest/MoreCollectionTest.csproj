@@ -92,9 +92,16 @@
     <Compile Include="Dictionary\Internal\Strategy\DictionaryStrategyTest.cs" />
     <Compile Include="Dictionary\Internal\Strategy\OrderedDictionaryStrategyTest.cs" />
     <Compile Include="Dictionary\Internal\Strategy\UnorderedDictionaryStrategyTest.cs" />
+    <Compile Include="Dictionary\Specification\AddDictionary.cs" />
+    <Compile Include="Dictionary\Specification\ClearDictionary.cs" />
+    <Compile Include="Dictionary\Specification\DictionaryComand.cs" />
+    <Compile Include="Dictionary\Specification\DictionaryComandArgument.cs" />
+    <Compile Include="Dictionary\Specification\DictionaryOperationSpecification.cs" />
     <Compile Include="Dictionary\Specification\HybridDictionarySpecificationTest.cs" />
+    <Compile Include="Dictionary\Specification\RemoveDictionary.cs" />
     <Compile Include="Extensions\ClassForMin.cs" />
     <Compile Include="Extensions\EnumerableAlgoExtenderTest.cs" />
+    <Compile Include="FsCheckHelper\CommandInterface.cs" />
     <Compile Include="FsCheckHelper\GenExtender.cs" />
     <Compile Include="Infra\IntrospectorTest.cs" />
     <Compile Include="Composed\SimpleLookUpTest.cs" />

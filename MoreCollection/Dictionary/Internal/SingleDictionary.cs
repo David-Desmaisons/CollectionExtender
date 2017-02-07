@@ -60,7 +60,7 @@ namespace MoreCollection.Dictionary.Internal
             if (_Key == null)
                 return false;
 
-            if (Object.ReferenceEquals(_Key,key))
+            if (Object.Equals(_Key,key))
             {
                 _Key = null;
                 return true;

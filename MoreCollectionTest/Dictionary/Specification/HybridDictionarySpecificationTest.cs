@@ -10,6 +10,25 @@ namespace MoreCollectionTest.Dictionary.Specification
 {
     public class HybridDictionarySpecificationTest 
     {
+
+        [Property(MaxTest = 2000)]
+        public Property HybridDictionary_BuildFromEmptyBehaveAsDictionary()
+        {
+            return DictionaryComandArgumentOperationSpecification.FromEmpty();
+        }
+
+        [Property(MaxTest = 2000)]
+        public Property HybridDictionary_BuildFromMiddleBehaveAsDictionary()
+        {
+            return DictionaryComandArgumentOperationSpecification.FromMiddle();
+        }
+
+        [Property(MaxTest = 2000)]
+        public Property HybridDictionary_BuildFromDictionaryBehaveAsDictionary()
+        {
+            return DictionaryComandArgumentOperationSpecification.FromDictionary();
+        }
+
         [Property(MaxTest = 1000)]
         public Property Constructor_CreateAValidDictionary() {
             var threshold = 10;

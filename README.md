@@ -9,20 +9,20 @@ Cartesian
 
     public static IEnumerable<TResult> Cartesian<TResult, TSource1, TSource2>(this IEnumerable<TSource1> first,
                     IEnumerable<TSource2> second, Func< TSource1, TSource2, TResult> Agregator )
-                    
+
 FirstOrDefault
 
     public static T FirstOrDefault<T>(this IEnumerable<T> enumerable, T defaultValue, Func<T, bool> predicate)
-    
+
     public static T FirstOrDefault<T>(this IEnumerable<T> enumerable, T defaultValue)
 
 ForEach
 
     public static IEnumerable<T> ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
-    
+
     public static IEnumerable<T> ForEach<T>(this IEnumerable<T> enumerable, Action<T,int> action)
-    
-    public static bool ForEach<T>(this IEnumerable<T> enumerable, Action<T> action, 
+
+    public static bool ForEach<T>(this IEnumerable<T> enumerable, Action<T> action,
                                   CancellationToken iCancellationToken)
 
 ForEachCartesian
@@ -33,15 +33,15 @@ ForEachCartesian
 Index
 
     public static int Index<T>(this IEnumerable<T> enumerable, Func<T, bool> Selector)
-    
+
     public static int Index<T>(this IEnumerable<T> enumerable, T value)
-    
+
 Indexes
 
     public static IEnumerable<int> Indexes<T>(this IEnumerable<T> enumerable, Func<T, bool> Selector)
-    
+
     public static IEnumerable<int> Indexes<T>(this IEnumerable<T> enumerable, T value)
-    
+
 Zip
 
     public static IEnumerable<TResult> Zip<TResult, TSource1, TSource2, TSource3>(
@@ -55,20 +55,20 @@ Zip
 AddRange
 
     public static IList<T> AddRange<T>(this IList<T> list, IEnumerable<T> enumerable)
-    
+
 Move
-    
+
     public static IList<T> Move<T>(this IList<T> list, int oldIndex, int newIndex)
 
- 
+
 ##IDictionary Extensions
 
-FindOrCreate
+GetOrAdd
 
-    public static TValue FindOrCreateEntity<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, 
+    public static TValue GetOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key,
                                                             Func<TKey, TValue> Fac)
 
-UpdateOrCreate
+UpdateOrAdd
 
-    public static TValue UpdateOrCreate<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, 
+    public static TValue UpdateOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, 
                                         Func<TKey, TValue> Fac, Action<TKey, TValue> Updater)

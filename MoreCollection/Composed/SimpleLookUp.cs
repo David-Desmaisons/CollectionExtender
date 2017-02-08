@@ -22,7 +22,7 @@ namespace MoreCollection.Composed
 
         public void Add(TKey key, TElement element)
         {
-            _LookUpDictionary.FindOrCreateEntity(key, (k) => new List<TElement>()).Add(element);
+            _LookUpDictionary.GetOrAddEntity(key, (k) => new List<TElement>()).Add(element);
         }
 
         public bool Remove(TKey key, TElement element)

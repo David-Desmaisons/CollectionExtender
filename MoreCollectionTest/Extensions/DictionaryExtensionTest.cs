@@ -25,130 +25,130 @@ namespace MoreCollectionTest.Extensions
         }
 
         [Fact]
-        public void FindOrCreate_CalledOnNull_ThrowException()
+        public void GetOrAdd_CalledOnNull_ThrowException()
         {
-            Action Do = () => _NullDictionary.FindOrCreate("Key", _ => "value");
+            Action Do = () => _NullDictionary.GetOrAdd("Key", _ => "value");
             Do.ShouldThrow<ArgumentNullException>();
         }
 
         [Fact]
-        public void FindOrCreate_CreateEntity_IfNotPresent()
+        public void GetOrAdd_CreateEntity_IfNotPresent()
         {
-            var res = _Dictionary.FindOrCreate("Key", _ => "value");
+            var res = _Dictionary.GetOrAdd("Key", _ => "value");
             res.Item.Should().Be("value");
             res.CollectionStatus.Should().Be(CollectionStatus.Created);
             _Dictionary.AsEnumerable().Should().BeEquivalentTo(new[] { new KeyValuePair<string, string>("Key", "value") });
         }
 
         [Fact]
-        public void FindOrCreate_FindEntity_IfPresent()
+        public void GetOrAdd_FindEntity_IfPresent()
         {
             _Dictionary.Add("Key", "value");
-            var res = _Dictionary.FindOrCreate("Key", _ => "value2");
+            var res = _Dictionary.GetOrAdd("Key", _ => "value2");
             res.Item.Should().Be("value");
             res.CollectionStatus.Should().Be(CollectionStatus.Found);
             _Dictionary.AsEnumerable().Should().BeEquivalentTo(new[] { new KeyValuePair<string, string>("Key", "value") });
         }
 
         [Fact]
-        public void FindOrCreate_DoNotCallFunction_IfItemFound()
+        public void GetOrAdd_DoNotCallFunction_IfItemFound()
         {
             _Dictionary.Add("Key", "value");
             Func<string, string> func = Substitute.For<Func<string, string>>();
-            _Dictionary.FindOrCreate("Key", func);
+            _Dictionary.GetOrAdd("Key", func);
             func.DidNotReceive().Invoke(Arg.Any<string>());
         }
 
         [Fact]
-        public void FindOrCreate_CallFunction_WithKeyValue()
+        public void GetOrAdd_CallFunction_WithKeyValue()
         {
-            _Dictionary.FindOrCreate("Key", _Creator);
+            _Dictionary.GetOrAdd("Key", _Creator);
             _Creator.Received(1).Invoke("Key");
         }
 
         [Fact]
-        public void FindOrCreateEntity_CalledOnNull_ThrowException()
+        public void GetOrAddEntity_CalledOnNull_ThrowException()
         {
-            Action Do = () => _NullDictionary.FindOrCreateEntity("Key", _ => "value");
+            Action Do = () => _NullDictionary.GetOrAddEntity("Key", _ => "value");
             Do.ShouldThrow<ArgumentNullException>();
         }
 
         [Fact]
-        public void FindOrCreateEntity_CreateEntity_IfNotPresent()
+        public void GetOrAddEntity_CreateEntity_IfNotPresent()
         {
-            var res = _Dictionary.FindOrCreateEntity("Key", _ => "value");
+            var res = _Dictionary.GetOrAddEntity("Key", _ => "value");
             res.Should().Be("value");
             _Dictionary.AsEnumerable().Should().BeEquivalentTo(new[] { new KeyValuePair<string, string>("Key", "value") });
         }
 
         [Fact]
-        public void FindOrCreateEntity_FindEntity_IfPresent()
+        public void GetOrAddEntity_FindEntity_IfPresent()
         {
             _Dictionary.Add("Key", "value");
-            var res = _Dictionary.FindOrCreateEntity("Key", _ => "value2");
+            var res = _Dictionary.GetOrAddEntity("Key", _ => "value2");
             res.Should().Be("value");
             _Dictionary.AsEnumerable().Should().BeEquivalentTo(new[] { new KeyValuePair<string, string>("Key", "value") });
         }
 
         [Fact]
-        public void FindOrCreateEntity_DoNotCallFunction_IfItemFound()
+        public void GetOrAddEntity_DoNotCallFunction_IfItemFound()
         {
             _Dictionary.Add("Key", "value");
-            _Dictionary.FindOrCreateEntity("Key", _Creator);
+            _Dictionary.GetOrAddEntity("Key", _Creator);
             _Creator.DidNotReceive().Invoke(Arg.Any<string>());
         }
 
         [Fact]
-        public void FindOrCreateEntity_CallFunction_WithKeyValue()
+        public void GetOrAddEntity_CallFunction_WithKeyValue()
         {
-            _Dictionary.FindOrCreateEntity("Key", _Creator);
+            _Dictionary.GetOrAddEntity("Key", _Creator);
             _Creator.Received(1).Invoke("Key");
         }
 
         [Fact]
-        public void UpdateOrCreate_CalledOnNull_ThrowException()
+        public void UpdateOrAdd_CalledOnNull_ThrowException()
         {
-            Action Do = () => _NullDictionary.UpdateOrCreate("Key", _ => "value", (k,v) => v);
+            Action Do = () => _NullDictionary.UpdateOrAdd("Key", _ => "value", (k,v) => v);
             Do.ShouldThrow<ArgumentNullException>();
         }
 
         [Fact]
-        public void UpdateOrCreate_AddEntity_IfNotPresent()
+        public void UpdateOrAdd_AddEntity_IfNotPresent()
         {
-            var res = _Dictionary.UpdateOrCreate("Key", _ => "value", _Updater);
+            var res = _Dictionary.UpdateOrAdd("Key", _ => "value", _Updater);
             res.Should().Be("value");
             _Updater.DidNotReceive().Invoke(Arg.Any<string>(), Arg.Any<string>());
         }
 
         [Fact]
-        public void UpdateOrCreate_UpdateEntity_IfPresent()
+        public void UpdateOrAdd_UpdateEntity_IfPresent()
         {
             _Dictionary.Add("Key", "value");
-            var res = _Dictionary.UpdateOrCreate("Key", _Creator , (k,v) => "value2");
+            var res = _Dictionary.UpdateOrAdd("Key", _Creator , (k,v) => "value2");
             res.Should().Be("value2");
             _Creator.DidNotReceive().Invoke(Arg.Any<string>());
         }
 
         [Fact]
-        public void UpdateOrCreate2_CalledOnNull_ThrowException()
+        public void UpdateOrAdd2_CalledOnNull_ThrowException()
         {
-            Action Do = () => _NullDictionary.UpdateOrCreate("Key", _ => "value", _Updater2);
+            Action Do = () => _NullDictionary.UpdateOrAdd("Key", _ => "value", _Updater2);
             Do.ShouldThrow<ArgumentNullException>();
         }
 
         [Fact]
-        public void UpdateOrCreate2_AddEntity_IfNotPresent()
+        public void UpdateOrAdd2_AddEntity_IfNotPresent()
         {
-            var res = _Dictionary.UpdateOrCreate("Key", _ => "value", _Updater2);
+            var res = _Dictionary.UpdateOrAdd("Key", _ => "value", _Updater2);
             res.Should().Be("value");
             _Updater2.DidNotReceive().Invoke(Arg.Any<string>(), Arg.Any<string>());
         }
 
         [Fact]
-        public void UpdateOrCreate2_UpdateEntity_IfPresent()
+        public void UpdateOrAdd2_UpdateEntity_IfPresent()
         {
             _Dictionary.Add("Key", "value");
-            var res = _Dictionary.UpdateOrCreate("Key", _Creator, _Updater2);
+            var res = _Dictionary.UpdateOrAdd("Key", _Creator, _Updater2);
             res.Should().Be("value");
             _Updater2.Received(1).Invoke(Arg.Any<string>(), Arg.Any<string>());
             _Creator.DidNotReceive().Invoke(Arg.Any<string>());

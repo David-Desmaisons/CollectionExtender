@@ -6,7 +6,7 @@ namespace MoreCollection.Extensions
     public static class DictionaryExtension
 
     {
-        public static CollectionResult<TValue> FindOrCreate<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, Func<TKey, TValue> Fac)
+        public static CollectionResult<TValue> GetOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, Func<TKey, TValue> Fac)
         {
             if (dic == null)
                 throw new ArgumentNullException(nameof(dic));
@@ -20,7 +20,7 @@ namespace MoreCollection.Extensions
             return new CollectionResult<TValue>() { Item = res, CollectionStatus = CollectionStatus.Created };
         }
 
-        public static TValue FindOrCreateEntity<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, Func<TKey, TValue> Fac)
+        public static TValue GetOrAddEntity<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, Func<TKey, TValue> Fac)
         {
             if (dic == null)
                 throw new ArgumentNullException(nameof(dic));
@@ -34,7 +34,7 @@ namespace MoreCollection.Extensions
             return res;
         }
 
-        public static TValue UpdateOrCreate<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key,  Func<TKey, TValue> Fac,
+        public static TValue UpdateOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key,  Func<TKey, TValue> Fac,
                                                                 Func<TKey, TValue, TValue> Updater)
         {
             if (dic == null)
@@ -53,10 +53,10 @@ namespace MoreCollection.Extensions
             return res;
         }
 
-        public static TValue UpdateOrCreate<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, Func<TKey, TValue> Fac,
+        public static TValue UpdateOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, Func<TKey, TValue> Fac,
                                                                 Action<TKey, TValue> Updater)
         {
-            return dic.UpdateOrCreate(key, Fac, (k, v) => { Updater(k, v); return v; });
+            return dic.UpdateOrAdd(key, Fac, (k, v) => { Updater(k, v); return v; });
         }
 
         public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, TValue defaultValue= default(TValue))

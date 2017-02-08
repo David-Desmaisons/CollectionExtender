@@ -19,7 +19,7 @@ namespace MoreCollection.Dictionary.Internal.Strategy
 
         public static IDictionaryStrategy<TKey, TValue> GetStrategy<TKey, TValue>(int ListTransition)
         {
-            bool comparable = _IsComparable.FindOrCreateEntity(typeof(TKey), IsComparable);
+            bool comparable = _IsComparable.GetOrAddEntity(typeof(TKey), IsComparable);
 
             if (comparable)
                 return new OrderedDictionaryStrategy<TKey, TValue>(ListTransition);

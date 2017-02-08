@@ -7,13 +7,16 @@ using System.Diagnostics;
 namespace MoreCollection.Dictionary
 {
     [DebuggerDisplay("Count = {Count}")]
-    public class HybridDictionary<TKey, TValue> : IDictionary<TKey, TValue>
+    public class HybridDictionary<TKey, TValue> : IDictionary<TKey, TValue>, IReadOnlyDictionary<TKey, TValue>
     {
         private IMutableDictionary<TKey, TValue> _Implementation;
 
         public int Count => _Implementation.Count;
         public bool IsReadOnly => false;
+        public ICollection<TKey> Keys => _Implementation.Keys;
         public ICollection<TValue> Values => _Implementation.Values;
+        IEnumerable<TKey> IReadOnlyDictionary<TKey, TValue>.Keys => _Implementation.Keys;
+        IEnumerable<TValue> IReadOnlyDictionary<TKey, TValue>.Values => _Implementation.Values;
 
         public HybridDictionary(int exceptedCapacity=0, int transitionToDictionary = 25)
         {
@@ -57,8 +60,6 @@ namespace MoreCollection.Dictionary
         {
             return  _Implementation.ContainsKey(key);
         }
-
-        public ICollection<TKey> Keys => _Implementation.Keys;
 
         public bool TryGetValue(TKey key, out TValue value)
         {

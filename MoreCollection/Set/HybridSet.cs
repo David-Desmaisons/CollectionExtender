@@ -16,19 +16,19 @@ namespace MoreCollection.Set
         public int Count => _Letter.Count;
         public bool IsReadOnly => false;
 
-        internal HybridSet(int MaxList=10)
+        public HybridSet(int MaxList=10)
         {
             _Factory = GetLetterFactory<T>(MaxList);
             _Letter = _Factory.GetDefault();
         }
 
-        internal HybridSet(T firstitem, int MaxList = 10)
+        public HybridSet(T firstitem, int MaxList = 10)
         {
             _Factory = GetLetterFactory<T>(MaxList);
             _Letter = _Factory.GetDefault(firstitem);
         }
 
-        internal HybridSet(IEnumerable<T> items, int MaxList = 10)
+        public HybridSet(IEnumerable<T> items, int MaxList = 10)
         {
             _Factory = GetLetterFactory<T>(MaxList);
             _Letter = _Factory.GetDefault(items);

@@ -7,7 +7,6 @@ namespace MoreCollection.Dictionary.Internal
     {
         private readonly IDictionaryStrategy<TKey, TValue> _DictionaryStrategy;
         public MutableSortedDictionary(IDictionaryStrategy<TKey, TValue> dictionaryStrategy)
-            : base()
         {
             _DictionaryStrategy = dictionaryStrategy;
         }

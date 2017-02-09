@@ -7,11 +7,11 @@ namespace MoreCollection.Dictionary.Internal
 {
     public class ListDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
-        private List<KeyValuePair<TKey, TValue>> _List;
+        private readonly List<KeyValuePair<TKey, TValue>> _List;
 
         public int Count => _List.Count;
-
         public bool IsReadOnly => false;
+        public ICollection<TValue> Values => _List.Select(kv => kv.Value).ToList();
 
         public ListDictionary()
         {
@@ -76,11 +76,6 @@ namespace MoreCollection.Dictionary.Internal
 
             value = _List[index].Value;
             return true;
-        }
-
-        public ICollection<TValue> Values
-        {
-            get { return _List.Select(kv => kv.Value).ToList(); }
         }
 
         public TValue this[TKey key]

@@ -13,7 +13,6 @@ namespace MoreCollection.Dictionary.Internal
         }
 
         internal MutableSingleDictionary(IDictionaryStrategy<TKey, TValue> dictionaryStrategy)
-            : base()
         {
             _DictionaryStrategy = dictionaryStrategy;
         }

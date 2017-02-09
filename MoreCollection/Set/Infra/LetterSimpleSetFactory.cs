@@ -6,11 +6,11 @@ namespace MoreCollection.Set.Infra
 {
     internal class LetterSimpleSetFactory<T> : ILetterSimpleSetFactory<T>
     {
-        private int _MaxList;
+        private readonly int _MaxList;
 
-        internal LetterSimpleSetFactory(int MaxList)
+        internal LetterSimpleSetFactory(int maxList)
         {
-            _MaxList = MaxList;
+            _MaxList = maxList;
         }
 
         public ILetterSimpleSet<T> GetDefault()
@@ -30,17 +30,14 @@ namespace MoreCollection.Set.Infra
 
             var FiItems = new HashSet<T>(Items);
 
-            int count = FiItems.Count;
+            var count = FiItems.Count;
             if (count >= _MaxList)
                 return new SimpleHashSet<T>(this, FiItems);
 
             if (count > 1)
                 return new ListSet<T>(this, FiItems, _MaxList);
 
-            if (count == 1)
-                return GetDefault(FiItems.First());
-
-            return GetDefault();
+            return count == 1 ? GetDefault(FiItems.First()) : GetDefault();
         }
 
        public ILetterSimpleSet<T> OnAdd(ILetterSimpleSet<T> current)

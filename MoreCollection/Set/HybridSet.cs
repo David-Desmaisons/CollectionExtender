@@ -11,32 +11,32 @@ namespace MoreCollection.Set
     public class HybridSet<T> : ISet<T>
     {
         private ILetterSimpleSet<T> _Letter;
-        private ILetterSimpleSetFactory<T> _Factory;
+        private readonly ILetterSimpleSetFactory _Factory;
 
         public int Count => _Letter.Count;
         public bool IsReadOnly => false;
 
-        public HybridSet(int MaxList=10)
+        public HybridSet(int maxList=10)
         {
-            _Factory = GetLetterFactory<T>(MaxList);
-            _Letter = _Factory.GetDefault();
+            _Factory = GetLetterFactory(maxList);
+            _Letter = _Factory.GetDefault<T>();
         }
 
-        public HybridSet(T firstitem, int MaxList = 10)
+        public HybridSet(T firstitem, int maxList = 10)
         {
-            _Factory = GetLetterFactory<T>(MaxList);
+            _Factory = GetLetterFactory(maxList);
             _Letter = _Factory.GetDefault(firstitem);
         }
 
-        public HybridSet(IEnumerable<T> items, int MaxList = 10)
+        public HybridSet(IEnumerable<T> items, int maxList = 10)
         {
-            _Factory = GetLetterFactory<T>(MaxList);
+            _Factory = GetLetterFactory(maxList);
             _Letter = _Factory.GetDefault(items);
         }
 
-        private static ILetterSimpleSetFactory<TElement> GetLetterFactory<TElement>(int MaxList)
+        private static ILetterSimpleSetFactory GetLetterFactory(int maxList)
         {
-            return LetterSimpleSetFactoryBuilder<TElement>.GetFactory(MaxList);
+            return LetterSimpleSetFactoryBuilder.GetFactory(maxList);
         }
 
         public bool Add(T item)
@@ -106,7 +106,7 @@ namespace MoreCollection.Set
 
         public void Clear() 
         {
-            _Letter = _Factory.GetDefault();
+            _Letter = _Factory.GetDefault<T>();
         }
 
         public void CopyTo(T[] array, int arrayIndex)

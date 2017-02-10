@@ -3,9 +3,9 @@ using System.Collections.Concurrent;
 
 namespace MoreCollection.Set.Infra
 {
-    internal class LetterSimpleSetFactoryBuilder<T>
+    internal class LetterSimpleSetFactoryBuilder
     {
-        private static readonly ConcurrentDictionary<int, LetterSimpleSetFactory<T>> _Factory = new ConcurrentDictionary<int, LetterSimpleSetFactory<T>>();
-        internal static Func<int, ILetterSimpleSetFactory<T>> GetFactory { get; set; } =  (maxList) => _Factory.GetOrAdd(maxList, _ => new LetterSimpleSetFactory<T>(maxList));
+        private static readonly ConcurrentDictionary<int, LetterSimpleSetFactory> _Factory = new ConcurrentDictionary<int, LetterSimpleSetFactory>();
+        internal static Func<int, ILetterSimpleSetFactory> GetFactory { get; set; } =  (maxList) => _Factory.GetOrAdd(maxList, _ => new LetterSimpleSetFactory(maxList));
     }
 }

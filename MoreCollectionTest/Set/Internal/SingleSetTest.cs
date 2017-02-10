@@ -148,9 +148,9 @@ namespace MoreCollectionTest.Set.Internal
             _SingleSetSet.Contains(null).Should().BeFalse();
         }
 
-        private static ILetterSimpleSetFactory<string> GetFactory()
+        private static ILetterSimpleSetFactory GetFactory()
         {
-            return new LetterSimpleSetFactory<string>(4);
+            return new LetterSimpleSetFactory(4);
         }
 
         private static SingleSet<string> GetEmpty()

@@ -4,16 +4,15 @@ namespace MoreCollection.Set.Infra
 {
     internal class SimpleHashSet<T> : HashSet<T>, ILetterSimpleSet<T>
     {
-        private readonly ILetterSimpleSetFactory<T> _Factory;
-        public SimpleHashSet(ILetterSimpleSetFactory<T> Factory)
+        private readonly ILetterSimpleSetFactory _Factory;
+        public SimpleHashSet(ILetterSimpleSetFactory factory)
         {
-            _Factory = Factory;
+            _Factory = factory;
         }
 
-        public SimpleHashSet(ILetterSimpleSetFactory<T> Factory, IEnumerable<T> collection)
-            : base(collection)
+        public SimpleHashSet(ILetterSimpleSetFactory factory, IEnumerable<T> collection): base(collection)
         {
-            _Factory = Factory;
+            _Factory = factory;
         }
 
         public ILetterSimpleSet<T> Add(T item, out bool success)

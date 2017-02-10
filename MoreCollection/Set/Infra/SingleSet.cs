@@ -6,16 +6,17 @@ namespace MoreCollection.Set.Infra
     public class SingleSet<T> : ILetterSimpleSet<T>
     {
         private object _SingleItem = null;
-        private readonly ILetterSimpleSetFactory<T> _Factory;
+        private readonly ILetterSimpleSetFactory _Factory;
 
-        internal SingleSet(ILetterSimpleSetFactory<T> Factory)
+        public int Count => (_SingleItem != null) ? 1 : 0;
+
+        internal SingleSet(ILetterSimpleSetFactory factory)
         {
-            _Factory = Factory;
+            _Factory = factory;
         }
 
-        internal SingleSet(ILetterSimpleSetFactory<T> Factory, T item)
+        internal SingleSet(ILetterSimpleSetFactory factory, T item): this(factory)
         {
-            _Factory = Factory;
             Add(item);
         }
 
@@ -63,11 +64,6 @@ namespace MoreCollection.Set.Infra
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
-        }
-
-        public int Count
-        {
-            get { return (_SingleItem!=null) ? 1 : 0; }
         }
 
         public ILetterSimpleSet<T> Add(T item, out bool success)

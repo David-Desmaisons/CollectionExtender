@@ -2,13 +2,13 @@
 
 namespace MoreCollection.Set.Infra
 {
-    internal interface ILetterSimpleSetFactory<T>
+    internal interface ILetterSimpleSetFactory 
     {
-        ILetterSimpleSet<T> GetDefault();
-        ILetterSimpleSet<T> GetDefault(IEnumerable<T> Items);
-        ILetterSimpleSet<T> GetDefault(T Item);
-        ILetterSimpleSet<T> GetDefault(T first, T added);
-        ILetterSimpleSet<T> OnAdd(ILetterSimpleSet<T> current);
-        ILetterSimpleSet<T> OnRemove(SimpleHashSet<T> current);
+        ILetterSimpleSet<T> GetDefault<T>();
+        ILetterSimpleSet<T> GetDefault<T>(IEnumerable<T> items);
+        ILetterSimpleSet<T> GetDefault<T>(T item);
+        ILetterSimpleSet<T> GetDefault<T>(T first, T added);
+        ILetterSimpleSet<T> OnAdd<T>(ILetterSimpleSet<T> current);
+        ILetterSimpleSet<T> OnRemove<T>(SimpleHashSet<T> current);
     }
 }

@@ -10,25 +10,25 @@ namespace MoreCollectionTest.Set.Internal
 {
     public class LetterSimpleSetFactoryTest
     {
-        private LetterSimpleSetFactory<string> _LetterSimpleSetFactory;
+        private LetterSimpleSetFactory _LetterSimpleSetFactory;
         private int _Transition = 4;
         public LetterSimpleSetFactoryTest()
         {
-            _LetterSimpleSetFactory = new LetterSimpleSetFactory<string>(_Transition);
+            _LetterSimpleSetFactory = new LetterSimpleSetFactory(_Transition);
         }
 
 
         [Fact]
         public void GetDefault_Return_SingleSet()
         {
-            var res = _LetterSimpleSetFactory.GetDefault();
+            var res = _LetterSimpleSetFactory.GetDefault<string>();
             res.Should().BeOfType<SingleSet<string>>();
         }
 
         [Fact]
         public void GetDefault_Return_EmptySet()
         {
-            var res = _LetterSimpleSetFactory.GetDefault();
+            var res = _LetterSimpleSetFactory.GetDefault<string>();
             res.Should().BeEmpty();
         }
 
@@ -68,28 +68,28 @@ namespace MoreCollectionTest.Set.Internal
         [Fact]
         public void GetDefault_IEnumerableT_Return_SingleSet_OneElement()
         {
-            var res = _LetterSimpleSetFactory.GetDefault(new[] { "kkk" });
+            var res = _LetterSimpleSetFactory.GetDefault<string>(new[] { "kkk" });
             res.Should().BeOfType<SingleSet<string>>();
         }
 
         [Fact]
         public void GetDefault_IEnumerableT_Return_ListSet_TwoElement()
         {
-            var res = _LetterSimpleSetFactory.GetDefault(new[] { "kkk", "lll" });
+            var res = _LetterSimpleSetFactory.GetDefault<string>(new[] { "kkk", "lll" });
             res.Should().BeOfType<ListSet<string>>();
         }
 
         [Fact]
         public void GetDefault_IEnumerableT_Return_HashSet_MoreElementsThanLimit()
         {
-            var res = _LetterSimpleSetFactory.GetDefault(new[] { "kkk", "lll", "kkkp", "lllp" });
+            var res = _LetterSimpleSetFactory.GetDefault<string>(new[] { "kkk", "lll", "kkkp", "lllp" });
             res.Should().BeOfType<SimpleHashSet<string>>();
         }
 
         [Fact]
         public void GetDefault_RemoveDuplicate()
         {
-            var res = _LetterSimpleSetFactory.GetDefault(new[] { "kkk", "lll", "lll", "lll", "kkk" });
+            var res = _LetterSimpleSetFactory.GetDefault<string>(new[] { "kkk", "lll", "lll", "lll", "kkk" });
             res.Should().BeEquivalentTo(new[] { "kkk", "lll"});
         }
     }

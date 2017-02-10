@@ -16,9 +16,9 @@ namespace MoreCollectionTest.Set.Internal
             _ListSetSet = new ListSet<string>(GetFactory(), _Transition);        
         }
 
-        private static ILetterSimpleSetFactory<string> GetFactory()
+        private static ILetterSimpleSetFactory GetFactory()
         {
-            return new LetterSimpleSetFactory<string>(_Transition);
+            return new LetterSimpleSetFactory(_Transition);
         }
 
         [Fact]

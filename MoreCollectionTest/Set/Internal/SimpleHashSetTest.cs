@@ -87,9 +87,9 @@ namespace MoreCollectionTest.Set.Internal
             result.Should().Be(success);
         }
 
-        private static ILetterSimpleSetFactory<string> GetFactory()
+        private static ILetterSimpleSetFactory GetFactory()
         {
-            return new LetterSimpleSetFactory<string>(_Transition);
+            return new LetterSimpleSetFactory(_Transition);
         }
 
         public static IEnumerable<object[]> CollectionData

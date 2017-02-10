@@ -6,34 +6,34 @@ namespace MoreCollection.Set.Infra
 {
     internal class ListSet<T> : ILetterSimpleSet<T>
     {
-        private object[] _Items;
+        private readonly object[] _Items;
         private int _Count = 0;
-        private readonly ILetterSimpleSetFactory<T> _Factory;
+        private readonly ILetterSimpleSetFactory _Factory;
 
-        internal ListSet(ILetterSimpleSetFactory<T> Factory, int MaxItem)
+        public int Count => _Count;
+
+        internal ListSet(ILetterSimpleSetFactory factory, int maxItem)
         {
-            _Factory = Factory;
-            _Items = new object[MaxItem];
+            _Factory = factory;
+            _Items = new object[maxItem];
         }
 
-        internal ListSet(ILetterSimpleSetFactory<T> Factory, T item, int MaxItem)
+        internal ListSet(ILetterSimpleSetFactory factory, T item, int maxItem): this (factory, maxItem)
         {
-            _Factory = Factory;
-            _Items = new object[MaxItem];
             _Items[0] = item;
             _Count = 1;
         }
 
-        internal ListSet(ILetterSimpleSetFactory<T> Factory, HashSet<T> items, int MaxItem)
+        internal ListSet(ILetterSimpleSetFactory factory, HashSet<T> items, int maxItem)
         {
-            _Factory = Factory;
-            int count = items.Count();
-            if (count >= MaxItem)
+            _Factory = factory;
+            var count = items.Count;
+            if (count >= maxItem)
             {
-                throw new ArgumentOutOfRangeException($"items count ({count}) >= Max ({MaxItem})");
+                throw new ArgumentOutOfRangeException($"items count ({count}) >= Max ({maxItem})");
             }
 
-            _Items = new object[MaxItem];
+            _Items = new object[maxItem];
 
             int index = 0;
             foreach (T item in items)
@@ -82,11 +82,6 @@ namespace MoreCollection.Set.Infra
             return false;
         }
 
-        public int Count
-        {
-            get { return _Count; }
-        }
-
         private IEnumerable<T> GetEnumerable()
         {
             return _Items.TakeWhile(t => t != null).Cast<T>();
@@ -105,7 +100,6 @@ namespace MoreCollection.Set.Infra
         public ILetterSimpleSet<T> Add(T item, out bool success)
         {
             success = Add(item);
-
             return success ? _Factory.OnAdd(this) : this;
         }
 

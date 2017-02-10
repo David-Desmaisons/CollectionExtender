@@ -37,6 +37,8 @@ namespace MoreCollectionTest.Dictionary.Internal.Strategy
             _MutableDictionary.When(md => md.CopyTo(Arg.Any<KeyValuePair<string, string>[]>(), Arg.Any<int>()))
                             .Do((arg => _Emulated.CopyTo((KeyValuePair<string, string>[])(arg[0]), (int)arg[1])));
             _MutableDictionary.ContainsKey(Arg.Any<string>()).Returns(arg => _Emulated.ContainsKey((string)arg[0]));
+            _MutableDictionary.Keys.Returns(_Emulated.Keys);
+            _MutableDictionary.Values.Returns(_Emulated.Values);
         }
 
         private void ChechHasTransitioned<TTest>(IMutableDictionary<string, string> res)

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 using FluentAssertions;
-using MoreCollection.Dictionary.Internal.Strategy;
 
 namespace MoreCollectionTest.TestInfra
 {
@@ -16,7 +15,6 @@ namespace MoreCollectionTest.TestInfra
 
         public DictionaryTest()
         {
-            DictionaryStrategyFactory<string>.Strategy = DictionaryStrategyFactory<string>.GetStrategy();
             _target = new Dictionary<string, string>();
             _Strings = Enumerable.Range(0,30).Select(i => string.Format("Name{0}", i)).ToList();
         }

@@ -3,7 +3,7 @@
     internal abstract class DictionaryStrategy : IDictionaryStrategy
     {
         private readonly int _TransitionToDictionary;
-        public DictionaryStrategy (int limit = 10)
+        public DictionaryStrategy (int limit)
         {
             _TransitionToDictionary = limit;
         }

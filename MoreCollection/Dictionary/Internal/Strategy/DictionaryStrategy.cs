@@ -10,7 +10,7 @@
 
         private IMutableDictionary<TKey, TValue> GetNext<TKey, TValue>(IMutableDictionary<TKey, TValue> current)
         {
-            return new MutableDictionary<TKey, TValue>(current, this);
+            return new MutableDictionary<TKey, TValue>(current);
         }
 
         public IMutableDictionary<TKey, TValue> Add<TKey,TValue>(IMutableDictionary<TKey, TValue> current, TKey key, TValue value)
@@ -41,7 +41,7 @@
 
             if (current.Count == 1)
             {
-                return new MutableSingleDictionary<TKey, TValue>(current, this);
+                return new MutableSingleDictionary<TKey, TValue>(current);
             }
 
             return current;
@@ -54,12 +54,12 @@
         public IMutableDictionary<TKey, TValue> GetEmpty<TKey, TValue>(int expectedCapacity=0)
         {
             if (expectedCapacity<2)
-                return new MutableSingleDictionary<TKey, TValue>(this);
+                return new MutableSingleDictionary<TKey, TValue>();
 
             if (expectedCapacity <= _TransitionToDictionary)
                 return GetIntermediateCollection<TKey, TValue>();
 
-            return new MutableDictionary<TKey, TValue>(this);
+            return new MutableDictionary<TKey, TValue>();
         }
 
         public IMutableDictionary<TKey, TValue> CheckDictionaryRemoved<TKey, TValue>(IMutableDictionary<TKey, TValue> current)

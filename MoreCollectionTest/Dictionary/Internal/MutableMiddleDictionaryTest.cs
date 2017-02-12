@@ -5,10 +5,12 @@ using Xunit;
 using FluentAssertions;
 using NSubstitute;
 using MoreCollection.Dictionary.Internal.Strategy;
+using System;
 
 namespace MoreCollectionTest.Dictionary.Internal
 {
-    public abstract class MutableMiddleDictionaryTest
+    [Collection("Changing Default static Dictionary stategy")]
+    public abstract class MutableMiddleDictionaryTest : IDisposable
     {
         private readonly IMutableDictionary<string, string> _DictionaryTwoElements;
         private readonly IDictionaryStrategy _DictionarySwitcher;
@@ -16,10 +18,16 @@ namespace MoreCollectionTest.Dictionary.Internal
         public MutableMiddleDictionaryTest()
         { 
             _DictionarySwitcher = Substitute.For<IDictionaryStrategy>();
-            _DictionaryTwoElements = Get( new Dictionary<string, string>() { { "Key0", "Value0" }, { "Key1", "Value1" } }, _DictionarySwitcher);
+            DictionaryStrategyFactory<string>.Strategy = _DictionarySwitcher;
+           _DictionaryTwoElements = Get( new Dictionary<string, string>() { { "Key0", "Value0" }, { "Key1", "Value1" } });
         }
 
-        protected abstract IMutableDictionary<string, string> Get(IDictionary<string, string> Original, IDictionaryStrategy Transition);
+        public void Dispose()
+        {
+            DictionaryStrategyFactory<string>.Strategy = DictionaryStrategyFactory<string>.GetStrategy();
+        }
+
+        protected abstract IMutableDictionary<string, string> Get(IDictionary<string, string> Original);
 
         protected abstract IMutableDictionary<string, string> GetEmpty();
 

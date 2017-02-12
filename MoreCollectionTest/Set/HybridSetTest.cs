@@ -10,7 +10,7 @@ using FluentAssertions;
 
 namespace MoreCollectionTest.Set
 {
-    [Collection("Changing Default static stategy")]
+    [Collection("Changing Default static set stategy")]
     public class HybridSetTest : IDisposable
     {
         private readonly ILetterSimpleSetFactory _LetterSimpleSetFactory;

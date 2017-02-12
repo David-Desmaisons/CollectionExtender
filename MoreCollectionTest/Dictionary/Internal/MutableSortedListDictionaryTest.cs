@@ -14,14 +14,14 @@ namespace MoreCollectionTest.Dictionary.Internal
             _DictionarySwitcher = Substitute.For<IDictionaryStrategy>();
         }
 
-        protected override IMutableDictionary<string, string> Get(IDictionary<string, string> Original,  IDictionaryStrategy strategy)
+        protected override IMutableDictionary<string, string> Get(IDictionary<string, string> Original)
         {
-            return new MutableSortedListDictionary<string, string>(Original, strategy);
+            return new MutableSortedListDictionary<string, string>(Original);
         }
 
         protected override IMutableDictionary<string, string> GetEmpty()
         {
-            return new MutableSortedListDictionary<string, string>(new OrderedDictionaryStrategy(4));
+            return new MutableSortedListDictionary<string, string>();
         }
     }
 }

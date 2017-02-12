@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 using FluentAssertions;
-using Xunit.Extensions;
+using MoreCollection.Dictionary.Internal.Strategy;
 
 namespace MoreCollectionTest.TestInfra
 {
+    [Collection("Changing Default static Dictionary stategy")]
     public abstract class DictionaryTest
     {
         protected IDictionary<string, string> _dictionary;
@@ -17,6 +16,7 @@ namespace MoreCollectionTest.TestInfra
 
         public DictionaryTest()
         {
+            DictionaryStrategyFactory<string>.Strategy = DictionaryStrategyFactory<string>.GetStrategy();
             _target = new Dictionary<string, string>();
             _Strings = Enumerable.Range(0,30).Select(i => string.Format("Name{0}", i)).ToList();
         }

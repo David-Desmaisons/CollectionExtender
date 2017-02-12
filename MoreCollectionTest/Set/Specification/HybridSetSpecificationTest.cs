@@ -9,7 +9,7 @@ using Xunit;
 
 namespace MoreCollectionTest.Set.Specification
 {
-    [Collection("Changing Default static stategy")]
+    [Collection("Changing Default static set stategy")]
     public class HybridSetSpecificationTest 
     {
         [Property(MaxTest = 1000)]

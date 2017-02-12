@@ -5,17 +5,12 @@ namespace MoreCollection.Dictionary.Internal
 {
     internal class MutableDictionary<TKey, TValue>: Dictionary<TKey, TValue>, IMutableDictionary<TKey, TValue>
     {
-        private readonly IDictionaryStrategy _DictionaryStrategy;
-
-        internal MutableDictionary(IDictionaryStrategy dictionaryStrategy): base()
+        internal MutableDictionary(): base()
         {
-            _DictionaryStrategy = dictionaryStrategy;
         }
 
-        internal MutableDictionary(IDictionary<TKey, TValue> collection, IDictionaryStrategy dictionaryStrategy)
-            : base(collection)
+        internal MutableDictionary(IDictionary<TKey, TValue> collection) : base(collection)
         {
-            _DictionaryStrategy = dictionaryStrategy;
         }
 
         IMutableDictionary<TKey, TValue> IMutableDictionary<TKey, TValue>.AddMutable(TKey key, TValue value)
@@ -33,12 +28,12 @@ namespace MoreCollection.Dictionary.Internal
         public IMutableDictionary<TKey,TValue> Remove(TKey key, out bool Result)
         {
             Result = Remove(key);
-            return Result ? _DictionaryStrategy.CheckDictionaryRemoved(this) : this;
+            return Result ? DictionaryStrategyFactory<TKey>.Strategy.CheckDictionaryRemoved(this) : this;
         }
 
         public IMutableDictionary<TKey, TValue> ClearMutable()
         {
-            return _DictionaryStrategy.GetEmpty<TKey,TValue>();
+            return DictionaryStrategyFactory<TKey>.Strategy.GetEmpty<TKey,TValue>();
         }
     }
 }

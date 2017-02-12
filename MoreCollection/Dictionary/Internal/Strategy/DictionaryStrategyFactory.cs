@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Concurrent;
 
 namespace MoreCollection.Dictionary.Internal.Strategy
 {
-    internal static class DictionaryStrategyFactory 
+    internal class DictionaryStrategies
     {
-        private static readonly ConcurrentDictionary<Type, IDictionaryStrategy> _Strategies = new ConcurrentDictionary<Type, IDictionaryStrategy>();
-        private static readonly Type IComparableType = typeof(IComparable<>);
         private const int _ListTransition = 10;
-        private static IDictionaryStrategy _OrderedDictionaryStrategy = new OrderedDictionaryStrategy(_ListTransition);
-        private static IDictionaryStrategy _UnorderedDictionaryStrategy = new UnorderedDictionaryStrategy(_ListTransition);
+        internal static IDictionaryStrategy OrderedDictionaryStrategy { get; } = new OrderedDictionaryStrategy(_ListTransition);
+        internal static IDictionaryStrategy UnorderedDictionaryStrategy { get; } = new UnorderedDictionaryStrategy(_ListTransition);
+    }
+
+    internal static class DictionaryStrategyFactory<TKey>
+    {
+        private static readonly Type IComparableType = typeof(IComparable<>);
+
+        internal static IDictionaryStrategy Strategy { get; set; } = GetStrategy();
 
         private static bool IsComparable(Type type)
         {
@@ -19,15 +23,10 @@ namespace MoreCollection.Dictionary.Internal.Strategy
                             && (interfaceType.GetGenericArguments()[0]) == type);
         }
 
-        public static IDictionaryStrategy GetStrategy<TKey>()
-        {
-           return _Strategies.GetOrAdd(typeof(TKey), ComputeStrategy<TKey>());
-        }
-
-        private static IDictionaryStrategy ComputeStrategy<TKey>()
+        public static IDictionaryStrategy GetStrategy()
         {
             bool comparable = IsComparable(typeof(TKey));
-            return comparable ? _OrderedDictionaryStrategy : _UnorderedDictionaryStrategy;
+            return comparable ? DictionaryStrategies.OrderedDictionaryStrategy : DictionaryStrategies.UnorderedDictionaryStrategy;
         }
     }
 }

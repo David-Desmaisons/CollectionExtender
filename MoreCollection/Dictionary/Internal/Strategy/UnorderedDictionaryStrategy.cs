@@ -8,12 +8,12 @@
 
         public override IMutableDictionary<TKey, TValue> GetIntermediateCollection<TKey, TValue>(IMutableDictionary<TKey, TValue> current)
         {
-            return new MutableListDictionary<TKey, TValue>(current, this);
+            return new MutableListDictionary<TKey, TValue>(current);
         }
 
         public override IMutableDictionary<TKey, TValue> GetIntermediateCollection<TKey,TValue>()
         {
-            return new MutableListDictionary<TKey, TValue>(this);
+            return new MutableListDictionary<TKey, TValue>();
         }
     }
 }

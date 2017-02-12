@@ -11,8 +11,8 @@ namespace MoreCollectionTest.Dictionary.Internal.Strategy
 {
     public abstract class DictionaryStrategyTest<T>
     {
-        private DictionaryStrategy<string> _DictionaryStrategy;
-        internal DictionaryStrategy<string> DictionaryStrategy 
+        private DictionaryStrategy _DictionaryStrategy;
+        internal DictionaryStrategy DictionaryStrategy 
         {
             set { _DictionaryStrategy = value; }
         }
@@ -65,21 +65,21 @@ namespace MoreCollectionTest.Dictionary.Internal.Strategy
         [Fact]
         public void GetEmpty_Return_Empty_Collection()
         {
-            var res = _DictionaryStrategy.GetEmpty<string>();
+            var res = _DictionaryStrategy.GetEmpty<string, string>();
             res.Should().BeEmpty();
         }
 
         [Fact]
         public void GetEmpty_Return_MutableSingleDictionary()
         {
-            var res = _DictionaryStrategy.GetEmpty<string>();
+            var res = _DictionaryStrategy.GetEmpty<string, string>();
             res.Should().BeOfType<MutableSingleDictionary<string, string>>();
         }
 
         [Fact]
         public void GetEmpty_CalledWith1_Return_MutableSingleDictionary()
         {
-            var res = _DictionaryStrategy.GetEmpty<string>(1);
+            var res = _DictionaryStrategy.GetEmpty<string, string>(1);
             res.Should().BeEmpty();
             res.Should().BeOfType<MutableSingleDictionary<string, string>>();
         }
@@ -87,7 +87,7 @@ namespace MoreCollectionTest.Dictionary.Internal.Strategy
         [Fact]
         public void GetEmpty_CalledWith_Transition_Return_IntermediateDictionary()
         {
-            var res = _DictionaryStrategy.GetEmpty<string>(_Transition);
+            var res = _DictionaryStrategy.GetEmpty<string, string>(_Transition);
             res.Should().BeEmpty();
             res.Should().BeOfType<T>();
         }
@@ -95,7 +95,7 @@ namespace MoreCollectionTest.Dictionary.Internal.Strategy
         [Fact]
         public void GetEmpty_CalledWith_TransitionPlusOne_Return_MutableListDictionary()
         {
-            var res = _DictionaryStrategy.GetEmpty<string>(_Transition+1);
+            var res = _DictionaryStrategy.GetEmpty<string, string>(_Transition+1);
             res.Should().BeEmpty();
             res.Should().BeOfType<MutableDictionary<string, string>>();
         }

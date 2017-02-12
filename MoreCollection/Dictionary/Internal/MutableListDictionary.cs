@@ -5,14 +5,13 @@ namespace MoreCollection.Dictionary.Internal
 {
     public class MutableListDictionary<TKey, TValue> : ListDictionary<TKey, TValue>, IMutableDictionary<TKey, TValue>                              
     {
-        private readonly IDictionaryStrategy<TKey> _DictionaryStrategy;
-        public MutableListDictionary(IDictionaryStrategy<TKey> dictionaryStrategy)
+        private readonly IDictionaryStrategy _DictionaryStrategy;
+        public MutableListDictionary(IDictionaryStrategy dictionaryStrategy)
         {
             _DictionaryStrategy = dictionaryStrategy;
         }
 
-        public MutableListDictionary(IDictionary<TKey, TValue> collection, 
-                    IDictionaryStrategy<TKey> dictionaryStrategy) : base(collection)
+        public MutableListDictionary(IDictionary<TKey, TValue> collection, IDictionaryStrategy dictionaryStrategy) : base(collection)
         {
             _DictionaryStrategy = dictionaryStrategy;
         }
@@ -34,7 +33,7 @@ namespace MoreCollection.Dictionary.Internal
 
         public IMutableDictionary<TKey, TValue> ClearMutable()
         {
-            return _DictionaryStrategy.GetEmpty<TValue>();
+            return _DictionaryStrategy.GetEmpty<TKey, TValue>();
         }
     }
 }

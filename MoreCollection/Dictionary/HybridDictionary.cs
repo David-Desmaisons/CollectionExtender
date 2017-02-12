@@ -21,7 +21,7 @@ namespace MoreCollection.Dictionary
         public HybridDictionary(int exceptedCapacity=0)
         {
             var strategy = DictionaryStrategyFactory.GetStrategy<TKey>();
-            _Implementation = strategy.GetEmpty<TValue>(exceptedCapacity);       
+            _Implementation = strategy.GetEmpty<TKey, TValue>(exceptedCapacity);       
         }
 
         public void Add(TKey key, TValue value)

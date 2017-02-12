@@ -7,7 +7,7 @@ namespace MoreCollectionTest.Dictionary.Internal.Strategy
     {
         public OrderedDictionaryStrategyTest()
         {
-            DictionaryStrategy = new OrderedDictionaryStrategy<string>(_Transition);
+            DictionaryStrategy = new OrderedDictionaryStrategy(_Transition);
         }
     }
 }

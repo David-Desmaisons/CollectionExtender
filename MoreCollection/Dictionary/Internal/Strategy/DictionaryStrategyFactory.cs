@@ -6,9 +6,11 @@ namespace MoreCollection.Dictionary.Internal.Strategy
 {
     internal static class DictionaryStrategyFactory 
     {
-        private static readonly ConcurrentDictionary<Type, object> _Strategies = new ConcurrentDictionary<Type, object>();
+        private static readonly ConcurrentDictionary<Type, IDictionaryStrategy> _Strategies = new ConcurrentDictionary<Type, IDictionaryStrategy>();
         private static readonly Type IComparableType = typeof(IComparable<>);
         private const int _ListTransition = 10;
+        private static IDictionaryStrategy _OrderedDictionaryStrategy = new OrderedDictionaryStrategy(_ListTransition);
+        private static IDictionaryStrategy _UnorderedDictionaryStrategy = new UnorderedDictionaryStrategy(_ListTransition);
 
         private static bool IsComparable(Type type)
         {
@@ -17,19 +19,15 @@ namespace MoreCollection.Dictionary.Internal.Strategy
                             && (interfaceType.GetGenericArguments()[0]) == type);
         }
 
-        public static IDictionaryStrategy<TKey> GetStrategy<TKey>()
+        public static IDictionaryStrategy GetStrategy<TKey>()
         {
-           return (DictionaryStrategy<TKey>) _Strategies.GetOrAdd(typeof(TKey), ComputeStrategy<TKey>());
+           return _Strategies.GetOrAdd(typeof(TKey), ComputeStrategy<TKey>());
         }
 
-        private static IDictionaryStrategy<TKey> ComputeStrategy<TKey>()
+        private static IDictionaryStrategy ComputeStrategy<TKey>()
         {
             bool comparable = IsComparable(typeof(TKey));
-
-            if (comparable)
-                return new OrderedDictionaryStrategy<TKey>(_ListTransition);
-
-            return new UnorderedDictionaryStrategy<TKey>(_ListTransition);
+            return comparable ? _OrderedDictionaryStrategy : _UnorderedDictionaryStrategy;
         }
     }
 }

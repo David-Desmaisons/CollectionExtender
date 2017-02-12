@@ -10,14 +10,14 @@ namespace MoreCollectionTest.Dictionary.Internal.Strategy
         public void GetStrategy_Return_UnorderedDictionaryStrategy_WithUnorderedObject()
         {
             var res = DictionaryStrategyFactory.GetStrategy<object>();
-            res.Should().BeOfType<UnorderedDictionaryStrategy<object>>();
+            res.Should().BeOfType<UnorderedDictionaryStrategy>();
         }
 
         [Fact]
         public void GetStrategy_Return_OrderedDictionaryStrategy_WithOderedObject()
         {
             var res = DictionaryStrategyFactory.GetStrategy<string>();
-            res.Should().BeOfType<OrderedDictionaryStrategy<string>>();
+            res.Should().BeOfType<OrderedDictionaryStrategy>();
         }
     }
 }

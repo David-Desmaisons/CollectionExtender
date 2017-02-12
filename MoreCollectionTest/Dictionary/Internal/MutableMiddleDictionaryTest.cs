@@ -11,15 +11,15 @@ namespace MoreCollectionTest.Dictionary.Internal
     public abstract class MutableMiddleDictionaryTest
     {
         private readonly IMutableDictionary<string, string> _DictionaryTwoElements;
-        private readonly IDictionaryStrategy<string, string> _DictionarySwitcher;
+        private readonly IDictionaryStrategy<string> _DictionarySwitcher;
 
         public MutableMiddleDictionaryTest()
         { 
-            _DictionarySwitcher = Substitute.For<IDictionaryStrategy<string, string>>();
+            _DictionarySwitcher = Substitute.For<IDictionaryStrategy<string>>();
             _DictionaryTwoElements = Get( new Dictionary<string, string>() { { "Key0", "Value0" }, { "Key1", "Value1" } }, _DictionarySwitcher);
         }
 
-        protected abstract IMutableDictionary<string, string> Get(IDictionary<string, string> Original, IDictionaryStrategy<string, string> Transition);
+        protected abstract IMutableDictionary<string, string> Get(IDictionary<string, string> Original, IDictionaryStrategy<string> Transition);
 
         protected abstract IMutableDictionary<string, string> GetEmpty();
 
@@ -56,7 +56,7 @@ namespace MoreCollectionTest.Dictionary.Internal
         public void Clear_Call_DictionarySwitcher_Clear()
         {
             _DictionaryTwoElements.ClearMutable();
-            _DictionarySwitcher.Received(1).GetEmpty();
+            _DictionarySwitcher.Received(1).GetEmpty<string>();
         }
     }
 }

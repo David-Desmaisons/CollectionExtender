@@ -3,11 +3,11 @@ using MoreCollection.Dictionary.Internal.Strategy;
 
 namespace MoreCollectionTest.Dictionary.Internal.Strategy
 {
-    public class OrderedDictionaryStrategyTest : DictionaryStrategyTest<MutableSortedDictionary<string, string>>
+    public class OrderedDictionaryStrategyTest : DictionaryStrategyTest<MutableSortedListDictionary<string, string>>
     {
         public OrderedDictionaryStrategyTest()
         {
-            DictionaryStrategy = new OrderedDictionaryStrategy<string, string>(_Transition);
+            DictionaryStrategy = new OrderedDictionaryStrategy<string>(_Transition);
         }
     }
 }

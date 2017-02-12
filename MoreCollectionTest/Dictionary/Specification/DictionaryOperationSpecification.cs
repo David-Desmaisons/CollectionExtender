@@ -45,21 +45,21 @@ namespace MoreCollectionTest.Dictionary.Specification
 
         private class DictionaryComandArgumentOperationSpecificationEmpty : DictionaryComandArgumentOperationSpecification, ICommandGenerator<IDictionary<int, string>, IDictionary<int, string>>
         {
-            public IDictionary<int, string> InitialActual => new HybridDictionary<int, string>(1, 3);
+            public IDictionary<int, string> InitialActual => new HybridDictionary<int, string>(1);
 
             public IDictionary<int, string> InitialModel => new Dictionary<int, string>();
         }
 
         private class DictionaryComandArgumentOperationSpecificationMiddle : DictionaryComandArgumentOperationSpecification, ICommandGenerator<IDictionary<int, string>, IDictionary<int, string>>
         {
-            public IDictionary<int, string> InitialActual => new HybridDictionary<int, string>(3, 3);
+            public IDictionary<int, string> InitialActual => new HybridDictionary<int, string>(3);
 
             public IDictionary<int, string> InitialModel => new Dictionary<int, string>();
         }
 
         private class DictionaryComandArgumentOperationSpecificationDictionary : DictionaryComandArgumentOperationSpecification, ICommandGenerator<IDictionary<int, string>, IDictionary<int, string>>
         {
-            public IDictionary<int, string> InitialActual => new HybridDictionary<int, string>(20, 3);
+            public IDictionary<int, string> InitialActual => new HybridDictionary<int, string>(20);
 
             public IDictionary<int, string> InitialModel => new Dictionary<int, string>();
         }

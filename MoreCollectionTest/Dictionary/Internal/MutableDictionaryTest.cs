@@ -13,11 +13,11 @@ namespace MoreCollectionTest.Dictionary.Internal
     {
         private readonly MutableDictionary<string, string> _DictionaryFourElements;
         private readonly MutableDictionary<string, string> _DictionaryThreeElements;
-        private readonly IDictionaryStrategy<string, string> _DictionarySwitcher;
+        private readonly IDictionaryStrategy<string> _DictionarySwitcher;
 
         public MutableDictionaryTest()
         {
-            _DictionarySwitcher = Substitute.For<IDictionaryStrategy<string, string>>();
+            _DictionarySwitcher = Substitute.For<IDictionaryStrategy<string>>();
 
             _DictionaryFourElements = new MutableDictionary<string,string>
                 (new Dictionary<string, string>(){  { "Key0", "Value0" }, { "Key1", "Value1" },
@@ -138,14 +138,14 @@ namespace MoreCollectionTest.Dictionary.Internal
         public void ClearMutable_Call()
         {
             var dictionary = _DictionaryThreeElements.ClearMutable();
-            _DictionarySwitcher.Received(1).GetEmpty();
+            _DictionarySwitcher.Received(1).GetEmpty<string>();
         }
 
         [Fact]
         public void MutableSortedDictionary_Throw_Exception_IfElementIsNotComparable()
         {
-            var dictionarySwitcher = Substitute.For<IDictionaryStrategy<object, string>>();
-            var res = new MutableSortedDictionary<object, string>(dictionarySwitcher);
+            var dictionarySwitcher = Substitute.For<IDictionaryStrategy<object>>();
+            var res = new MutableSortedListDictionary<object, string>(dictionarySwitcher);
             res.Add(new Object(), "aaaa");
             Action Do = () => res.Add(new Object(), "bbb");
             Do.ShouldThrow<Exception>();

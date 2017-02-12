@@ -5,14 +5,14 @@ namespace MoreCollection.Dictionary.Internal
 {
     internal class MutableSingleDictionary<TKey, TValue> : SingleDictionary<TKey, TValue>, IMutableDictionary<TKey, TValue>
     {
-        private readonly IDictionaryStrategy<TKey, TValue> _DictionaryStrategy;
-        internal MutableSingleDictionary(IDictionary<TKey, TValue> dictionary, IDictionaryStrategy<TKey, TValue> dictionaryStrategy)
+        private readonly IDictionaryStrategy<TKey> _DictionaryStrategy;
+        internal MutableSingleDictionary(IDictionary<TKey, TValue> dictionary, IDictionaryStrategy<TKey> dictionaryStrategy)
             : base(dictionary)
         {
             _DictionaryStrategy = dictionaryStrategy;
         }
 
-        internal MutableSingleDictionary(IDictionaryStrategy<TKey, TValue> dictionaryStrategy)
+        internal MutableSingleDictionary(IDictionaryStrategy<TKey> dictionaryStrategy)
         {
             _DictionaryStrategy = dictionaryStrategy;
         }

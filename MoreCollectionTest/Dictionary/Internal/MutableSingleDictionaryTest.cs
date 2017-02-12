@@ -12,11 +12,11 @@ namespace MoreCollectionTest.Dictionary.Internal
     {
         private readonly IMutableDictionary<string, string> _DictionaryNoElement;
         private readonly IMutableDictionary<string, string> _DictionaryOneElement;
-        private readonly IDictionaryStrategy<string, string> _DictionarySwitcher;
+        private readonly IDictionaryStrategy<string> _DictionarySwitcher;
 
         public MutableSingleDictionaryTest()
         {
-            _DictionarySwitcher = Substitute.For<IDictionaryStrategy<string, string>>();
+            _DictionarySwitcher = Substitute.For<IDictionaryStrategy<string>>();
 
             _DictionaryNoElement = new MutableSingleDictionary<string, string>( _DictionarySwitcher);
 

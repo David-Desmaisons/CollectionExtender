@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace MoreCollection.Dictionary.Internal
 {
-    public class MutableSortedDictionary<TKey, TValue> : SortedList<TKey, TValue>, IMutableDictionary<TKey, TValue>                              
+    public class MutableSortedListDictionary<TKey, TValue> : SortedList<TKey, TValue>, IMutableDictionary<TKey, TValue>                              
     {
-        private readonly IDictionaryStrategy<TKey, TValue> _DictionaryStrategy;
-        public MutableSortedDictionary(IDictionaryStrategy<TKey, TValue> dictionaryStrategy)
+        private readonly IDictionaryStrategy<TKey> _DictionaryStrategy;
+        public MutableSortedListDictionary(IDictionaryStrategy<TKey> dictionaryStrategy)
         {
             _DictionaryStrategy = dictionaryStrategy;
         }
 
-        public MutableSortedDictionary(IDictionary<TKey, TValue> collection, IDictionaryStrategy<TKey, TValue> dictionaryStrategy)
+        public MutableSortedListDictionary(IDictionary<TKey, TValue> collection, IDictionaryStrategy<TKey> dictionaryStrategy)
             : base(collection)
         {
             _DictionaryStrategy = dictionaryStrategy;
@@ -34,7 +34,7 @@ namespace MoreCollection.Dictionary.Internal
 
         public IMutableDictionary<TKey, TValue> ClearMutable()
         {
-            return _DictionaryStrategy.GetEmpty();
+            return _DictionaryStrategy.GetEmpty<TValue>();
         }
     }
 }

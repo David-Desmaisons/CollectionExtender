@@ -1,6 +1,6 @@
 ﻿namespace MoreCollection.Dictionary.Internal.Strategy
 {
-    internal abstract class DictionaryStrategy<TKey, TValue> : IDictionaryStrategy<TKey,TValue>
+    internal abstract class DictionaryStrategy<TKey> : IDictionaryStrategy<TKey>
     {
         private readonly int _TransitionToDictionary;
         public DictionaryStrategy (int limit = 10)
@@ -8,12 +8,12 @@
             _TransitionToDictionary = limit;
         }
 
-        private IMutableDictionary<TKey, TValue> GetNext(IMutableDictionary<TKey, TValue> current)
+        private IMutableDictionary<TKey, TValue> GetNext<TValue>(IMutableDictionary<TKey, TValue> current)
         {
             return new MutableDictionary<TKey, TValue>(current, this);
         }
 
-        public IMutableDictionary<TKey, TValue> Add(IMutableDictionary<TKey, TValue> current, TKey key, TValue value)
+        public IMutableDictionary<TKey, TValue> Add<TValue>(IMutableDictionary<TKey, TValue> current, TKey key, TValue value)
         {
             if (current.Count < _TransitionToDictionary)
             {
@@ -24,7 +24,7 @@
             return GetNext(current).AddMutable(key, value);
         }
 
-        public IMutableDictionary<TKey, TValue> Update(IMutableDictionary<TKey, TValue> current, TKey key, TValue value)
+        public IMutableDictionary<TKey, TValue> Update<TValue>(IMutableDictionary<TKey, TValue> current, TKey key, TValue value)
         {
             if ((current.Count == _TransitionToDictionary) && (!current.ContainsKey(key)))
             {
@@ -35,7 +35,7 @@
             return current;
         }
 
-        public IMutableDictionary<TKey, TValue> Remove(IMutableDictionary<TKey, TValue> current, TKey key, out bool Result)
+        public IMutableDictionary<TKey, TValue> Remove<TValue>(IMutableDictionary<TKey, TValue> current, TKey key, out bool Result)
         {
             Result = current.Remove(key);
 
@@ -47,22 +47,22 @@
             return current;
         }
 
-        public abstract IMutableDictionary<TKey, TValue> GetIntermediateCollection(IMutableDictionary<TKey, TValue> current);
+        public abstract IMutableDictionary<TKey, TValue> GetIntermediateCollection<TValue>(IMutableDictionary<TKey, TValue> current);
 
-        public abstract IMutableDictionary<TKey, TValue> GetIntermediateCollection();
+        public abstract IMutableDictionary<TKey, TValue> GetIntermediateCollection<TValue>();
 
-        public IMutableDictionary<TKey, TValue> GetEmpty(int expectedCapacity=0)
+        public IMutableDictionary<TKey, TValue> GetEmpty<TValue>(int expectedCapacity=0)
         {
             if (expectedCapacity<2)
                 return new MutableSingleDictionary<TKey, TValue>(this);
 
             if (expectedCapacity <= _TransitionToDictionary)
-                return GetIntermediateCollection();
+                return GetIntermediateCollection<TValue>();
 
             return new MutableDictionary<TKey, TValue>(this);
         }
 
-        public IMutableDictionary<TKey, TValue> CheckDictionaryRemoved(IMutableDictionary<TKey, TValue> current)
+        public IMutableDictionary<TKey, TValue> CheckDictionaryRemoved<TValue>(IMutableDictionary<TKey, TValue> current)
         {
             return (current.Count == _TransitionToDictionary) ? GetIntermediateCollection(current) : current;      
         }

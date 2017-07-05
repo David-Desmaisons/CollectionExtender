@@ -1,35 +1,42 @@
 ﻿using FsCheck;
 using FsCheck.Xunit;
 using MoreCollection.Set;
+using MoreCollection.Set.Infra;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Xunit;
 
 namespace MoreCollectionTest.Set.Specification
 {
+    [Collection("Changing Default static set stategy")]
     public class HybridSetSpecificationTest 
     {
         [Property(MaxTest = 1000)]
         public Property HybridSet_BuildFromEmptyBehaveAsSet()
         {
+            LetterSimpleSetFactoryBuilder.Factory = new LetterSimpleSetFactory(3);
             return SetOperationSpecification.FromEmpty();
         }
 
         [Property(MaxTest = 1000)]
         public Property HybridSet_BuildFromSingleBehaveAsSet()
         {
+            LetterSimpleSetFactoryBuilder.Factory = new LetterSimpleSetFactory(3);
             return SetOperationSpecification.FromSingle();
         }
 
         [Property(MaxTest = 1000)]
         public Property HybridSet_BuildFromListBehaveAsSet()
         {
+            LetterSimpleSetFactoryBuilder.Factory = new LetterSimpleSetFactory(3);
             return SetOperationSpecification.FromList();
         }
 
         [Property(MaxTest = 1000)]
         public Property HybridSet_BuildFromHashBehaveAsSet()
         {
+            LetterSimpleSetFactoryBuilder.Factory = new LetterSimpleSetFactory(3);
             return SetOperationSpecification.FromHash();
         }
 
@@ -77,12 +84,13 @@ namespace MoreCollectionTest.Set.Specification
 
         [Property(MaxTest = 300)]
         public Property Constructor_ReturnsCorrectValue()
-        {
+        {          
             const int transition = 10;
+            LetterSimpleSetFactoryBuilder.Factory = new LetterSimpleSetFactory(10);
             return Prop.ForAll<int[]>((arr) =>
             {
                 var set = new HashSet<int>(arr);          
-                var hybridSet = new HybridSet<int>(arr, 10);
+                var hybridSet = new HybridSet<int>(arr);
                 return set.SetEquals(hybridSet).Classify(set.Count <= 1, "Single")
                                                 .Classify(set.Count > 1 && set.Count <= transition, "List")
                                                 .Classify(set.Count > transition, "Hash")
@@ -101,10 +109,11 @@ namespace MoreCollectionTest.Set.Specification
 
         private static Property BuilPropertyFromArrays<T>(Func<ISet<int>, int[], T> perform, Func<T,T, bool> compare, Func<int[], int[], T, bool> categoryExtractor=null, string category=null)
         {
+            LetterSimpleSetFactoryBuilder.Factory = new LetterSimpleSetFactory(10);
             return Prop.ForAll<int[], int[]>((arr1, arr2) =>
             {
                 var set = new HashSet<int>(arr1);
-                var hybridSet = new HybridSet<int>(arr1, 4);
+                var hybridSet = new HybridSet<int>(arr1);
 
                 var computedSet = perform(set, arr2);
                 var computedHybrid = perform(hybridSet, arr2);

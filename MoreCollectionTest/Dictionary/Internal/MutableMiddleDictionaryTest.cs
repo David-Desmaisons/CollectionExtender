@@ -5,21 +5,29 @@ using Xunit;
 using FluentAssertions;
 using NSubstitute;
 using MoreCollection.Dictionary.Internal.Strategy;
+using System;
 
 namespace MoreCollectionTest.Dictionary.Internal
 {
-    public abstract class MutableMiddleDictionaryTest
+    [Collection("Changing Default static Dictionary stategy")]
+    public abstract class MutableMiddleDictionaryTest : IDisposable
     {
         private readonly IMutableDictionary<string, string> _DictionaryTwoElements;
-        private readonly IDictionaryStrategy<string, string> _DictionarySwitcher;
+        private readonly IDictionaryStrategy _DictionarySwitcher;
 
         public MutableMiddleDictionaryTest()
         { 
-            _DictionarySwitcher = Substitute.For<IDictionaryStrategy<string, string>>();
-            _DictionaryTwoElements = Get( new Dictionary<string, string>() { { "Key0", "Value0" }, { "Key1", "Value1" } }, _DictionarySwitcher);
+            _DictionarySwitcher = Substitute.For<IDictionaryStrategy>();
+            DictionaryStrategyFactory<string>.Strategy = _DictionarySwitcher;
+           _DictionaryTwoElements = Get( new Dictionary<string, string>() { { "Key0", "Value0" }, { "Key1", "Value1" } });
         }
 
-        protected abstract IMutableDictionary<string, string> Get(IDictionary<string, string> Original, IDictionaryStrategy<string, string> Transition);
+        public void Dispose()
+        {
+            DictionaryStrategyFactory<string>.Strategy = DictionaryStrategyFactory<string>.GetStrategy();
+        }
+
+        protected abstract IMutableDictionary<string, string> Get(IDictionary<string, string> Original);
 
         protected abstract IMutableDictionary<string, string> GetEmpty();
 
@@ -56,7 +64,7 @@ namespace MoreCollectionTest.Dictionary.Internal
         public void Clear_Call_DictionarySwitcher_Clear()
         {
             _DictionaryTwoElements.ClearMutable();
-            _DictionarySwitcher.Received(1).GetEmpty();
+            _DictionarySwitcher.Received(1).GetEmpty<string, string>();
         }
     }
 }

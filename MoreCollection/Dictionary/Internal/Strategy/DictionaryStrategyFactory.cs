@@ -1,14 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using MoreCollection.Extensions;
 
 namespace MoreCollection.Dictionary.Internal.Strategy
 {
-    internal static class DictionaryStrategyFactory 
+    internal class DictionaryStrategies
     {
-        private static readonly Dictionary<Type, bool> _IsComparable = new Dictionary<Type, bool>();
+        private const int _ListTransition = 10;
+        internal static IDictionaryStrategy OrderedDictionaryStrategy { get; } = new OrderedDictionaryStrategy(_ListTransition);
+        internal static IDictionaryStrategy UnorderedDictionaryStrategy { get; } = new UnorderedDictionaryStrategy(_ListTransition);
+    }
+
+    internal static class DictionaryStrategyFactory<TKey>
+    {
         private static readonly Type IComparableType = typeof(IComparable<>);
+
+        internal static IDictionaryStrategy Strategy { get; set; } = GetStrategy();
 
         private static bool IsComparable(Type type)
         {
@@ -17,14 +23,10 @@ namespace MoreCollection.Dictionary.Internal.Strategy
                             && (interfaceType.GetGenericArguments()[0]) == type);
         }
 
-        public static IDictionaryStrategy<TKey, TValue> GetStrategy<TKey, TValue>(int ListTransition)
+        public static IDictionaryStrategy GetStrategy()
         {
-            bool comparable = _IsComparable.GetOrAddEntity(typeof(TKey), IsComparable);
-
-            if (comparable)
-                return new OrderedDictionaryStrategy<TKey, TValue>(ListTransition);
-
-            return new UnorderedDictionaryStrategy<TKey, TValue>(ListTransition);
+            bool comparable = IsComparable(typeof(TKey));
+            return comparable ? DictionaryStrategies.OrderedDictionaryStrategy : DictionaryStrategies.UnorderedDictionaryStrategy;
         }
     }
 }

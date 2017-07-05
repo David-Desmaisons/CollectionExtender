@@ -1,19 +1,19 @@
 ﻿namespace MoreCollection.Dictionary.Internal.Strategy
 {
-    internal class OrderedDictionaryStrategy<TKey, TValue> :   DictionaryStrategy<TKey, TValue> 
+    internal class OrderedDictionaryStrategy :   DictionaryStrategy
     {
         internal OrderedDictionaryStrategy(int DictionaryTransition):base(DictionaryTransition)
         {
         }
 
-        public override IMutableDictionary<TKey, TValue> GetIntermediateCollection(IMutableDictionary<TKey, TValue> current)
+        public override IMutableDictionary<TKey, TValue> GetIntermediateCollection<TKey, TValue>(IMutableDictionary<TKey, TValue> current)
         {
-            return new MutableSortedDictionary<TKey, TValue>(current, this);
+            return new MutableSortedListDictionary<TKey, TValue>(current);
         }
 
-        public override IMutableDictionary<TKey, TValue> GetIntermediateCollection()
+        public override IMutableDictionary<TKey, TValue> GetIntermediateCollection<TKey, TValue>()
         {
-            return new MutableSortedDictionary<TKey, TValue>(this);
+            return new MutableSortedListDictionary<TKey, TValue>();
         }
     }
 }

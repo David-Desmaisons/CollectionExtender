@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 using FluentAssertions;
-using Xunit.Extensions;
 
 namespace MoreCollectionTest.TestInfra
 {
+    [Collection("Changing Default static Dictionary stategy")]
     public abstract class DictionaryTest
     {
         protected IDictionary<string, string> _dictionary;

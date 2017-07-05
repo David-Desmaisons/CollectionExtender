@@ -5,23 +5,30 @@ using Xunit;
 using FluentAssertions;
 using NSubstitute;
 using MoreCollection.Dictionary.Internal.Strategy;
+using System;
 
 namespace MoreCollectionTest.Dictionary.Internal
 {
-    public class MutableSingleDictionaryTest
+    public class MutableSingleDictionaryTest : IDisposable
     {
         private readonly IMutableDictionary<string, string> _DictionaryNoElement;
         private readonly IMutableDictionary<string, string> _DictionaryOneElement;
-        private readonly IDictionaryStrategy<string, string> _DictionarySwitcher;
+        private readonly IDictionaryStrategy _DictionarySwitcher;
 
         public MutableSingleDictionaryTest()
         {
-            _DictionarySwitcher = Substitute.For<IDictionaryStrategy<string, string>>();
+            _DictionarySwitcher = Substitute.For<IDictionaryStrategy>();
+            DictionaryStrategyFactory<string>.Strategy = _DictionarySwitcher;
 
-            _DictionaryNoElement = new MutableSingleDictionary<string, string>( _DictionarySwitcher);
+            _DictionaryNoElement = new MutableSingleDictionary<string, string>();
 
             var Dictionary = new Dictionary<string, string>(){{"Key0", "Value0"}};
-            _DictionaryOneElement = new MutableSingleDictionary<string, string>( Dictionary, _DictionarySwitcher);
+            _DictionaryOneElement = new MutableSingleDictionary<string, string>( Dictionary);
+        }
+
+        public void Dispose()
+        {
+            DictionaryStrategyFactory<string>.Strategy = DictionaryStrategyFactory<string>.GetStrategy();
         }
 
         [Fact]

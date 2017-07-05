@@ -5,9 +5,11 @@ using FsCheck;
 using FsCheck.Xunit;
 using MoreCollection.Dictionary;
 using MoreCollection.Extensions;
+using Xunit;
 
 namespace MoreCollectionTest.Dictionary.Specification 
 {
+    [Collection("Changing Default static Dictionary stategy")]
     public class HybridDictionarySpecificationTest 
     {
 

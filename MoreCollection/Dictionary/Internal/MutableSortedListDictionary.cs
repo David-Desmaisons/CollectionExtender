@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace MoreCollection.Dictionary.Internal
 {
-    public class MutableListDictionary<TKey, TValue> : ListDictionary<TKey, TValue>, IMutableDictionary<TKey, TValue>                              
+    public class MutableSortedListDictionary<TKey, TValue> : SortedList<TKey, TValue>, IMutableDictionary<TKey, TValue>                              
     {
-        public MutableListDictionary()
+        public MutableSortedListDictionary()
         {
         }
 
-        public MutableListDictionary(IDictionary<TKey, TValue> collection) : base(collection)
+        public MutableSortedListDictionary(IDictionary<TKey, TValue> collection): base(collection)
         {
         }
 
@@ -20,12 +20,12 @@ namespace MoreCollection.Dictionary.Internal
 
         public IMutableDictionary<TKey, TValue> Update(TKey key, TValue value)
         {
-            return DictionaryStrategyFactory<TKey>.Strategy.Update(this,  key, value);
+            return DictionaryStrategyFactory<TKey>.Strategy.Update(this, key, value);
         }
 
-        public IMutableDictionary<TKey,TValue> Remove(TKey key, out bool result)
+        public IMutableDictionary<TKey,TValue> Remove(TKey key, out bool Result)
         {
-            return DictionaryStrategyFactory<TKey>.Strategy.Remove(this,  key, out result);
+            return DictionaryStrategyFactory<TKey>.Strategy.Remove(this, key, out Result);
         }
 
         public IMutableDictionary<TKey, TValue> ClearMutable()

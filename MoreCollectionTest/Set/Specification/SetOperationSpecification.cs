@@ -46,20 +46,20 @@ namespace MoreCollectionTest.Set.Specification
 
         private class SetOperationSpecificationFromEmpty : SetOperationSpecification, ICommandGenerator<ISet<int>, ISet<int>>
         {
-            public ISet<int> InitialActual => new HybridSet<int>(3);
+            public ISet<int> InitialActual => new HybridSet<int>();
             public ISet<int> InitialModel => new HashSet<int>();
         }
 
         private class SetOperationSpecificationFromSingle : SetOperationSpecification, ICommandGenerator<ISet<int>, ISet<int>>
         {
-            public ISet<int> InitialActual => new HybridSet<int>(Value, 3);
+            public ISet<int> InitialActual => new HybridSet<int>(Value);
             public ISet<int> InitialModel => new HashSet<int> { Value };
             private int Value { get; } = Gen.Choose(0, 6).Generate();
         }
 
         private class SetOperationSpecificationFromCollection : SetOperationSpecification, ICommandGenerator<ISet<int>, ISet<int>>
         {
-            public ISet<int> InitialActual => new HybridSet<int>(Values, 3);
+            public ISet<int> InitialActual => new HybridSet<int>(Values);
             public ISet<int> InitialModel => new HashSet<int>(Values);
             private List<int> Values { get; }
 

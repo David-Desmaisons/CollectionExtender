@@ -1,4 +1,5 @@
 ﻿using MoreCollection.Dictionary;
+using MoreCollection.Dictionary.Internal.Strategy;
 using MoreCollectionTest.TestInfra;
 using Xunit;
 
@@ -8,6 +9,7 @@ namespace MoreCollectionTest.Dictionary
     {
         public HybridDictionaryTest()
         {
+            DictionaryStrategyFactory<string>.Strategy = DictionaryStrategyFactory<string>.GetStrategy();
             _dictionary = new HybridDictionary<string, string>();
         }
     }

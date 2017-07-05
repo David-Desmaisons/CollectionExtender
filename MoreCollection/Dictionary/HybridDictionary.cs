@@ -18,10 +18,9 @@ namespace MoreCollection.Dictionary
         IEnumerable<TKey> IReadOnlyDictionary<TKey, TValue>.Keys => _Implementation.Keys;
         IEnumerable<TValue> IReadOnlyDictionary<TKey, TValue>.Values => _Implementation.Values;
 
-        public HybridDictionary(int exceptedCapacity=0, int transitionToDictionary = 10)
+        public HybridDictionary(int exceptedCapacity=0)
         {
-            var strategy = DictionaryStrategyFactory.GetStrategy<TKey, TValue>(transitionToDictionary);
-            _Implementation = strategy.GetEmpty(exceptedCapacity);       
+            _Implementation = DictionaryStrategyFactory<TKey>.Strategy.GetEmpty<TKey, TValue>(exceptedCapacity);       
         }
 
         public void Add(TKey key, TValue value)

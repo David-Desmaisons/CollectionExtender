@@ -132,6 +132,44 @@ namespace MoreCollectionTest.Extensions
         }
 
         [Fact]
+        public void ZipForEach_CalledOnNull_ThrowException()
+        {
+            Action Do = () => _NullEnumerable.ZipForEach(_Enumerable, _Action2);
+            Do.ShouldThrow<ArgumentNullException>();
+            _Action2.DidNotReceive().Invoke(Arg.Any<int>(), Arg.Any<int>());
+        }
+
+        [Fact]
+        public void ZipForEach_CalledWithNull_ThrowException()
+        {
+            Action Do = () => _Enumerable.ZipForEach(_NullEnumerable, _Action2);
+            Do.ShouldThrow<ArgumentNullException>();
+            _Action2.DidNotReceive().Invoke(Arg.Any<int>(), Arg.Any<int>());
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(2)]
+        [InlineData(3)]
+        [InlineData(10)]
+        [InlineData(20)]
+        public void ZipForEach_Calls_Action(int count)
+        {
+            var enumerable2 = Enumerable.Range(20, count);
+            _Enumerable.ZipForEach(enumerable2, _Action2);
+            var maxCount = Math.Min(10, count);
+            _Action2.Received(maxCount).Invoke(Arg.Any<int>(), Arg.Any<int>());
+            Received.InOrder(() =>
+            {
+                for(var i = 0; i< maxCount; i++)
+                {
+                    _Action2(i, 20 +i);
+                }
+            });
+        }
+
+        [Fact]
         public void FirstOrDefault_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullEnumerable.FirstOrDefault(78, _ => true);

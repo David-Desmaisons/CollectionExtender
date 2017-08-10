@@ -41,6 +41,8 @@
   <ItemGroup>
     <Compile Include="Composed\IPriorityQueue.cs" />
     <Compile Include="Composed\PriorityQueue.cs" />
+    <Compile Include="Dictionary\DictionaryFactory.cs" />
+    <Compile Include="Dictionary\Internal\Helper\Comparable.cs" />
     <Compile Include="Dictionary\Internal\Strategy\DictionaryStrategyFactory.cs" />
     <Compile Include="Dictionary\Internal\Strategy\DictionaryStrategy.cs" />
     <Compile Include="Dictionary\Internal\Strategy\IDictionaryStrategy.cs" />

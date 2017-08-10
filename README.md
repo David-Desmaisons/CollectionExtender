@@ -3,7 +3,7 @@
 
 C# utility extension methods for collection and collections implementation
 
-##IEnumerable Extensions
+## IEnumerable Extensions
 
 Cartesian
 
@@ -48,9 +48,15 @@ Zip
                           this IEnumerable<TSource1> enumerable,
                           IEnumerable<TSource2> enumerable2, IEnumerable<TSource3> enumerable3,
                           Func<TSource1, TSource2, TSource3, TResult> Agregate)
+                          
+ZipForEach
+        
+    public static void ZipForEach<TSource1, TSource2>(this IEnumerable<TSource1> enumerable,
+                       IEnumerable<TSource2> enumerable2,  Action<TSource1, TSource2> action)
 
 
-##IList Extensions
+
+## IList Extensions
 
 AddRange
 
@@ -61,14 +67,20 @@ Move
     public static IList<T> Move<T>(this IList<T> list, int oldIndex, int newIndex)
 
 
-##IDictionary Extensions
+## IDictionary Extensions
 
 GetOrAdd
 
-    public static TValue GetOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key,
-                                                            Func<TKey, TValue> Fac)
+    public static CollectionResult<TValue> GetOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, Func<TKey, TValue> Fac)
+    
+GetOrAddEntity
+
+    public static TValue GetOrAddEntity<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, Func<TKey, TValue> Fac)
 
 UpdateOrAdd
 
     public static TValue UpdateOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key, 
                                         Func<TKey, TValue> Fac, Action<TKey, TValue> Updater)
+                                        
+    public static TValue UpdateOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dic, TKey key,  Func<TKey, TValue> Fac,
+                                        Func<TKey, TValue, TValue> Updater)

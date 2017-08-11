@@ -82,6 +82,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Composed\PriorityQueueTest.cs" />
+    <Compile Include="Dictionary\DictionaryFactoryTest.cs" />
+    <Compile Include="Dictionary\Internal\Helper\ComparableTest.cs" />
     <Compile Include="Dictionary\Internal\MutableMiddleDictionaryTest.cs" />
     <Compile Include="Dictionary\Internal\MutableSortedListDictionaryTest.cs" />
     <Compile Include="Dictionary\Internal\MutableListDictionaryTest.cs" />

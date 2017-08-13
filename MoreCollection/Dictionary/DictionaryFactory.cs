@@ -11,9 +11,9 @@ namespace MoreCollection.Dictionary
         public static IDictionary<TKey, TValue> Get<TKey, TValue>(int expectedSize) 
         {
             if (expectedSize> _ListTransition)
-                return new Dictionary<TKey, TValue>();
+                return new Dictionary<TKey, TValue>(expectedSize);
 
-            return (typeof(TKey).IsComparable()) ? (IDictionary<TKey, TValue>)new SortedList<TKey, TValue>() : new ListDictionary<TKey, TValue>();
+            return (typeof(TKey).IsComparable()) ? (IDictionary<TKey, TValue>)new SortedList<TKey, TValue>(expectedSize) : new ListDictionary<TKey, TValue>(expectedSize);
         }
     }
 }

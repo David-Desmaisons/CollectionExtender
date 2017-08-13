@@ -18,6 +18,11 @@ namespace MoreCollection.Dictionary.Internal
             _List = new List<KeyValuePair<TKey, TValue>>();
         }
 
+        public ListDictionary(int expectedSize)
+        {
+            _List = new List<KeyValuePair<TKey, TValue>>(expectedSize);
+        }
+
         public ListDictionary(IDictionary<TKey, TValue> from)
         {
             _List = new List<KeyValuePair<TKey, TValue>>();

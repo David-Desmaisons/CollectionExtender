@@ -58,14 +58,14 @@ namespace MoreCollectionTest.Set
             Test(s => s.Add("aa"));
         }
 
-        [Theory, MemberData("Data")]
+        [Theory, MemberData(nameof(Data))]
         public void StressTestAdd(string[] strings)
         {
             SetUp(s => strings.ForEach(r => s.Add(r)));
             Test(s => s.Add("aa"));
         }
 
-        [Theory, MemberData("Data")]
+        [Theory, MemberData(nameof(Data))]
         public void StressTestAdd_2(string[] strings)
         {
             Test(s => { strings.ForEach(r => s.Add(r)); });
@@ -95,7 +95,7 @@ namespace MoreCollectionTest.Set
             Test(s => s.Remove("aa"));
         }
 
-        [Theory, MemberData("Data")]
+        [Theory, MemberData(nameof(Data))]
         public void StressTestRemove(string[] strings)
         {
             SetUp(s => strings.ForEach(r => s.Add(r)));

@@ -44,6 +44,17 @@ namespace MoreCollectionTest.Set.Specification
             return new SetOperationSpecificationFromCollection(6).ToProperty();
         }
 
+        public static Property ForHashedSet()
+        {
+            return new SetOperationSpecificationFromForHashedSet().ToProperty();
+        }
+
+        private class SetOperationSpecificationFromForHashedSet : SetOperationSpecification, ICommandGenerator<ISet<int>, ISet<int>>
+        {
+            public ISet<int> InitialActual => new HashedSet<int>();
+            public ISet<int> InitialModel => new HashSet<int>();
+        }
+
         private class SetOperationSpecificationFromEmpty : SetOperationSpecification, ICommandGenerator<ISet<int>, ISet<int>>
         {
             public ISet<int> InitialActual => new HybridSet<int>();

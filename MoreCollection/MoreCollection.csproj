@@ -28,6 +28,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -67,6 +68,11 @@
     <Compile Include="Composed\SimpleLookUp.cs" />
     <Compile Include="Infra\SecondDegreeSolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Set\HashedSet.cs" />
+    <Compile Include="Set\IClonableSet.cs" />
+    <Compile Include="Set\Infra\BitHelper.cs" />
+    <Compile Include="Set\Infra\HashedSetEqualityComparer.cs" />
+    <Compile Include="Set\Infra\HashHelpers.cs" />
     <Compile Include="Set\Infra\ILetterSimpleSet.cs" />
     <Compile Include="Set\Infra\ILetterSimpleSetFactory.cs" />
     <Compile Include="Set\Infra\LetterSimpleSetFactory.cs" />

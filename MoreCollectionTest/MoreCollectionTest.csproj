@@ -108,9 +108,12 @@
     <Compile Include="Infra\IntrospectorTest.cs" />
     <Compile Include="Composed\SimpleLookUpTest.cs" />
     <Compile Include="MyObject.cs" />
+    <Compile Include="Set\HashedSetTests.cs" />
     <Compile Include="Set\HybridSetIntegratedTest.cs" />
+    <Compile Include="Set\HashedSetIntegratedTest.cs" />
     <Compile Include="Set\Specification\ClearSet.cs" />
     <Compile Include="Set\Specification\AddSet.cs" />
+    <Compile Include="Set\Specification\HashedSetSpecificationTest.cs" />
     <Compile Include="Set\Specification\RemoveSet.cs" />
     <Compile Include="Set\Specification\SetOperationSpecification.cs" />
     <Compile Include="Set\Specification\HybridSetSpecificationTest.cs" />

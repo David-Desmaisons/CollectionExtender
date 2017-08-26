@@ -16,19 +16,17 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using MoreCollection.Infra;
 
-namespace MoreCollection.Composed {
+namespace MoreCollection.Composed
+{
     public class PriorityQueue<T> : IPriorityQueue<T>
     {
         private int _Count;
         private int _Capacity;
         private int _Version;
-        private IComparer<T> _ItemComparer;
+        private readonly IComparer<T> _ItemComparer;
         private T[] _Heap;
 
-        public IComparer<T> ItemComparer 
-        {
-            get { return _ItemComparer; }
-        }
+        public IComparer<T> ItemComparer => _ItemComparer;
 
         public PriorityQueue(IComparer<T> iItemComparer = null, int iInitialCapacity = 15) 
         {
@@ -78,7 +76,7 @@ namespace MoreCollection.Composed {
 
         private void BubbleUp(int index, T he) 
         {
-            int parent = getParent(index);
+            var parent = getParent(index);
             // note: (index > 0) means there is a parent
 
             while ((index > 0) && (_ItemComparer.Compare(_Heap[parent], he) < 0)) 
@@ -138,10 +136,7 @@ namespace MoreCollection.Composed {
 
         #endregion
 
-        public int Count 
-        {
-            get { return _Count; }
-        }
+        public int Count => _Count;
 
         public void CopyTo(Array array, int index) {
             System.Array.Copy(_Heap, 0, array, index, _Count);
@@ -149,10 +144,10 @@ namespace MoreCollection.Composed {
 
         #region Priority Queue enumerator
 
-        private class PriorityQueueEnumerator : IEnumerator<T> 
+        private sealed class PriorityQueueEnumerator : IEnumerator<T> 
         {
             private int _Index;
-            private PriorityQueue<T> _PriorityQueue;
+            private readonly PriorityQueue<T> _PriorityQueue;
             private int _Version;
 
             public PriorityQueueEnumerator(PriorityQueue<T> priorityQueue) 

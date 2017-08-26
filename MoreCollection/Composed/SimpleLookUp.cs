@@ -8,11 +8,11 @@ namespace MoreCollection.Composed
 {
     public class SimpleLookUp<TKey, TElement> : ILookup<TKey, TElement> where TKey : class
     {
-        private IDictionary<TKey, List<TElement>> _LookUpDictionary;
+        private readonly IDictionary<TKey, List<TElement>> _LookUpDictionary;
 
-        public SimpleLookUp(Func<IDictionary<TKey, List<TElement>>> Factory = null)
+        public SimpleLookUp(Func<IDictionary<TKey, List<TElement>>> factory = null)
         {
-            _LookUpDictionary = (Factory != null) ? Factory() : new Dictionary<TKey, List<TElement>>();
+            _LookUpDictionary = (factory != null) ? factory() : new Dictionary<TKey, List<TElement>>();
         }
 
         public static IDictionary<TKey, List<TElement>> Hybrid()
@@ -43,10 +43,7 @@ namespace MoreCollection.Composed
             return _LookUpDictionary.ContainsKey(key);
         }
 
-        public int Count
-        {
-            get { return _LookUpDictionary.Count; }
-        }
+        public int Count => _LookUpDictionary.Count;
 
         public IEnumerable<TElement> this[TKey key]
         {
@@ -64,18 +61,16 @@ namespace MoreCollection.Composed
 
         private class Grouping<TKey2, TElement2> : IGrouping<TKey2, TElement2>
         {
-            private TKey2 _Key;
-            private IEnumerable<TElement2> _Elements;
+            private readonly IEnumerable<TElement2> _Elements;
+            public TKey2 Key { get; }
 
             internal Grouping(TKey2 ikey, IEnumerable<TElement2> ielems)
             {
-                _Key = ikey;
+                Key = ikey;
                 _Elements = ielems;
             }
 
-            public TKey2 Key => _Key;
-
-            public System.Collections.Generic.IEnumerator<TElement2> GetEnumerator()
+            public IEnumerator<TElement2> GetEnumerator()
             {
                 return _Elements.GetEnumerator();
             }

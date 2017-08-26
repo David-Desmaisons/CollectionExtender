@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 namespace MoreCollection.Composed 
 {
-    public interface IPriorityQueue<T> : IEnumerable<T> {
+    public interface IPriorityQueue<T> : IEnumerable<T>
+    {
         T Dequeue();
 
         T Peek();

@@ -74,8 +74,7 @@ namespace MoreCollectionTest.Set
             var ts = stopWatch.ElapsedMilliseconds;
             _Output.WriteLine($"Perf: {Operations * 1000 / ts} operations per sec new HashSet");
 
-            stopWatch.Reset();
-            stopWatch.Start();
+            stopWatch.Restart();
             for (var i = 0; i < Operations; i++)
             {
                 var newSet = hashedSet.Clone();

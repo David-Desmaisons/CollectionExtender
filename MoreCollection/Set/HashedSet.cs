@@ -170,6 +170,23 @@ namespace MoreCollection.Set
             Array.Copy(source, target, count);
         }
 
+        public HashedSet(int suggestedCapacity) : this(suggestedCapacity, EqualityComparer<T>.Default) { }
+
+        public HashedSet(int suggestedCapacity, IEqualityComparer<T> comparer)
+        {
+            if (comparer == null)
+            {
+                comparer = EqualityComparer<T>.Default;
+            }
+
+            this.m_comparer = comparer;
+            m_lastIndex = 0;
+            m_count = 0;
+            m_freeList = -1;
+            m_version = 0;
+            Initialize(suggestedCapacity);
+        }
+
 #if !SILVERLIGHT
         protected HashedSet(SerializationInfo info, StreamingContext context)
         {

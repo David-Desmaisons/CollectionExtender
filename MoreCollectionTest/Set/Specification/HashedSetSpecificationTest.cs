@@ -13,16 +13,21 @@ namespace MoreCollectionTest.Set.Specification
     public class HashedSetSpecificationTest
     {
         [Property(MaxTest = 1000)]
-        public Property HybridSet_BuildFromListBehaveAsSet()
+        public Property HashedSet_BuildEmptyBehavesAsSet()
         {
             return SetOperationSpecification.ForHashedSet();
         }
 
         [Property(MaxTest = 1000)]
-        public Property HybridSet_BuildFromHashBehaveAsSet()
+        public Property HashedSet_BuildWithInicialCapacity()
         {
-            LetterSimpleSetFactoryBuilder.Factory = new LetterSimpleSetFactory(3);
-            return SetOperationSpecification.FromHash();
+            return SetOperationSpecification.ForHashedSetWithCapacity(10);
+        }
+
+        [Property(MaxTest = 1000)]
+        public Property HashedSet_BuiltFromCloneBehavesAsSet()
+        {
+            return SetOperationSpecification.ForHashedSetFromCloned(6);
         }
 
         [Property(MaxTest = 300)]

@@ -58,42 +58,42 @@ namespace MoreCollectionTest.Extensions
         public void Addrange_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullList.AddRange(Enumerable.Empty<int>());
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
         public void Move_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullList.Move(0, 27);
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
         public void Move_CalledWithWrongIndex_ThrowArgumentException()
         {
             Action Do = () => _FullList.Move(-1, 1);
-            Do.ShouldThrow<ArgumentOutOfRangeException>();
+            Do.Should().Throw<ArgumentOutOfRangeException>();
         }
 
         [Fact]
         public void Move_CalledWithWrongIndex_2_ThrowArgumentException()
         {
             Action Do = () => _FullList.Move(10, 1);
-            Do.ShouldThrow<ArgumentOutOfRangeException>();
+            Do.Should().Throw<ArgumentOutOfRangeException>();
         }
 
         [Fact]
         public void Move_CalledWithWrongIndex_3_ThrowArgumentException()
         {
             Action Do = () => _FullList.Move(0, -1);
-            Do.ShouldThrow<ArgumentOutOfRangeException>();
+            Do.Should().Throw<ArgumentOutOfRangeException>();
         }
 
         [Fact]
         public void Move_CalledWithWrongIndex_4_ThrowArgumentException()
         {
             Action Do = () => _FullList.Move(0, 3);
-            Do.ShouldThrow<ArgumentOutOfRangeException>();
+            Do.Should().Throw<ArgumentOutOfRangeException>();
         }
 
         [Fact]
@@ -113,12 +113,15 @@ namespace MoreCollectionTest.Extensions
         [Fact]
         public void Move_CallObservableCollectionMove()
         {
-            _RawFullListObservable.MonitorEvents();
-            var res = _FullListObservable.Move(2, 0);
-            res.Should().BeSameAs(_FullListObservable);
-            _FullListObservable.Should().Equal(2, 0, 1);
-            _RawFullListObservable.ShouldRaise("CollectionChanged")
-                .WithArgs<NotifyCollectionChangedEventArgs>(args => args.Action == NotifyCollectionChangedAction.Move);
+            using (var monitor = _RawFullListObservable.Monitor()) 
+            {
+                var res = _FullListObservable.Move(2, 0);
+                res.Should().BeSameAs(_FullListObservable);
+                _FullListObservable.Should().Equal(2, 0, 1);
+                monitor.Should().Raise("CollectionChanged")
+                    .WithArgs<NotifyCollectionChangedEventArgs>(args => args.Action == NotifyCollectionChangedAction.Move);
+
+            }
         }
     }
 }

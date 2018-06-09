@@ -44,50 +44,6 @@ namespace MoreCollectionTest.Set.Specification
             return new SetOperationSpecificationFromCollection(6).ToProperty();
         }
 
-        public static Property ForHashedSet()
-        {
-            return new SetOperationSpecificationFromHashedSet().ToProperty();
-        }
-
-        public static Property ForHashedSetWithCapacity(int capacity)
-        {
-            return new SetOperationSpecificationFromHashedSetWithCapacity(capacity).ToProperty();
-        }
-
-        public static Property ForHashedSetFromCloned(int size)
-        {
-            return new SetOperationSpecificationFromHashedSetFromClone(size).ToProperty();
-        }
-
-        private class SetOperationSpecificationFromHashedSet : SetOperationSpecification, ICommandGenerator<ISet<int>, ISet<int>>
-        {
-            public ISet<int> InitialActual => new HashedSet<int>();
-            public ISet<int> InitialModel => new HashSet<int>();
-        }
-
-        private class SetOperationSpecificationFromHashedSetWithCapacity : SetOperationSpecification, ICommandGenerator<ISet<int>, ISet<int>>
-        {
-            private readonly int _Capacity;
-            public SetOperationSpecificationFromHashedSetWithCapacity(int capacity)
-            {
-                _Capacity = capacity;
-            }
-            public ISet<int> InitialActual => new HashedSet<int>(_Capacity);
-            public ISet<int> InitialModel => new HashSet<int>();
-        }
-
-        private class SetOperationSpecificationFromHashedSetFromClone : SetOperationSpecification, ICommandGenerator<ISet<int>, ISet<int>>
-        {
-            public ISet<int> InitialActual => new HashedSet<int>(Values).Clone();
-            public ISet<int> InitialModel => new HashSet<int>(Values);
-            private List<int> Values { get; }
-
-            public SetOperationSpecificationFromHashedSetFromClone(int count)
-            {
-                Values = Gen.Choose(0, 20).ListOf(count).Where(l => l.Distinct().Count() == l.Count).Generate().ToList();
-            }
-        }
-
         private class SetOperationSpecificationFromEmpty : SetOperationSpecification, ICommandGenerator<ISet<int>, ISet<int>>
         {
             public ISet<int> InitialActual => new HybridSet<int>();

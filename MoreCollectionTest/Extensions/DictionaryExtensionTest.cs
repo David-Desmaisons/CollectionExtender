@@ -28,7 +28,7 @@ namespace MoreCollectionTest.Extensions
         public void GetOrAdd_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullDictionary.GetOrAdd("Key", _ => "value");
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -70,7 +70,7 @@ namespace MoreCollectionTest.Extensions
         public void GetOrAddEntity_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullDictionary.GetOrAddEntity("Key", _ => "value");
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -109,7 +109,7 @@ namespace MoreCollectionTest.Extensions
         public void UpdateOrAdd_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullDictionary.UpdateOrAdd("Key", _ => "value", (k,v) => v);
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -133,7 +133,7 @@ namespace MoreCollectionTest.Extensions
         public void UpdateOrAdd2_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullDictionary.UpdateOrAdd("Key", _ => "value", _Updater2);
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -158,7 +158,7 @@ namespace MoreCollectionTest.Extensions
         public void GetOrDefault_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullDictionary.GetOrDefault("Key");
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -195,14 +195,14 @@ namespace MoreCollectionTest.Extensions
         public void Import_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullDictionary.Import( new Dictionary<string,string>());
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
         public void Import_CalledWithNullArgument_ThrowException()
         {
             Action Do = () => _Dictionary.Import(_NullDictionary);
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]

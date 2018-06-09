@@ -255,7 +255,7 @@ namespace MoreCollectionTest.TestInfra
         public void Indexer_Set_NullKey_ThrowException()
         {
             Action Do = () => _dictionary[null] = "vgg";
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -270,7 +270,7 @@ namespace MoreCollectionTest.TestInfra
         public void CopyTo_Null_ThrowException()
         {
             Action Do = () => _dictionary.CopyTo(null, 0);
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -278,7 +278,7 @@ namespace MoreCollectionTest.TestInfra
         {
             var array = new KeyValuePair<string, string>[0];
             Action Do = () => _dictionary.CopyTo(array, -1);
-            Do.ShouldThrow<ArgumentOutOfRangeException>();
+            Do.Should().Throw<ArgumentOutOfRangeException>();
         }
 
         [Fact]

@@ -62,7 +62,7 @@ namespace MoreCollectionTest.Set.Internal
         {
             IEnumerable<string> nullEnumerable = null;
             Action Do = () => _LetterSimpleSetFactory.GetDefault(nullEnumerable);
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]

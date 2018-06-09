@@ -33,7 +33,7 @@ namespace MoreCollectionTest.Extensions
         public void ForEach_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullEnumerable.ForEach(_Action);
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
             _Action.DidNotReceive().Invoke(Arg.Any<int>());
         }
 
@@ -71,7 +71,7 @@ namespace MoreCollectionTest.Extensions
         public void ForEachWithIndex_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullEnumerable.ForEach(_Action2);
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
             _Action2.DidNotReceive().Invoke(Arg.Any<int>(), Arg.Any<int>());
         }
 
@@ -94,7 +94,7 @@ namespace MoreCollectionTest.Extensions
         public void ForEachWithCancellation_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullEnumerable.ForEach(_Action, CancellationToken.None);
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
             _Action.DidNotReceive().Invoke(Arg.Any<int>());
         }
 
@@ -135,7 +135,7 @@ namespace MoreCollectionTest.Extensions
         public void ZipForEach_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullEnumerable.ZipForEach(_Enumerable, _Action2);
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
             _Action2.DidNotReceive().Invoke(Arg.Any<int>(), Arg.Any<int>());
         }
 
@@ -143,7 +143,7 @@ namespace MoreCollectionTest.Extensions
         public void ZipForEach_CalledWithNull_ThrowException()
         {
             Action Do = () => _Enumerable.ZipForEach(_NullEnumerable, _Action2);
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
             _Action2.DidNotReceive().Invoke(Arg.Any<int>(), Arg.Any<int>());
         }
 
@@ -173,14 +173,14 @@ namespace MoreCollectionTest.Extensions
         public void FirstOrDefault_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullEnumerable.FirstOrDefault(78, _ => true);
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
         public void FirstOrDefault_CalledWithNullPredicate_ThrowException()
         {
             Action Do = () => _Enumerable.FirstOrDefault(78, null);
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
         }
 
         [Theory]
@@ -210,7 +210,7 @@ namespace MoreCollectionTest.Extensions
         public void FirstOrDefault2_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullEnumerable.FirstOrDefault(78);
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
         }
 
         [Theory]
@@ -240,7 +240,7 @@ namespace MoreCollectionTest.Extensions
         public void Indexes_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullEnumerable.Indexes(_ => true);
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -261,7 +261,7 @@ namespace MoreCollectionTest.Extensions
         public void Indexes2_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullEnumerable.Indexes(33);
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
         }
 
         [Theory]
@@ -290,7 +290,7 @@ namespace MoreCollectionTest.Extensions
         public void Index_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullEnumerable.Index(78);
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
         }
 
         [Theory]
@@ -319,7 +319,7 @@ namespace MoreCollectionTest.Extensions
         public void Index2_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullEnumerable.Index( _ => true);
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
         }
 
         [Theory]
@@ -348,7 +348,7 @@ namespace MoreCollectionTest.Extensions
         public void Cartesian_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullEnumerable.Cartesian(_Enumerable, _Agregator);
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
             _Agregator.DidNotReceive().Invoke(Arg.Any<int>(), Arg.Any<int>());
         }
 
@@ -356,7 +356,7 @@ namespace MoreCollectionTest.Extensions
         public void Cartesian_CalledWithNull_ThrowException()
         {
             Action Do = () => _Enumerable.Cartesian(_NullEnumerable, _Agregator);
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
             _Agregator.DidNotReceive().Invoke(Arg.Any<int>(), Arg.Any<int>());
         }
 
@@ -410,7 +410,7 @@ namespace MoreCollectionTest.Extensions
         public void ForEachCartesian_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullEnumerable.ForEachCartesian(_Enumerable, _Action2);
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
             _Agregator.DidNotReceive().Invoke(Arg.Any<int>(), Arg.Any<int>());
         }
 
@@ -418,7 +418,7 @@ namespace MoreCollectionTest.Extensions
         public void ForEachCartesian_CalledWithNull_ThrowException()
         {
             Action Do = () => _Enumerable.ForEachCartesian(_NullEnumerable, _Action2);
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
             _Agregator.DidNotReceive().Invoke(Arg.Any<int>(), Arg.Any<int>());
         }
 
@@ -445,21 +445,21 @@ namespace MoreCollectionTest.Extensions
         public void Zip_ThrowNullArgumentException_WhenCalledWithNullArgument_1()
         {
             Action Do = () => _NullEnumerable.Zip(_Enumerable, _Enumerable, _Agregator2);
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
         public void Zip_ThrowNullArgumentException_WhenCalledWithNullArgument_2()
         {
             Action Do = () => _Enumerable.Zip(_NullEnumerable, _Enumerable, _Agregator2);
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
         public void Zip_ThrowNullArgumentException_WhenCalledWithNullArgument_3()
         {
             Action Do = () => _Enumerable.Zip(_Enumerable, _NullEnumerable, _Agregator2);
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
         }
 
         public static IEnumerable<object[]> CollectionData

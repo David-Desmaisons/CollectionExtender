@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿ <!-- <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\xunit.core.2.0.0\build\portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.core.props" Condition="Exists('..\packages\xunit.core.2.0.0\build\portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.core.props')" />
   <Import Project="..\packages\xunit.runner.visualstudio.2.0.1\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\packages\xunit.runner.visualstudio.2.0.1\build\net20\xunit.runner.visualstudio.props')" />
@@ -60,7 +60,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
+   <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
@@ -108,12 +108,9 @@
     <Compile Include="Infra\IntrospectorTest.cs" />
     <Compile Include="Composed\SimpleLookUpTest.cs" />
     <Compile Include="MyObject.cs" />
-    <Compile Include="Set\HashedSetTests.cs" />
     <Compile Include="Set\HybridSetIntegratedTest.cs" />
-    <Compile Include="Set\HashedSetIntegratedTest.cs" />
     <Compile Include="Set\Specification\ClearSet.cs" />
     <Compile Include="Set\Specification\AddSet.cs" />
-    <Compile Include="Set\Specification\HashedSetSpecificationTest.cs" />
     <Compile Include="Set\Specification\RemoveSet.cs" />
     <Compile Include="Set\Specification\SetOperationSpecification.cs" />
     <Compile Include="Set\Specification\HybridSetSpecificationTest.cs" />
@@ -148,11 +145,40 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">
   </Target>
-  -->
+  
+</Project>-->
+
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions">
+      <Version>5.3.2</Version>
+    </PackageReference>
+    <PackageReference Include="FsCheck.Xunit" Version="2.10.10" />
+    <PackageReference Include="NSubstitute">
+      <Version>3.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
+    <PackageReference Include="xunit" Version="2.3.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
+    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MoreCollection\MoreCollection.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -3,7 +3,11 @@ using System.Collections.Generic;
 
 namespace MoreCollection.Dictionary.Internal
 {
-    public class MutableSortedListDictionary<TKey, TValue> : SortedList<TKey, TValue>, IMutableDictionary<TKey, TValue>                              
+#if NET45
+    public class MutableSortedListDictionary<TKey, TValue> : SortedList<TKey, TValue>, IMutableDictionary<TKey, TValue> 
+#else
+    public class MutableSortedListDictionary<TKey, TValue> : ListDictionary<TKey, TValue>, IMutableDictionary<TKey, TValue>
+#endif                             
     {
         public MutableSortedListDictionary()
         {

@@ -32,7 +32,7 @@ namespace MoreCollectionTest.Set.Internal
         {
             var collection = new HashSet<string> { "one", "two", "three", "three", "four", "five", "six" };
             Action Do = () => new ListSet<string>(GetFactory(), collection, _Transition);
-            Do.ShouldThrow<ArgumentOutOfRangeException>();
+            Do.Should().Throw<ArgumentOutOfRangeException>();
         }
 
         [Fact]

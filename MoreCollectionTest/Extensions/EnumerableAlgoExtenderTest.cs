@@ -29,7 +29,7 @@ namespace MoreCollectionTest.Extensions
         {
             IEnumerable<int> res = null;
             Action ac = () => res.SortFirst(10);
-            ac.ShouldThrow<ArgumentNullException>();
+            ac.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -37,7 +37,7 @@ namespace MoreCollectionTest.Extensions
         {
             IEnumerable<MyObject> res = null;
             Action ac = () => res.MinBy();
-            ac.ShouldThrow<ArgumentNullException>();
+            ac.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -80,7 +80,7 @@ namespace MoreCollectionTest.Extensions
         {
             IList<int> res = new List<int>();
             Action ac = () => res.SortFirst(-10);
-            ac.ShouldThrow<ArgumentException>();
+            ac.Should().Throw<ArgumentException>();
         }
 
         [Fact]
@@ -142,10 +142,10 @@ namespace MoreCollectionTest.Extensions
         {
             IEnumerable<int> Null = null;
             Action prob = () => Null.SortFirstParallel(10);
-            prob.ShouldThrow<ArgumentNullException>();
+            prob.Should().Throw<ArgumentNullException>();
 
             Action prob2 = () => _MyList.SortFirstParallel(-10);
-            prob2.ShouldThrow<ArgumentException>().WithMessage("iFirst");
+            prob2.Should().Throw<ArgumentException>().WithMessage("iFirst");
         }
 
         [Fact]

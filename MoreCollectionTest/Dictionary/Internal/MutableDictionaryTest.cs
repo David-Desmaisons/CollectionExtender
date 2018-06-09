@@ -147,6 +147,7 @@ namespace MoreCollectionTest.Dictionary.Internal
             _DictionarySwitcher.Received(1).GetEmpty<string, string>();
         }
 
+ #if NET45
         [Fact]
         public void MutableSortedDictionary_Throw_Exception_IfElementIsNotComparable()
         {
@@ -155,8 +156,8 @@ namespace MoreCollectionTest.Dictionary.Internal
             var res = new MutableSortedListDictionary<object, string>();
             res.Add(new Object(), "aaaa");
             Action Do = () => res.Add(new Object(), "bbb");
-            Do.ShouldThrow<Exception>();
+            Do.Should().Throw<Exception>();
         }
-
+#endif
     }
 }

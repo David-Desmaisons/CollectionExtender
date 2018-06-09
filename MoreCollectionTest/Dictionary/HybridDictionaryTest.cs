@@ -1,7 +1,6 @@
 ﻿using MoreCollection.Dictionary;
 using MoreCollection.Dictionary.Internal.Strategy;
 using MoreCollectionTest.TestInfra;
-using Xunit;
 
 namespace MoreCollectionTest.Dictionary
 {

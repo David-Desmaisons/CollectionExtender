@@ -73,7 +73,7 @@ namespace MoreCollectionTest.Composed
         {
             IEnumerable<int> res = null;
             Action Do = () => res = _LookupWithData["notFound"];
-            Do.ShouldThrow<KeyNotFoundException>();
+            Do.Should().Throw<KeyNotFoundException>();
         }
     }
 }

@@ -26,7 +26,7 @@ namespace MoreCollectionTest.Dictionary.Internal
                     { "key1", "value1" } };
             SingleDictionary<string, string> target =null;
             Action Do = () => { target = new SingleDictionary<string, string>(dict); };
-            Do.ShouldThrow<ArgumentOutOfRangeException>();
+            Do.Should().Throw<ArgumentOutOfRangeException>();
         }
 
         [Fact]
@@ -57,14 +57,14 @@ namespace MoreCollectionTest.Dictionary.Internal
         {
             _dictionary = new SingleDictionary<string, string>();
             Action Do = () => _dictionary.Add(null, "value2");
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
         public void Add_ThrowsNotImplementedException_WhenDictionaryIsNotEmpty()
         {
            Action Do = () => _dictionary.Add("key2","value2");
-           Do.ShouldThrow<NotImplementedException>();
+           Do.Should().Throw<NotImplementedException>();
         }
 
         [Fact]
@@ -80,7 +80,7 @@ namespace MoreCollectionTest.Dictionary.Internal
         public void AddKeyValuePair_ThrowsNotImplementedException()
         {
             Action Do = () => _dictionary.Add(new KeyValuePair<string, string> ("key2", "value2"));
-            Do.ShouldThrow<NotImplementedException>();
+            Do.Should().Throw<NotImplementedException>();
         }
 
         [Fact]
@@ -149,7 +149,7 @@ namespace MoreCollectionTest.Dictionary.Internal
         {
             string value;
             Action Do = () => value = _dictionary["key0"];
-            Do.ShouldThrow<KeyNotFoundException>();
+            Do.Should().Throw<KeyNotFoundException>();
         }
 
         [Fact]
@@ -174,14 +174,14 @@ namespace MoreCollectionTest.Dictionary.Internal
         public void Indexer_Set_ThrowExceptionIfNewKey()
         {
             Action Do = () => _dictionary["key1"] = "Value1";
-            Do.ShouldThrow<NotImplementedException>();
+            Do.Should().Throw<NotImplementedException>();
         }
 
         [Fact]
         public void CopyTo_Null_ThrowException()
         {
             Action Do = () => _dictionary.CopyTo(null,0);
-            Do.ShouldThrow<ArgumentNullException>();
+            Do.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
@@ -189,7 +189,7 @@ namespace MoreCollectionTest.Dictionary.Internal
         {
             var array = new KeyValuePair<string, string>[0];
             Action Do = () => _dictionary.CopyTo(array, -1);
-            Do.ShouldThrow<ArgumentOutOfRangeException>();
+            Do.Should().Throw<ArgumentOutOfRangeException>();
         }
 
         [Fact]
@@ -197,7 +197,7 @@ namespace MoreCollectionTest.Dictionary.Internal
         {
             var array = new KeyValuePair<string, string>[1];
             Action Do = () => _dictionary.CopyTo(array, 2);
-            Do.ShouldThrow<IndexOutOfRangeException>();
+            Do.Should().Throw<IndexOutOfRangeException>();
         }
 
         [Fact]

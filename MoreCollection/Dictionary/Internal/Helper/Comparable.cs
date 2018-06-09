@@ -1,4 +1,5 @@
 ﻿using MoreCollection.Extensions;
+using MoreCollection.Infra;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,9 @@ namespace MoreCollection.Dictionary.Internal.Helper
 
         private static bool PrivateIsComparable(Type type) 
         {
-            return type.GetInterfaces().Any(interfaceType => interfaceType.IsGenericType
+            return type.GetInterfaces().Any(interfaceType => interfaceType.IsGeneric()
                             && interfaceType.GetGenericTypeDefinition() == IComparableType
-                            && (interfaceType.GetGenericArguments()[0]) == type);
+                            && (interfaceType.GetFirstGenericArguments() == type));
         }
 
         internal static bool IsComparable(this Type type) 

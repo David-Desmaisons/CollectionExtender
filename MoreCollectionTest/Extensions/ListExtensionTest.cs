@@ -11,7 +11,7 @@ namespace MoreCollectionTest.Extensions
 {
     public class ListExtensionTest
     {
-        private IList<int> List { get { return _List; } }
+        private IList<int> List => _List;
         private readonly IList<int> _List;
         private readonly IList<int> _FullList;
         private readonly IList<int> _FullListObservable;
@@ -25,17 +25,25 @@ namespace MoreCollectionTest.Extensions
             _FullListObservable = _RawFullListObservable;
         }
 
-        [Theory, MemberData("Data")]
-        public void AddRange_AppendsElement(IEnumerable<int> enumerable)
+        [Theory, MemberData(nameof(Data))]
+        public void AddRange_AppendsElement_On_Empty_List(IEnumerable<int> enumerable)
         {
-            var excepcted = new List<int>(enumerable ?? Enumerable.Empty<int>());
-            var res = List.AddRange(enumerable);
-            if (enumerable!=null)
-                excepcted.AddRange(enumerable);
-            List.Should().Equals(excepcted);
+            var expected = new List<int>(enumerable ?? Enumerable.Empty<int>());
+            List.AddRange(enumerable);
+            List.Should().BeEquivalentTo(expected);
         }
 
-        [Theory, MemberData("Data")]
+        [Theory, MemberData(nameof(Data))]
+        public void AddRange_AppendsElement(IEnumerable<int> enumerable)
+        {
+            var initialValues = new[] {100, 20};
+            _List.AddRange(initialValues);
+            var expected = initialValues.Concat(enumerable ?? Enumerable.Empty<int>());
+            List.AddRange(enumerable);
+            List.Should().BeEquivalentTo(expected);
+        }
+
+        [Theory, MemberData(nameof(Data))]
         public void AddRange_ReturnsCallingList(IEnumerable<int> enumerable)
         {
             var res = List.AddRange(enumerable);
@@ -46,16 +54,16 @@ namespace MoreCollectionTest.Extensions
         {
             get
             {
-                IEnumerable<int> nullcollection = null;
+                IEnumerable<int> nullCollection = null;
                 yield return new object[] { Enumerable.Empty<int>() };
                 yield return new object[] { new List<int>() { 0, 5, 10 } };
-                yield return new object[] { nullcollection };
+                yield return new object[] { nullCollection };
             }
         }
 
 
         [Fact]
-        public void Addrange_CalledOnNull_ThrowException()
+        public void AddRange_CalledOnNull_ThrowException()
         {
             Action Do = () => _NullList.AddRange(Enumerable.Empty<int>());
             Do.Should().Throw<ArgumentNullException>();
